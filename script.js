@@ -3,53 +3,37 @@ class NavigationManager {
     constructor() {
         this.currentCategory = 'all';
         this.searchTerm = '';
-        this.sitesData = null;
+        this.sitesData = this.getLocalData();
         this.init();
     }
 
-    async init() {
-        // 显示加载动画
-        this.showLoading();
+    // 直接初始化，不使用异步加载
+    init() {
+        console.log('开始初始化导航页面');
         
-        try {
-            // 直接使用本地数据，避免网络请求延迟
-            this.sitesData = this.getLocalData();
-            
-            // 渲染页面内容
-            this.renderContent();
-            // 设置事件监听器
-            this.setupEventListeners();
-            // 隐藏加载动画
-            this.hideLoading();
-        } catch (error) {
-            console.error('初始化失败:', error);
-            this.handleLoadError();
+        // 确保容器存在
+        this.ensureAppContainer();
+        
+        // 直接渲染内容
+        this.renderContent();
+        
+        // 设置事件监听器
+        this.setupEventListeners();
+        
+        console.log('导航页面初始化完成');
+    }
+
+    // 确保 app 容器存在
+    ensureAppContainer() {
+        let app = document.getElementById('app');
+        if (!app) {
+            app = document.createElement('div');
+            app.id = 'app';
+            document.body.appendChild(app);
         }
     }
 
-    // 从 GitHub 加载网站数据（可选功能）
-    async loadSitesData() {
-        // 如果需要从外部加载数据，可以取消注释下面的代码
-        /*
-        const dataUrl = 'https://raw.githubusercontent.com/YOUR_USERNAME/navigation-data/main/sites.json';
-        
-        try {
-            const response = await fetch(dataUrl);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            this.sitesData = await response.json();
-            return;
-        } catch (error) {
-            console.warn('从 GitHub 加载失败，使用本地数据:', error);
-        }
-        */
-        
-        // 使用本地备用数据
-        this.sitesData = this.getLocalData();
-    }
-
-    // 本地备用数据
+    // 本地数据
     getLocalData() {
         return {
             quickAccess: [
@@ -165,60 +149,10 @@ class NavigationManager {
         };
     }
 
-    // 显示加载动画
-    showLoading() {
-        const app = document.getElementById('app');
-        if (!app) {
-            console.error('找不到 #app 元素，请确保 HTML 中有 id="app" 的容器');
-            return;
-        }
-        
-        app.innerHTML = `
-            <div class="loading-container">
-                <div class="loading-spinner"></div>
-                <p>正在加载导航数据...</p>
-            </div>
-        `;
-    }
-
-    // 隐藏加载动画
-    hideLoading() {
-        const loadingContainer = document.querySelector('.loading-container');
-        if (loadingContainer) {
-            loadingContainer.style.opacity = '0';
-            setTimeout(() => {
-                if (loadingContainer.parentNode) {
-                    loadingContainer.remove();
-                }
-            }, 300);
-        }
-    }
-
-    // 处理加载错误
-    handleLoadError() {
-        const app = document.getElementById('app');
-        if (!app) {
-            console.error('找不到 #app 元素');
-            return;
-        }
-        
-        app.innerHTML = `
-            <div class="error-container">
-                <div class="error-icon">⚠️</div>
-                <h2>加载失败</h2>
-                <p>无法加载导航数据，请检查网络连接或稍后重试。</p>
-                <button onclick="location.reload()" class="retry-btn">重试</button>
-            </div>
-        `;
-    }
-
     // 渲染页面内容
     renderContent() {
         const app = document.getElementById('app');
-        if (!app) {
-            console.error('找不到 #app 元素');
-            return;
-        }
+        if (!app) return;
         
         app.innerHTML = `
             ${this.renderHeader()}
@@ -333,9 +267,9 @@ class NavigationManager {
                     <div class="footer-content">
                         <p>© 2024 我的导航 - 让网络更简单</p>
                         <div class="footer-links">
-                            <a href="#" onclick="nav.showAbout()">关于</a>
-                            <a href="#" onclick="nav.showContact()">联系</a>
-                            <a href="#" onclick="nav.showSettings()">设置</a>
+                            <a href="#" onclick="nav.showAbout(); return false;">关于</a>
+                            <a href="#" onclick="nav.showContact(); return false;">联系</a>
+                            <a href="#" onclick="nav.showSettings(); return false;">设置</a>
                         </div>
                     </div>
                 </div>
@@ -366,18 +300,16 @@ class NavigationManager {
         const searchBtn = document.querySelector('.search-btn');
         if (searchBtn) {
             searchBtn.addEventListener('click', () => {
-                searchInput.focus();
+                if (searchInput) searchInput.focus();
             });
         }
 
         // 键盘快捷键
         document.addEventListener('keydown', (e) => {
-            // Ctrl/Cmd + K 聚焦搜索
             if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
                 e.preventDefault();
-                searchInput.focus();
+                if (searchInput) searchInput.focus();
             }
-            // ESC 清空搜索
             if (e.key === 'Escape' && document.activeElement === searchInput) {
                 searchInput.value = '';
                 this.searchTerm = '';
@@ -395,7 +327,10 @@ class NavigationManager {
         document.querySelectorAll('.filter-btn').forEach(btn => {
             btn.classList.remove('active');
         });
-        document.querySelector(`[data-category="${category}"]`).classList.add('active');
+        const activeBtn = document.querySelector(`[data-category="${category}"]`);
+        if (activeBtn) {
+            activeBtn.classList.add('active');
+        }
     }
 
     // 获取可见的分类
@@ -522,16 +457,18 @@ class NavigationManager {
     // 保存设置
     saveSettings() {
         const settings = {
-            darkMode: document.getElementById('darkMode').checked,
-            compactMode: document.getElementById('compactMode').checked,
-            showDescriptions: document.getElementById('showDescriptions').checked
+            darkMode: document.getElementById('darkMode')?.checked || false,
+            compactMode: document.getElementById('compactMode')?.checked || false,
+            showDescriptions: document.getElementById('showDescriptions')?.checked || true
         };
         
-        // 由于不能使用 localStorage，设置会在页面刷新后重置
         this.applySettings(settings);
         
         // 关闭模态框
-        document.querySelector('.modal-overlay').remove();
+        const modalOverlay = document.querySelector('.modal-overlay');
+        if (modalOverlay) {
+            modalOverlay.remove();
+        }
         
         // 显示保存成功提示
         this.showToast('设置已保存！');
@@ -549,47 +486,54 @@ class NavigationManager {
         const toast = document.createElement('div');
         toast.className = 'toast';
         toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #333;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 4px;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s;
+        `;
         document.body.appendChild(toast);
         
         setTimeout(() => {
-            toast.classList.add('show');
+            toast.style.opacity = '1';
         }, 100);
         
         setTimeout(() => {
-            toast.classList.remove('show');
-            setTimeout(() => toast.remove(), 300);
+            toast.style.opacity = '0';
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 300);
         }, 2000);
     }
 }
 
-// 初始化导航管理器
+// 页面加载完成后初始化
 let nav;
 
-// 确保 DOM 完全加载后再初始化
-document.addEventListener('DOMContentLoaded', () => {
-    // 检查是否存在 app 容器
-    const app = document.getElementById('app');
-    if (!app) {
-        // 如果没有 app 容器，创建一个
-        const appContainer = document.createElement('div');
-        appContainer.id = 'app';
-        document.body.appendChild(appContainer);
-    }
-    
-    // 初始化导航管理器
-    nav = new NavigationManager();
-});
-
-// 如果 DOMContentLoaded 已经触发，直接初始化
-if (document.readyState === 'loading') {
-    // DOM 还在加载中，等待 DOMContentLoaded 事件
-} else {
-    // DOM 已经加载完成，直接初始化
-    const app = document.getElementById('app');
-    if (!app) {
-        const appContainer = document.createElement('div');
-        appContainer.id = 'app';
-        document.body.appendChild(appContainer);
-    }
+function initNav() {
+    console.log('初始化导航...');
     nav = new NavigationManager();
 }
+
+// 多种方式确保初始化
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNav);
+} else {
+    initNav();
+}
+
+// 备用初始化
+setTimeout(() => {
+    if (!nav) {
+        console.log('备用初始化执行');
+        initNav();
+    }
+}, 100);
