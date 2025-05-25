@@ -9,7 +9,7 @@ const DATA_CONFIG = {
     // 格式: https://raw.githubusercontent.com/用户名/仓库名/分支名/文件名
 
     sitesUrl: 'https://raw.githubusercontent.com/laosji/newnav/blob/main/sites.json',
-    quickSitesUrl: 'https://raw.githubusercontent.com/your-username/your-repo/main/quick-sites.json'
+    quickSitesUrl: 'https://raw.githubusercontent.com/newnav/blob/main/quick-sites.json'
 };
 
 // DOM 元素
