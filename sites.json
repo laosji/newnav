@@ -27,7 +27,7 @@
     "id": 4,
     "name": "Claude",
     "description": "Anthropic AI助手",
-    "url": "https://claude.ai",
+    "url": "https://claude.ai/referral/EIKliugDvw",
     "icon": "🧠",
     "category": "ai"
   },
@@ -254,5 +254,159 @@
     "url": "https://www.douban.com",
     "icon": "📖",
     "category": "normal"
+  },
+  {
+    "id": 33,
+    "name": "新加坡华侨银行",
+    "category": "overseas_bank",
+    "description": "不用出国，全程手机申请0存款，首年免管理费，开户一个月内若存款1000新币，使用推荐码\"W5GR37JB\"开户可获得至少15新币的现金奖励",
+    "link": "https://mp.weixin.qq.com/s/YgT5PNiV0gKHHjtkAjUvQQ"
+  },
+  {
+    "id": 34,
+    "name": "ifast",
+    "category": "overseas_bank",
+    "description": "英国虚拟银行，免费开户，无年费，（FSCS）的保障",
+    "link": "https://www.ifastgb.com/tellafriend/chaod1702"
+  },
+  {
+    "id": 35,
+    "name": "wise",
+    "category": "overseas_bank",
+    "description": "全球收付款，可申请实体卡",
+    "link": "https://wise.com/invite/ihpc/duanc11"
+  },
+  {
+    "id": 36,
+    "name": "中银香港",
+    "category": "overseas_bank",
+    "description": "0存款，免管理费。需要本人人到香港。开户推荐码M26996872070",
+    "link": "https://mp.weixin.qq.com/s/0HBUXFMSAiIGVEKxt_hwEAQ"
+  },
+  {
+    "id": 37,
+    "name": "汇丰香港",
+    "category": "overseas_bank",
+    "description": "汇丰香港、无存款要求，存款$10,000港币可申请汇丰香港信用卡",
+    "link": "https://mp.weixin.qq.com/s/dFiwX49BmgvOmjdicJVE8w"
+  },
+  {
+    "id": 38,
+    "name": "渣打香港",
+    "category": "overseas_bank",
+    "description": "渣打香港，定存利率最高的银行",
+    "link": "https://mp.weixin.qq.com/s/Q-o1tObsxtWUD3CEHVP6lQ"
+  },
+  {
+    "id": 39,
+    "name": "IBKR盈透证券",
+    "category": "securities",
+    "description": "领取最多$1000美金开户奖励",
+    "link": "https://ibkr.com/referral/chao135"
+  },
+  {
+    "id": 40,
+    "name": "长桥证券",
+    "category": "securities",
+    "description": "港美股开户无需存量证明，4月开户活动领取400港币+80元京东卡",
+    "link": "https://app.longbridgehk.com/ac/oa?account_channel=lb&channel=HB100034&invite-code=48T09P"
+  },
+  {
+    "id": 41,
+    "name": "老虎证券",
+    "category": "securities",
+    "description": "总奖励价值1300港币+laosji专属100港币代金券+180天30次免佣卡。填写邀请码 ：laosji",
+    "link": "https://tigr.link/7gIFaD"
+  },
+  {
+    "id": 42,
+    "name": "华盛通",
+    "category": "securities",
+    "description": "通过本链接开户最多可领取1500港币奖励，需要存量证明",
+    "link": "https://www.vbkr.com/kh/apply/app-switch?_scnl=E1NC&_p=1"
+  },
+  {
+    "id": 43,
+    "name": "富途开户",
+    "category": "securities",
+    "description": "需要港美股账户存量证明，富途牛牛入金兑换码是: AZ48SM（APP-我的-活动中心-兑换中心)",
+    "link": "https://www.futunn.com/"
+  },
+  {
+    "id": 44,
+    "name": "Moomoo SG",
+    "category": "securities",
+    "description": "Moomoo SG新人礼包高达$990新加坡证券APP下载NO.1。存入S$100，并执行1笔买入交易，获得S$20现金福利",
+    "link": "https://j.moomoo.com/017wOA"
+  },
+  {
+    "id": 45,
+    "name": "新加坡盈立证券",
+    "category": "securities",
+    "description": "开户领取最多50新币",
+    "link": "https://m.usmartsg.com/promo/overseas/sg-register.html?langType=1&HCode=nyaljb&HBox=1#/marketing-register"
+  },
+  {
+    "id": 46,
+    "name": "美国嘉信理财",
+    "category": "securities",
+    "description": "美国本土最大的老牌券商之一",
+    "link": "https://www.schwab.com/client-referral?refrid=REFERCHPQ83NZ"
+  },
+  {
+    "id": 47,
+    "name": "美国第一证券",
+    "category": "securities",
+    "description": "永久$0佣金交易美股",
+    "link": "https://affiliate.firstrade.com/affiliate/idevaffiliate.php?id=1679"
+  },
+  {
+    "id": 48,
+    "name": "熊猫速汇",
+    "category": "others",
+    "description": "跨境汇款，在外汇管制5万美金之外，再多30万人民币的汇款额度",
+    "link": "https://pandaremit.kcbebank.com.cn/h5activity/jcRemit?invtCode=11221680&targetLocation=ip"
+  },
+  {
+    "id": 49,
+    "name": "招商永隆",
+    "category": "overseas_bank",
+    "description": "招商永隆，在国内可以申请开户，需要到香港面签",
+    "link": "https://mp.weixin.qq.com/s/eKTAewMXX6xPUpq4TpNPUg"
+  },
+  {
+    "id": 50,
+    "name": "英国转运",
+    "category": "others",
+    "description": "ukpostbox，英国通讯地址转运回国",
+    "link": "https://client.ipostalmail.net/Signup?Referrer=REF138644"
+  },
+  {
+    "id": 51,
+    "name": "Neverless",
+    "category": "securities",
+    "description": "Neverless 是一款新兴投资应用，通过邀请码“laosji”注册可获得专属奖励",
+    "link": "https://neverless.com/referral?code=laosji"
+  },
+  {
+    "id": 52,
+    "name": "ZA Bank（众安银行）",
+    "category": "overseas_bank",
+    "description": "香港虚拟银行，邀请码 NUGAP7，开户教程详见文章",
+    "link": "https://mp.weixin.qq.com/s/Sp03PeHj-tF3lSAhx-fGAw"
+  },
+  {
+    "id": 53,
+    "name": "WeLab Bank",
+    "category": "overseas_bank",
+    "description": "香港虚拟银行，邀请码 LAOSJI，开户教程详见文章",
+    "link": "https://mp.weixin.qq.com/s/qrVtd8KhrOHFKBZqmd7uhA"
+  },
+  {
+    "id": 54,
+    "name": "Binance 币安",
+    "category": "others",
+    "description": "全球最大的数字货币交易平台之一，通过该注册链接享受手续费优惠",
+    "link": "https://www.binance.com/zh-CN/activity/referral/offers/claim?ref=CPA_00U6B6DNIR&utm_source=Lite_web_account"
   }
 ]
