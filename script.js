@@ -370,7 +370,12 @@ function getCategoryInfo(category) {
         social: { name: '社交媒体', icon: '💬', description: '连接世界的社交网络' },
         entertainment: { name: '娱乐休闲', icon: '🎵', description: '精彩纷呈的娱乐内容' },
         shopping: { name: '购物商城', icon: '🛍️', description: '优质可靠的购物平台' },
-        education: { name: '学习教育', icon: '📚', description: '知识学习的最佳选择' }
+        education: { name: '学习教育', icon: '📚', description: '知识学习的最佳选择' },
+        // 新增的分类
+        overseas_bank: { name: '境外银行账户', icon: '🏦', description: '境外银行开户与账户管理服务' },
+        securities: { name: '港美股券商', icon: '📈', description: '港美股投资交易平台' },
+        overseas_sim: { name: '境外手机卡', icon: '📱', description: '境外手机卡与通信服务' },
+        others: { name: '其他', icon: '📦', description: '其他实用工具与服务' }
     };
     
     return categoryMap[category] || { name: category, icon: '🌐', description: '' };
