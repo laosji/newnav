@@ -12,8 +12,9 @@ class NavigationManager {
         this.showLoading();
         
         try {
-            // 从 GitHub 加载数据
-            await this.loadSitesData();
+            // 直接使用本地数据，避免网络请求延迟
+            this.sitesData = this.getLocalData();
+            
             // 渲染页面内容
             this.renderContent();
             // 设置事件监听器
@@ -21,15 +22,16 @@ class NavigationManager {
             // 隐藏加载动画
             this.hideLoading();
         } catch (error) {
-            console.error('加载数据失败:', error);
+            console.error('初始化失败:', error);
             this.handleLoadError();
         }
     }
 
-    // 从 GitHub 加载网站数据
+    // 从 GitHub 加载网站数据（可选功能）
     async loadSitesData() {
-        // GitHub Raw URL - 替换为你的实际 GitHub 仓库地址
-        const dataUrl = 'https://raw.githubusercontent.com/laosji/navigation-data/main/sites.json';
+        // 如果需要从外部加载数据，可以取消注释下面的代码
+        /*
+        const dataUrl = 'https://raw.githubusercontent.com/YOUR_USERNAME/navigation-data/main/sites.json';
         
         try {
             const response = await fetch(dataUrl);
@@ -37,11 +39,14 @@ class NavigationManager {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             this.sitesData = await response.json();
+            return;
         } catch (error) {
             console.warn('从 GitHub 加载失败，使用本地数据:', error);
-            // 使用本地备用数据
-            this.sitesData = this.getLocalData();
         }
+        */
+        
+        // 使用本地备用数据
+        this.sitesData = this.getLocalData();
     }
 
     // 本地备用数据
@@ -163,6 +168,11 @@ class NavigationManager {
     // 显示加载动画
     showLoading() {
         const app = document.getElementById('app');
+        if (!app) {
+            console.error('找不到 #app 元素，请确保 HTML 中有 id="app" 的容器');
+            return;
+        }
+        
         app.innerHTML = `
             <div class="loading-container">
                 <div class="loading-spinner"></div>
@@ -177,7 +187,9 @@ class NavigationManager {
         if (loadingContainer) {
             loadingContainer.style.opacity = '0';
             setTimeout(() => {
-                loadingContainer.remove();
+                if (loadingContainer.parentNode) {
+                    loadingContainer.remove();
+                }
             }, 300);
         }
     }
@@ -185,6 +197,11 @@ class NavigationManager {
     // 处理加载错误
     handleLoadError() {
         const app = document.getElementById('app');
+        if (!app) {
+            console.error('找不到 #app 元素');
+            return;
+        }
+        
         app.innerHTML = `
             <div class="error-container">
                 <div class="error-icon">⚠️</div>
@@ -198,6 +215,11 @@ class NavigationManager {
     // 渲染页面内容
     renderContent() {
         const app = document.getElementById('app');
+        if (!app) {
+            console.error('找不到 #app 元素');
+            return;
+        }
+        
         app.innerHTML = `
             ${this.renderHeader()}
             ${this.renderQuickAccess()}
@@ -542,6 +564,32 @@ class NavigationManager {
 
 // 初始化导航管理器
 let nav;
+
+// 确保 DOM 完全加载后再初始化
 document.addEventListener('DOMContentLoaded', () => {
+    // 检查是否存在 app 容器
+    const app = document.getElementById('app');
+    if (!app) {
+        // 如果没有 app 容器，创建一个
+        const appContainer = document.createElement('div');
+        appContainer.id = 'app';
+        document.body.appendChild(appContainer);
+    }
+    
+    // 初始化导航管理器
     nav = new NavigationManager();
 });
+
+// 如果 DOMContentLoaded 已经触发，直接初始化
+if (document.readyState === 'loading') {
+    // DOM 还在加载中，等待 DOMContentLoaded 事件
+} else {
+    // DOM 已经加载完成，直接初始化
+    const app = document.getElementById('app');
+    if (!app) {
+        const appContainer = document.createElement('div');
+        appContainer.id = 'app';
+        document.body.appendChild(appContainer);
+    }
+    nav = new NavigationManager();
+}
