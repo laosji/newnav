@@ -6,8 +6,9 @@ let searchQuery = '';
 // GitHub 数据源配置
 const DATA_CONFIG = {
     // 替换为你的GitHub数据源URL
-    // 格式: https://raw.githubusercontent.com/用户名/仓库名/分支名/文件名.json
-    sitesUrl: 'https://raw.githubusercontent.com/your-username/your-repo/main/sites.json',
+    // 格式: https://raw.githubusercontent.com/用户名/仓库名/分支名/文件名
+
+    sitesUrl: 'https://raw.githubusercontent.com/laosji/newnav/blob/main/sites.json',
     quickSitesUrl: 'https://raw.githubusercontent.com/your-username/your-repo/main/quick-sites.json'
 };
 
