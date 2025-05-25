@@ -88,7 +88,7 @@ async function fetchWithRetry(url, retries = 3) {
     }
 }
 
-// 模拟数据
+// 默认数据
 function loadMockData() {
     sitesData = [
         {
@@ -177,8 +177,31 @@ function initEventListeners() {
         });
     });
     
-    // 导航滚动效果
-    window.addEventListener('scroll', handleNavScroll);
+    // 导航滚动效果 (优化版，包含节流)
+    let scrollTimer = null;
+    window.addEventListener('scroll', () => {
+        if (scrollTimer) return;
+        scrollTimer = setTimeout(() => {
+            handleNavScroll();
+            scrollTimer = null;
+        }, 10);
+    });
+    
+    // 窗口resize时重新计算位置
+    window.addEventListener('resize', debounce(() => {
+        // 重置sticky状态，重新计算
+        const categoryFilter = document.querySelector('.category-filter');
+        const placeholder = document.querySelector('.filter-placeholder');
+        if (placeholder) {
+            placeholder.remove();
+        }
+        if (categoryFilter.classList.contains('sticky')) {
+            categoryFilter.classList.remove('sticky');
+            categoryFilter.style.cssText = '';
+        }
+        // 延迟重新计算，确保DOM更新完成
+        setTimeout(handleNavScroll, 100);
+    }, 250));
     
     // 键盘快捷键
     document.addEventListener('keydown', handleKeyboardShortcuts);
@@ -340,6 +363,7 @@ function getCategoryInfo(category) {
     const categoryMap = {
         productivity: { name: '办公效率', icon: '⚡', description: '提升工作效率的优质工具' },
         ai: { name: 'AI 工具', icon: '🤖', description: '人工智能驱动的创新应用' },
+        normal: { name: '常用', icon: '🕙', description: '常用工具' },
         development: { name: '开发工具', icon: '⚙️', description: '开发者必备的专业工具' },
         design: { name: '设计创意', icon: '🎨', description: '激发创意的设计平台' },
         social: { name: '社交媒体', icon: '💬', description: '连接世界的社交网络' },
@@ -354,12 +378,66 @@ function getCategoryInfo(category) {
 // 导航滚动效果
 function handleNavScroll() {
     const nav = document.querySelector('.nav-header');
-    if (window.scrollY > 10) {
+    const categoryFilter = document.querySelector('.category-filter');
+    const quickAccess = document.querySelector('.quick-access');
+    const navHeight = nav.offsetHeight;
+    
+    // 计算关键位置
+    const quickAccessBottom = quickAccess.offsetTop + quickAccess.offsetHeight;
+    const scrollY = window.scrollY;
+    
+    // 导航栏背景效果
+    if (scrollY > 10) {
         nav.style.background = 'rgba(255, 255, 255, 0.95)';
         nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.08)';
     } else {
         nav.style.background = 'rgba(255, 255, 255, 0.8)';
         nav.style.boxShadow = 'none';
+    }
+    
+    // 分类过滤器吸附效果 - 只在滚动超过快速访问区域后才吸附
+    if (scrollY > quickAccessBottom - navHeight) {
+        // 启用吸附效果
+        if (!categoryFilter.classList.contains('sticky')) {
+            categoryFilter.style.position = 'fixed';
+            categoryFilter.style.top = navHeight + 'px';
+            categoryFilter.style.left = '0';
+            categoryFilter.style.right = '0';
+            categoryFilter.style.zIndex = '99';
+            categoryFilter.style.background = 'rgba(251, 251, 253, 0.95)';
+            categoryFilter.style.backdropFilter = 'blur(20px)';
+            categoryFilter.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.08)';
+            categoryFilter.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+            categoryFilter.classList.add('sticky');
+            
+            // 添加占位元素避免内容跳跃
+            if (!document.querySelector('.filter-placeholder')) {
+                const placeholder = document.createElement('div');
+                placeholder.className = 'filter-placeholder';
+                placeholder.style.height = categoryFilter.offsetHeight + 'px';
+                categoryFilter.parentNode.insertBefore(placeholder, categoryFilter);
+            }
+        }
+    } else {
+        // 移除吸附效果，回到正常位置
+        if (categoryFilter.classList.contains('sticky')) {
+            categoryFilter.style.position = '';
+            categoryFilter.style.top = '';
+            categoryFilter.style.left = '';
+            categoryFilter.style.right = '';
+            categoryFilter.style.zIndex = '';
+            categoryFilter.style.background = '';
+            categoryFilter.style.backdropFilter = '';
+            categoryFilter.style.boxShadow = '';
+            categoryFilter.style.transition = '';
+            categoryFilter.classList.remove('sticky');
+            
+            // 移除占位元素
+            const placeholder = document.querySelector('.filter-placeholder');
+            if (placeholder) {
+                placeholder.remove();
+            }
+        }
     }
 }
 
