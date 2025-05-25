@@ -177,9 +177,9 @@
   },
   {
     "id": 23,
-    "name": "微信",
-    "description": "腾讯即时通讯应用",
-    "url": "https://weixin.qq.com",
+    "name": "微信文件传输",
+    "description": "微信文件传输网页版",
+    "url": "https://wx.qq.com",
     "icon": "💬",
     "category": "social"
   },
