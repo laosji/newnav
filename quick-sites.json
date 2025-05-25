@@ -1,0 +1,62 @@
+[
+  {
+    "name": "Google",
+    "icon": "🔍",
+    "url": "https://www.google.com"
+  },
+  {
+    "name": "ChatGPT", 
+    "icon": "🤖",
+    "url": "https://chat.openai.com"
+  },
+  {
+    "name": "GitHub",
+    "icon": "👨‍💻",
+    "url": "https://github.com"
+  },
+  {
+    "name": "YouTube",
+    "icon": "📺",
+    "url": "https://www.youtube.com"
+  },
+  {
+    "name": "Gmail",
+    "icon": "📧",
+    "url": "https://mail.google.com"
+  },
+  {
+    "name": "Notion",
+    "icon": "📝",
+    "url": "https://www.notion.so"
+  },
+  {
+    "name": "Figma",
+    "icon": "🎨",
+    "url": "https://www.figma.com"
+  },
+  {
+    "name": "Amazon",
+    "icon": "🛒",
+    "url": "https://www.amazon.com"
+  },
+  {
+    "name": "Netflix",
+    "icon": "🎬",
+    "url": "https://www.netflix.com"
+  },
+  {
+    "name": "微信",
+    "icon": "💬",
+    "url": "https://weixin.qq.com"
+  },
+  {
+    "name": "百度",
+    "icon": "🔍",
+    "url": "https://www.baidu.com"
+  },
+  {
+    "name": "知乎",
+    "icon": "🤔",
+    "url": "https://www.zhihu.com"
+  }
+]
