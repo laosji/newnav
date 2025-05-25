@@ -8,8 +8,8 @@ const DATA_CONFIG = {
     // 替换为你的GitHub数据源URL
     // 格式: https://raw.githubusercontent.com/用户名/仓库名/分支名/文件名
 
-    sitesUrl: 'https://raw.githubusercontent.com/laosji/newnav/blob/main/sites.json',
-    quickSitesUrl: 'https://raw.githubusercontent.com/laosji/newnav/blob/main/quick-sites.json'
+    sitesUrl: 'https://raw.githubusercontent.com/laosji/newnav/main/sites.json',
+    quickSitesUrl: 'https://raw.githubusercontent.com/laosji/newnav/main/quick-sites.json'
 };
 
 // DOM 元素
