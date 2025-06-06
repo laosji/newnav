@@ -430,5 +430,21 @@
     "url": "https://www.binance.com/zh-CN/activity/referral/offers/claim?ref=CPA_00U6B6DNIR&utm_source=Lite_web_account",
     "icon": "₿",
     "category": "others"
+  },
+  {
+    "id": 55,
+    "name": "Xesim",
+    "description": "让你的国行手机支持eSIM，一卡多号，9折下单邀请码 zfWBpM",
+    "url": "https://xesim.cc/?DIST=RkJOFQ%3D%3D",
+    "icon": "📶",
+    "category": "others"
+  },
+  {
+    "id": 56,
+    "name": "Giffgaff",
+    "description": "免费领英国手机卡，每年6便士保号",
+    "url": "http://www.giffgaff.com/orders/affiliate/pmdua778_1721188536165",
+    "icon": "📞",
+    "category": "others"
   }
 ]
