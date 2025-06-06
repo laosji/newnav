@@ -15,18 +15,5 @@ newnav 是一个简洁、美观、高度可自定义的导航链接页面生成�
 
 适合搭建“我的所有链接”、“推荐资源导航”、“个人链接树”等页面。
 
-📦 快速开始
-克隆本项目：
-
-bash
-复制
-编辑
-git clone https://github.com/laosji/newnav.git
-修改导航数据：
-
-编辑 data.json 或相关配置文件，填写你的导航项、链接和描述等。
-
-本地预览或部署到 GitHub Pages、Vercel、Cloudflare Pages 等平台即可。
-
 📝 License
 MIT License © laosji
