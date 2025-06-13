@@ -446,5 +446,13 @@
     "url": "http://www.giffgaff.com/orders/affiliate/pmdua778_1721188536165",
     "icon": "📞",
     "category": "others"
+  },
+  {
+    "id": 57,
+    "name": "盈立证券（香港）开户奖励领取",
+    "description": "交易免佣金，新用户领取460HKD开户奖励，港股三巨头免佣金",
+    "url": "https://m.usmart66.com/webapp/open-account/apply.html?ICode=U02457#/register",
+    "icon": "📊",
+    "category": "securities"
   }
 ]
