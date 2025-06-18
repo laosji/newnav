@@ -12,6 +12,72 @@ const DATA_CONFIG = {
     quickSitesUrl: 'https://raw.githubusercontent.com/laosji/newnav/main/quick-sites.json'
 };
 
+// Favicon 相关配置
+const FAVICON_CONFIG = {
+    // 是否启用favicon功能
+    enabled: true,
+    // favicon服务提供商
+    service: 'google', // 'google', 'favicongrabber', 'iconhorse'
+    // 服务商API配置
+    services: {
+        google: {
+            url: (domain) => `https://www.google.com/s2/favicons?domain=${domain}&sz=32`,
+            fallback: true
+        },
+        favicongrabber: {
+            url: (domain) => `https://favicongrabber.com/api/grab/${domain}`,
+            fallback: true
+        },
+        iconhorse: {
+            url: (domain) => `https://icon.horse/icon/${domain}`,
+            fallback: true
+        }
+    },
+    // 缓存过期时间（毫秒）
+    cacheExpire: 24 * 60 * 60 * 1000, // 24小时
+    // 加载超时时间
+    loadTimeout: 5000
+};
+
+// Favicon 缓存管理
+const faviconCache = {
+    // 从内存中获取缓存
+    get(url) {
+        const key = `favicon_${this.getDomain(url)}`;
+        const cached = this.memoryCache.get(key);
+        if (!cached) return null;
+        
+        // 检查是否过期
+        if (Date.now() - cached.timestamp > FAVICON_CONFIG.cacheExpire) {
+            this.memoryCache.delete(key);
+            return null;
+        }
+        
+        return cached.data;
+    },
+    
+    // 设置缓存
+    set(url, data) {
+        const key = `favicon_${this.getDomain(url)}`;
+        this.memoryCache.set(key, {
+            data: data,
+            timestamp: Date.now()
+        });
+    },
+    
+    // 内存缓存存储
+    memoryCache: new Map(),
+    
+    // 提取域名
+    getDomain(url) {
+        try {
+            return new URL(url).hostname;
+        } catch {
+            return url;
+        }
+    }
+};
+
 // DOM 元素
 const elements = {
     loading: document.getElementById('loading'),
@@ -48,6 +114,92 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
+// 获取网站Favicon
+async function getFavicon(url, fallbackIcon = '🌐') {
+    if (!FAVICON_CONFIG.enabled) {
+        return fallbackIcon;
+    }
+    
+    // 先从缓存获取
+    const cached = faviconCache.get(url);
+    if (cached) {
+        return cached;
+    }
+    
+    try {
+        const domain = faviconCache.getDomain(url);
+        const service = FAVICON_CONFIG.services[FAVICON_CONFIG.service];
+        
+        if (FAVICON_CONFIG.service === 'favicongrabber') {
+            // FaviconGrabber API 返回JSON
+            const response = await fetchWithTimeout(service.url(domain), FAVICON_CONFIG.loadTimeout);
+            const data = await response.json();
+            
+            if (data.icons && data.icons.length > 0) {
+                const iconUrl = data.icons[0].src;
+                faviconCache.set(url, iconUrl);
+                return iconUrl;
+            }
+        } else {
+            // 直接返回图片URL
+            const iconUrl = service.url(domain);
+            
+            // 预加载图片检查是否有效
+            const isValid = await validateImage(iconUrl);
+            if (isValid) {
+                faviconCache.set(url, iconUrl);
+                return iconUrl;
+            }
+        }
+        
+        // 如果获取失败，缓存fallback图标
+        faviconCache.set(url, fallbackIcon);
+        return fallbackIcon;
+        
+    } catch (error) {
+        console.warn(`获取 ${url} 的favicon失败:`, error);
+        faviconCache.set(url, fallbackIcon);
+        return fallbackIcon;
+    }
+}
+
+// 验证图片是否有效
+function validateImage(url) {
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = url;
+        
+        // 设置超时
+        setTimeout(() => resolve(false), FAVICON_CONFIG.loadTimeout);
+    });
+}
+
+// 带超时的fetch
+function fetchWithTimeout(url, timeout = 5000) {
+    return Promise.race([
+        fetch(url),
+        new Promise((_, reject) => 
+            setTimeout(() => reject(new Error('Timeout')), timeout)
+        )
+    ]);
+}
+
+// 渲染图标（支持emoji和favicon）
+function renderIcon(iconData, size = 'default') {
+    const sizeClass = size === 'small' ? 'icon-small' : 'icon-default';
+    
+    // 如果是URL，渲染为img标签
+    if (typeof iconData === 'string' && (iconData.startsWith('http') || iconData.startsWith('//'))) {
+        return `<img src="${iconData}" class="site-favicon ${sizeClass}" alt="favicon" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+                <span class="site-emoji ${sizeClass}" style="display:none;">🌐</span>`;
+    }
+    
+    // 否则渲染为emoji
+    return `<span class="site-emoji ${sizeClass}">${iconData}</span>`;
+}
+
 // 加载数据
 async function loadData() {
     try {
@@ -66,6 +218,11 @@ async function loadData() {
             quickSitesResponse.json()
         ]);
         
+        // 预加载favicon
+        if (FAVICON_CONFIG.enabled) {
+            await preloadFavicons([...sites, ...quickSites]);
+        }
+        
         sitesData = sites;
         renderQuickSites(quickSites);
         
@@ -73,6 +230,26 @@ async function loadData() {
         console.error('数据加载错误:', error);
         // 使用模拟数据作为备用
         loadMockData();
+    }
+}
+
+// 预加载favicon（批量处理，避免阻塞）
+async function preloadFavicons(sites) {
+    const batchSize = 5; // 每批处理5个
+    const batches = [];
+    
+    for (let i = 0; i < sites.length; i += batchSize) {
+        batches.push(sites.slice(i, i + batchSize));
+    }
+    
+    // 分批处理，避免并发过多
+    for (const batch of batches) {
+        await Promise.allSettled(
+            batch.map(site => getFavicon(site.url, site.icon))
+        );
+        
+        // 每批之间稍作延迟
+        await new Promise(resolve => setTimeout(resolve, 100));
     }
 }
 
@@ -237,15 +414,22 @@ function setActiveCategory(category) {
 }
 
 // 渲染快速访问
-function renderQuickSites(quickSites) {
+async function renderQuickSites(quickSites) {
     if (!quickSites || !quickSites.length) return;
     
-    elements.quickSites.innerHTML = quickSites.map(site => `
-        <a href="${site.url}" class="quick-item" target="_blank" rel="noopener noreferrer">
-            <div class="quick-icon">${site.icon}</div>
-            <span class="quick-title">${site.name}</span>
-        </a>
-    `).join('');
+    const quickSitesHtml = await Promise.all(
+        quickSites.map(async (site) => {
+            const iconData = await getFavicon(site.url, site.icon);
+            return `
+                <a href="${site.url}" class="quick-item" target="_blank" rel="noopener noreferrer">
+                    <div class="quick-icon">${renderIcon(iconData, 'default')}</div>
+                    <span class="quick-title">${site.name}</span>
+                </a>
+            `;
+        })
+    );
+    
+    elements.quickSites.innerHTML = quickSitesHtml.join('');
 }
 
 // 渲染主要内容
@@ -269,9 +453,18 @@ function renderContent() {
         return;
     }
     
-    elements.categoriesContainer.innerHTML = Object.entries(categorizedSites)
-        .map(([category, sites]) => renderCategorySection(category, sites))
-        .join('');
+    // 异步渲染分类内容
+    renderCategoriesAsync(categorizedSites);
+}
+
+// 异步渲染分类内容
+async function renderCategoriesAsync(categorizedSites) {
+    const categoryPromises = Object.entries(categorizedSites).map(([category, sites]) =>
+        renderCategorySectionAsync(category, sites)
+    );
+    
+    const categoryHtmls = await Promise.all(categoryPromises);
+    elements.categoriesContainer.innerHTML = categoryHtmls.join('');
     
     // 添加渐入动画
     setTimeout(() => {
@@ -309,7 +502,28 @@ function categorizeSites(sites) {
     return categories;
 }
 
-// 渲染分类部分
+// 异步渲染分类部分
+async function renderCategorySectionAsync(category, sites) {
+    const categoryInfo = getCategoryInfo(category);
+    const siteCards = await Promise.all(sites.map(site => renderSiteCardAsync(site)));
+    
+    return `
+        <section class="category-section" data-category="${category}">
+            <div class="category-header">
+                <div class="category-title">
+                    <span class="category-icon">${categoryInfo.icon}</span>
+                    ${categoryInfo.name}
+                </div>
+                <p class="category-desc">${categoryInfo.description}</p>
+            </div>
+            <div class="category-grid">
+                ${siteCards.join('')}
+            </div>
+        </section>
+    `;
+}
+
+// 渲染分类部分（同步版本，保持兼容性）
 function renderCategorySection(category, sites) {
     const categoryInfo = getCategoryInfo(category);
     
@@ -329,7 +543,25 @@ function renderCategorySection(category, sites) {
     `;
 }
 
-// 渲染网站卡片
+// 异步渲染网站卡片
+async function renderSiteCardAsync(site) {
+    const highlightedName = highlightSearchTerm(site.name);
+    const highlightedDesc = highlightSearchTerm(site.description);
+    const iconData = await getFavicon(site.url, site.icon);
+    
+    return `
+        <a href="${site.url}" class="category-card" target="_blank" rel="noopener noreferrer" 
+           data-site-id="${site.id}">
+            <div class="card-icon">${renderIcon(iconData)}</div>
+            <div class="card-content">
+                <h3 class="card-title">${highlightedName}</h3>
+                <p class="card-desc">${highlightedDesc}</p>
+            </div>
+        </a>
+    `;
+}
+
+// 渲染网站卡片（同步版本，保持兼容性）
 function renderSiteCard(site) {
     const highlightedName = highlightSearchTerm(site.name);
     const highlightedDesc = highlightSearchTerm(site.description);
@@ -337,7 +569,7 @@ function renderSiteCard(site) {
     return `
         <a href="${site.url}" class="category-card" target="_blank" rel="noopener noreferrer" 
            data-site-id="${site.id}">
-            <div class="card-icon">${site.icon}</div>
+            <div class="card-icon">${renderIcon(site.icon)}</div>
             <div class="card-content">
                 <h3 class="card-title">${highlightedName}</h3>
                 <p class="card-desc">${highlightedDesc}</p>
@@ -526,5 +758,15 @@ window.NavigationApp = {
             renderContent();
             hideLoading();
         });
+    },
+    // 新增的favicon配置方法
+    configureFavicon: (config) => {
+        Object.assign(FAVICON_CONFIG, config);
+        // 重新渲染以应用新配置
+        renderContent();
+    },
+    // 清除favicon缓存
+    clearFaviconCache: () => {
+        faviconCache.memoryCache.clear();
     }
 };
