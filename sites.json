@@ -456,11 +456,11 @@
     "category": "securities"
   },
   {
-    "id": 57,
+    "id": 58,
     "name": "OSL",
     "description": "香港首家获得数字资产交易所牌照的交易所",
     "url": "https://trade-hk.osl.com/invite/activities?invitationCode=ycYoX",
-    "icon": "📊",
+    "icon": "https://www.osl.com/favicon.ico",
     "category": "securities"
   }
 ]
