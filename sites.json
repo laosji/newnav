@@ -4,7 +4,7 @@
     "name": "Google",
     "description": "全球最大的搜索引擎",
     "url": "https://www.google.com",
-    "icon": "🔍",
+    "icon": "",
     "category": "productivity"
   },
   {
@@ -12,7 +12,7 @@
     "name": "GitHub",
     "description": "开发者代码托管平台",
     "url": "https://github.com",
-    "icon": "👨‍💻",
+    "icon": "",
     "category": "development"
   },
   {
