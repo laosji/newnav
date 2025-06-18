@@ -161,6 +161,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 // 增强的获取网站Favicon函数
 async function getFavicon(url, fallbackIcon = '🌐') {
     if (!FAVICON_CONFIG.enabled) {
+        return fallbackIcon || '🌐';
+    }
+    
+    // 如果fallbackIcon已经是一个有效的URL图标，直接返回
+    if (fallbackIcon && typeof fallbackIcon === 'string' && 
+        (fallbackIcon.startsWith('http') || fallbackIcon.startsWith('//') || fallbackIcon.startsWith('/'))) {
         return fallbackIcon;
     }
     
@@ -200,8 +206,9 @@ async function getFavicon(url, fallbackIcon = '🌐') {
         
         // 4. 都失败了，使用fallback图标
         console.log(`所有方法都失败，使用fallback图标: ${url}`);
-        faviconCache.set(url, fallbackIcon);
-        return fallbackIcon;
+        const finalFallback = fallbackIcon || '🌐';
+        faviconCache.set(url, finalFallback);
+        return finalFallback;
         
     } catch (error) {
         console.warn(`获取 ${url} 的favicon失败:`, error);
@@ -213,8 +220,9 @@ async function getFavicon(url, fallbackIcon = '🌐') {
             return jsonIcon;
         }
         
-        faviconCache.set(url, fallbackIcon);
-        return fallbackIcon;
+        const finalFallback = fallbackIcon || '🌐';
+        faviconCache.set(url, finalFallback);
+        return finalFallback;
     }
 }
 
@@ -313,13 +321,15 @@ function renderIcon(iconData, size = 'default') {
     const sizeClass = size === 'small' ? 'icon-small' : 'icon-default';
     
     // 如果是URL，渲染为img标签
-    if (typeof iconData === 'string' && (iconData.startsWith('http') || iconData.startsWith('//'))) {
-        return `<img src="${iconData}" class="site-favicon ${sizeClass}" alt="favicon" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline';">
+    if (typeof iconData === 'string' && (iconData.startsWith('http') || iconData.startsWith('//') || iconData.startsWith('/'))) {
+        return `<img src="${iconData}" class="site-favicon ${sizeClass}" alt="favicon" 
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" 
+                     onload="this.style.display='inline-block'; this.nextElementSibling.style.display='none';">
                 <span class="site-emoji ${sizeClass}" style="display:none;">🌐</span>`;
     }
     
     // 否则渲染为emoji
-    return `<span class="site-emoji ${sizeClass}">${iconData}</span>`;
+    return `<span class="site-emoji ${sizeClass}">${iconData || '🌐'}</span>`;
 }
 
 // 加载数据
@@ -551,7 +561,12 @@ async function renderQuickSites(quickSites) {
     
     const quickSitesHtml = await Promise.all(
         quickSites.map(async (site) => {
-            const iconData = await getFavicon(site.url, site.icon);
+            // 优先使用JSON中的icon
+            let iconData = site.icon;
+            if (!iconData || iconData === '🌐') {
+                iconData = await getFavicon(site.url, site.icon || '🌐');
+            }
+            
             return `
                 <a href="${site.url}" class="quick-item" target="_blank" rel="noopener noreferrer">
                     <div class="quick-icon">${renderIcon(iconData, 'default')}</div>
@@ -679,7 +694,12 @@ function renderCategorySection(category, sites) {
 async function renderSiteCardAsync(site) {
     const highlightedName = highlightSearchTerm(site.name);
     const highlightedDesc = highlightSearchTerm(site.description);
-    const iconData = await getFavicon(site.url, site.icon);
+    
+    // 优先使用JSON中的icon，如果没有则获取favicon
+    let iconData = site.icon;
+    if (!iconData || iconData === '🌐') {
+        iconData = await getFavicon(site.url, site.icon || '🌐');
+    }
     
     return `
         <a href="${site.url}" class="category-card" target="_blank" rel="noopener noreferrer" 
@@ -1003,21 +1023,41 @@ const additionalStyles = `
 .site-favicon {
     border-radius: 4px;
     object-fit: cover;
+    display: inline-block;
+    vertical-align: middle;
 }
 
 .icon-default {
     width: 24px;
     height: 24px;
+    min-width: 24px;
+    min-height: 24px;
 }
 
 .icon-small {
     width: 16px;
     height: 16px;
+    min-width: 16px;
+    min-height: 16px;
 }
 
 .site-emoji {
     display: inline-block;
     text-align: center;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.site-emoji.icon-default {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.site-emoji.icon-small {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
 }
 
 /* 搜索高亮样式 */
