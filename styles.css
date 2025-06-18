@@ -35,6 +35,98 @@ body {
     padding: 0 24px;
 }
 
+/* Favicon 相关样式 */
+
+/* 网站图标基础样式 */
+.site-favicon {
+    border-radius: 6px;
+    object-fit: cover;
+    background: transparent;
+    transition: all 0.3s ease;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* 默认大小的favicon */
+.site-favicon.icon-default {
+    width: 32px;
+    height: 32px;
+}
+
+/* 小尺寸的favicon */
+.site-favicon.icon-small {
+    width: 24px;
+    height: 24px;
+}
+
+/* Emoji图标样式 */
+.site-emoji {
+    display: inline-block;
+    text-align: center;
+    line-height: 1;
+    font-style: normal;
+    transition: all 0.3s ease;
+}
+
+/* 默认大小的emoji */
+.site-emoji.icon-default {
+    font-size: 28px;
+    width: 32px;
+    height: 32px;
+}
+
+/* 小尺寸的emoji */
+.site-emoji.icon-small {
+    font-size: 20px;
+    width: 24px;
+    height: 24px;
+}
+
+/* 图标加载状态 */
+.icon-loading {
+    position: relative;
+    background: var(--border-light);
+    border-radius: 6px;
+}
+
+.icon-loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--border);
+    border-top: 2px solid var(--primary-color);
+    border-radius: 50%;
+    animation: icon-spin 1s linear infinite;
+}
+
+@keyframes icon-spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* 图标错误状态 */
+.icon-error {
+    background: var(--border-light);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    font-size: 14px;
+}
+
+.icon-error::before {
+    content: '🌐';
+}
+
 /* 导航头部 */
 .nav-header {
     background: rgba(255, 255, 255, 0.8);
@@ -265,6 +357,18 @@ body {
     background: linear-gradient(135deg, rgba(0, 122, 255, 0.1), rgba(0, 199, 190, 0.1));
     border-radius: 16px;
     transition: all 0.3s ease;
+    position: relative;
+}
+
+/* 快速访问区域内的图标样式 */
+.quick-icon .site-favicon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+}
+
+.quick-icon .site-emoji {
+    font-size: 28px;
 }
 
 .quick-item:hover .quick-icon {
@@ -397,12 +501,49 @@ body {
     border-radius: var(--radius);
     transition: all 0.4s ease;
     flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 卡片图标增强效果 */
+.card-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.category-card:hover .card-icon::before {
+    opacity: 1;
+}
+
+/* 分类卡片内的图标样式 */
+.card-icon .site-favicon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    filter: brightness(1.1) contrast(1.1);
+}
+
+.card-icon .site-emoji {
+    font-size: 32px;
 }
 
 .category-card:hover .card-icon {
     transform: scale(1.1) rotate(5deg);
     background: var(--accent-gradient);
     color: white;
+}
+
+.category-card:hover .card-icon .site-emoji {
+    color: white;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .card-content {
@@ -560,6 +701,60 @@ mark {
     color: var(--text-primary);
 }
 
+/* Favicon 高DPI 优化 */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .site-favicon {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* 打印样式优化 */
+@media print {
+    .site-favicon {
+        -webkit-print-color-adjust: exact;
+        color-adjust: exact;
+    }
+}
+
+/* 无障碍性增强 */
+@media (prefers-reduced-motion: reduce) {
+    .site-favicon,
+    .site-emoji,
+    .card-icon,
+    .quick-icon,
+    .category-card,
+    .quick-item,
+    .filter-btn {
+        transition: none;
+    }
+    
+    .icon-loading::after {
+        animation: none;
+    }
+}
+
+/* 深色模式 favicon 支持 */
+@media (prefers-color-scheme: dark) {
+    .site-favicon {
+        filter: brightness(0.9) contrast(1.1);
+    }
+    
+    .icon-loading {
+        background: rgba(44, 44, 46, 0.8);
+    }
+    
+    .icon-loading::after {
+        border-color: var(--border);
+        border-top-color: var(--primary-color);
+    }
+    
+    .icon-error {
+        background: rgba(44, 44, 46, 0.8);
+        color: var(--text-secondary);
+    }
+}
+
 /* 响应式设计 */
 @media (max-width: 768px) {
     .nav-container {
@@ -605,6 +800,16 @@ mark {
         font-size: 24px;
     }
     
+    /* 移动端快速访问图标 */
+    .quick-icon .site-favicon {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .quick-icon .site-emoji {
+        font-size: 24px;
+    }
+    
     .quick-title {
         font-size: 12px;
     }
@@ -621,6 +826,16 @@ mark {
     .card-icon {
         width: 52px;
         height: 52px;
+        font-size: 28px;
+    }
+    
+    /* 移动端卡片图标 */
+    .card-icon .site-favicon {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .card-icon .site-emoji {
         font-size: 28px;
     }
     
