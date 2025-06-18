@@ -454,5 +454,13 @@
     "url": "https://m.usmart66.com/webapp/open-account/apply.html?ICode=U02457#/register",
     "icon": "📊",
     "category": "securities"
+  },
+  {
+    "id": 57,
+    "name": "OSL",
+    "description": "香港首家获得数字资产交易所牌照的交易所",
+    "url": "https://trade-hk.osl.com/invite/activities?invitationCode=ycYoX",
+    "icon": "📊",
+    "category": "securities"
   }
 ]
