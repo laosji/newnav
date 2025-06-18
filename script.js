@@ -16,6 +16,8 @@ const DATA_CONFIG = {
 const FAVICON_CONFIG = {
     // 是否启用favicon功能
     enabled: true,
+    // 是否优先使用JSON数据中的icon
+    preferJsonIcon: false,
     // favicon服务提供商
     service: 'google', // 'google', 'favicongrabber', 'iconhorse'
     // 服务商API配置
@@ -71,10 +73,52 @@ const faviconCache = {
     // 提取域名
     getDomain(url) {
         try {
-            return new URL(url).hostname;
+            return new URL(url).hostname.replace(/^www\./, '');
         } catch {
             return url;
         }
+    }
+};
+
+// JSON数据图标查找器
+const JsonIconFinder = {
+    // 从JSON数据中查找匹配的icon
+    findIconInData(targetUrl, database = sitesData) {
+        try {
+            const targetDomain = this.extractDomain(targetUrl);
+            if (!targetDomain) return null;
+            
+            // 查找匹配的记录
+            const match = database.find(item => {
+                if (!item.url) return false;
+                
+                const itemDomain = this.extractDomain(item.url);
+                // 支持精确匹配和子域名匹配
+                return itemDomain === targetDomain || 
+                       targetDomain.includes(itemDomain) || 
+                       itemDomain.includes(targetDomain);
+            });
+            
+            return match ? (match.icon || null) : null;
+        } catch (error) {
+            console.warn('JSON数据查找失败:', error);
+            return null;
+        }
+    },
+    
+    // 提取域名
+    extractDomain(url) {
+        try {
+            return new URL(url).hostname.replace(/^www\./, '');
+        } catch {
+            return '';
+        }
+    },
+    
+    // 验证icon是否为URL格式
+    isIconUrl(icon) {
+        return typeof icon === 'string' && 
+               (icon.startsWith('http') || icon.startsWith('//') || icon.startsWith('/'));
     }
 };
 
@@ -114,7 +158,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// 获取网站Favicon
+// 增强的获取网站Favicon函数
 async function getFavicon(url, fallbackIcon = '🌐') {
     if (!FAVICON_CONFIG.enabled) {
         return fallbackIcon;
@@ -127,6 +171,84 @@ async function getFavicon(url, fallbackIcon = '🌐') {
     }
     
     try {
+        let iconResult = null;
+        
+        // 1. 如果配置优先使用JSON数据，先从JSON查找
+        if (FAVICON_CONFIG.preferJsonIcon) {
+            iconResult = await tryGetJsonIcon(url);
+            if (iconResult) {
+                faviconCache.set(url, iconResult);
+                return iconResult;
+            }
+        }
+        
+        // 2. 尝试从外部服务获取favicon
+        iconResult = await tryGetExternalFavicon(url);
+        if (iconResult) {
+            faviconCache.set(url, iconResult);
+            return iconResult;
+        }
+        
+        // 3. 如果还没有配置优先使用JSON，现在从JSON查找
+        if (!FAVICON_CONFIG.preferJsonIcon) {
+            iconResult = await tryGetJsonIcon(url);
+            if (iconResult) {
+                faviconCache.set(url, iconResult);
+                return iconResult;
+            }
+        }
+        
+        // 4. 都失败了，使用fallback图标
+        console.log(`所有方法都失败，使用fallback图标: ${url}`);
+        faviconCache.set(url, fallbackIcon);
+        return fallbackIcon;
+        
+    } catch (error) {
+        console.warn(`获取 ${url} 的favicon失败:`, error);
+        
+        // 错误时尝试从JSON获取
+        const jsonIcon = await tryGetJsonIcon(url);
+        if (jsonIcon) {
+            faviconCache.set(url, jsonIcon);
+            return jsonIcon;
+        }
+        
+        faviconCache.set(url, fallbackIcon);
+        return fallbackIcon;
+    }
+}
+
+// 尝试从JSON数据获取图标
+async function tryGetJsonIcon(url) {
+    try {
+        const jsonIcon = JsonIconFinder.findIconInData(url);
+        if (!jsonIcon) return null;
+        
+        // 如果是URL格式的图标，验证其有效性
+        if (JsonIconFinder.isIconUrl(jsonIcon)) {
+            const isValid = await validateImage(jsonIcon);
+            if (isValid) {
+                console.log(`JSON图标获取成功: ${url} -> ${jsonIcon}`);
+                return jsonIcon;
+            } else {
+                console.warn(`JSON图标无效: ${jsonIcon}`);
+                return null;
+            }
+        }
+        
+        // 如果是emoji或其他格式，直接返回
+        console.log(`JSON图标获取成功(emoji): ${url} -> ${jsonIcon}`);
+        return jsonIcon;
+        
+    } catch (error) {
+        console.warn('JSON图标获取失败:', error);
+        return null;
+    }
+}
+
+// 尝试从外部服务获取favicon
+async function tryGetExternalFavicon(url) {
+    try {
         const domain = faviconCache.getDomain(url);
         const service = FAVICON_CONFIG.services[FAVICON_CONFIG.service];
         
@@ -137,8 +259,11 @@ async function getFavicon(url, fallbackIcon = '🌐') {
             
             if (data.icons && data.icons.length > 0) {
                 const iconUrl = data.icons[0].src;
-                faviconCache.set(url, iconUrl);
-                return iconUrl;
+                const isValid = await validateImage(iconUrl);
+                if (isValid) {
+                    console.log(`外部服务图标获取成功: ${url} -> ${iconUrl}`);
+                    return iconUrl;
+                }
             }
         } else {
             // 直接返回图片URL
@@ -147,19 +272,16 @@ async function getFavicon(url, fallbackIcon = '🌐') {
             // 预加载图片检查是否有效
             const isValid = await validateImage(iconUrl);
             if (isValid) {
-                faviconCache.set(url, iconUrl);
+                console.log(`外部服务图标获取成功: ${url} -> ${iconUrl}`);
                 return iconUrl;
             }
         }
         
-        // 如果获取失败，缓存fallback图标
-        faviconCache.set(url, fallbackIcon);
-        return fallbackIcon;
+        return null;
         
     } catch (error) {
-        console.warn(`获取 ${url} 的favicon失败:`, error);
-        faviconCache.set(url, fallbackIcon);
-        return fallbackIcon;
+        console.warn('外部服务获取失败:', error);
+        return null;
     }
 }
 
@@ -218,12 +340,13 @@ async function loadData() {
             quickSitesResponse.json()
         ]);
         
+        sitesData = sites;
+        
         // 预加载favicon
         if (FAVICON_CONFIG.enabled) {
             await preloadFavicons([...sites, ...quickSites]);
         }
         
-        sitesData = sites;
         renderQuickSites(quickSites);
         
     } catch (error) {
@@ -316,6 +439,15 @@ function loadMockData() {
             url: "https://www.amazon.com",
             icon: "🛒",
             category: "shopping"
+        },
+        // 添加一个带URL图标的示例
+        {
+            id: 58,
+            name: "OSL",
+            description: "香港首家获得数字资产交易所牌照的交易所",
+            url: "https://trade-hk.osl.com/invite/activities?invitationCode=ycYoX",
+            icon: "https://www.osl.com/favicon.ico",
+            category: "securities"
         }
     ];
     
@@ -325,7 +457,7 @@ function loadMockData() {
         { name: "ChatGPT", icon: "🤖", url: "https://chat.openai.com" },
         { name: "Figma", icon: "🎨", url: "https://www.figma.com" },
         { name: "YouTube", icon: "📺", url: "https://www.youtube.com" },
-        { name: "Amazon", icon: "🛒", url: "https://www.amazon.com" }
+        { name: "OSL", icon: "https://www.osl.com/favicon.ico", url: "https://trade-hk.osl.com" }
     ];
     
     renderQuickSites(quickSites);
@@ -659,15 +791,7 @@ function handleNavScroll() {
     } else {
         // 移除吸附效果，回到正常位置
         if (categoryFilter.classList.contains('sticky')) {
-            categoryFilter.style.position = '';
-            categoryFilter.style.top = '';
-            categoryFilter.style.left = '';
-            categoryFilter.style.right = '';
-            categoryFilter.style.zIndex = '';
-            categoryFilter.style.background = '';
-            categoryFilter.style.backdropFilter = '';
-            categoryFilter.style.boxShadow = '';
-            categoryFilter.style.transition = '';
+            categoryFilter.style.cssText = '';
             categoryFilter.classList.remove('sticky');
             
             // 移除占位元素
@@ -679,21 +803,61 @@ function handleNavScroll() {
     }
 }
 
-// 键盘快捷键
+// 键盘快捷键处理
 function handleKeyboardShortcuts(e) {
-    // Ctrl/Cmd + K 聚焦搜索框
+    // Ctrl/Cmd + K 快速搜索
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
         elements.searchInput.focus();
+        elements.searchInput.select();
     }
     
-    // Escape 清空搜索
-    if (e.key === 'Escape' && document.activeElement === elements.searchInput) {
-        elements.searchInput.value = '';
-        elements.searchInput.blur();
-        searchQuery = '';
-        renderContent();
+    // ESC 清空搜索
+    if (e.key === 'Escape') {
+        if (elements.searchInput.value) {
+            elements.searchInput.value = '';
+            handleSearch();
+        }
     }
+    
+    // 数字键快速切换分类
+    if (e.key >= '1' && e.key <= '9' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        const index = parseInt(e.key) - 1;
+        const filterButtons = Array.from(elements.filterBtns);
+        if (filterButtons[index]) {
+            filterButtons[index].click();
+        }
+    }
+}
+
+// 显示加载状态
+function showLoading() {
+    elements.loading.style.display = 'flex';
+    elements.loading.innerHTML = `
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>正在加载数据...</p>
+        </div>
+    `;
+}
+
+// 隐藏加载状态
+function hideLoading() {
+    elements.loading.style.display = 'none';
+}
+
+// 显示错误信息
+function showError(message) {
+    elements.categoriesContainer.innerHTML = `
+        <div class="error-message">
+            <div class="error-content">
+                <div class="error-icon">⚠️</div>
+                <h3>加载失败</h3>
+                <p>${message}</p>
+                <button onclick="location.reload()" class="retry-btn">重新加载</button>
+            </div>
+        </div>
+    `;
 }
 
 // 防抖函数
@@ -709,64 +873,203 @@ function debounce(func, wait) {
     };
 }
 
-// 显示加载动画
-function showLoading() {
-    elements.loading.classList.remove('hidden');
+// 节流函数
+function throttle(func, limit) {
+    let inThrottle;
+    return function() {
+        const args = arguments;
+        const context = this;
+        if (!inThrottle) {
+            func.apply(context, args);
+            inThrottle = true;
+            setTimeout(() => inThrottle = false, limit);
+        }
+    }
 }
 
-// 隐藏加载动画
-function hideLoading() {
-    setTimeout(() => {
-        elements.loading.classList.add('hidden');
-    }, 500);
+// 工具函数：获取随机颜色
+function getRandomColor() {
+    const colors = [
+        '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
+        '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
 }
 
-// 显示错误信息
-function showError(message) {
-    const errorDiv = document.createElement('div');
-    errorDiv.style.cssText = `
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        background: #ff3b30;
-        color: white;
-        padding: 16px 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-        z-index: 1001;
-        font-size: 14px;
-        font-weight: 500;
-    `;
-    errorDiv.textContent = message;
-    document.body.appendChild(errorDiv);
+// 工具函数：格式化URL
+function formatUrl(url) {
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        return 'https://' + url;
+    }
+    return url;
+}
+
+// 工具函数：截取文本
+function truncateText(text, maxLength) {
+    if (text.length <= maxLength) {
+        return text;
+    }
+    return text.slice(0, maxLength) + '...';
+}
+
+// 性能监控
+const Performance = {
+    marks: new Map(),
     
-    setTimeout(() => {
-        errorDiv.remove();
-    }, 5000);
-}
-
-// 导出供外部使用
-window.NavigationApp = {
-    setCategory: setActiveCategory,
-    search: (query) => {
-        elements.searchInput.value = query;
-        handleSearch();
+    mark(name) {
+        this.marks.set(name, performance.now());
     },
-    refresh: () => {
-        showLoading();
-        loadData().then(() => {
-            renderContent();
-            hideLoading();
-        });
-    },
-    // 新增的favicon配置方法
-    configureFavicon: (config) => {
-        Object.assign(FAVICON_CONFIG, config);
-        // 重新渲染以应用新配置
-        renderContent();
-    },
-    // 清除favicon缓存
-    clearFaviconCache: () => {
-        faviconCache.memoryCache.clear();
+    
+    measure(name, startMark) {
+        const startTime = this.marks.get(startMark);
+        if (startTime) {
+            const duration = performance.now() - startTime;
+            console.log(`${name}: ${duration.toFixed(2)}ms`);
+            return duration;
+        }
     }
 };
+
+// 导出配置（如果需要在其他脚本中使用）
+window.NavConfig = {
+    DATA_CONFIG,
+    FAVICON_CONFIG,
+    getCategoryInfo,
+    getFavicon,
+    renderIcon
+};
+
+// 添加一些CSS样式补充
+const additionalStyles = `
+<style>
+/* 加载动画样式 */
+.loading-spinner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #007AFF;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 错误信息样式 */
+.error-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    padding: 2rem;
+}
+
+.error-content {
+    text-align: center;
+    max-width: 400px;
+}
+
+.error-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.retry-btn {
+    background: #007AFF;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 1rem;
+    transition: background-color 0.2s;
+}
+
+.retry-btn:hover {
+    background: #0056D6;
+}
+
+/* Favicon相关样式 */
+.site-favicon {
+    border-radius: 4px;
+    object-fit: cover;
+}
+
+.icon-default {
+    width: 24px;
+    height: 24px;
+}
+
+.icon-small {
+    width: 16px;
+    height: 16px;
+}
+
+.site-emoji {
+    display: inline-block;
+    text-align: center;
+}
+
+/* 搜索高亮样式 */
+mark {
+    background-color: #FFE066;
+    color: #333;
+    padding: 0.1em 0.2em;
+    border-radius: 3px;
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+    .category-filter.sticky {
+        padding: 0.75rem 1rem;
+    }
+    
+    .filter-placeholder {
+        height: auto !important;
+    }
+}
+
+/* 辅助功能改进 */
+.category-card:focus {
+    outline: 2px solid #007AFF;
+    outline-offset: 2px;
+}
+
+.quick-item:focus {
+    outline: 2px solid #007AFF;
+    outline-offset: 2px;
+}
+
+/* 打印样式 */
+@media print {
+    .nav-header,
+    .category-filter,
+    .quick-access {
+        display: none !important;
+    }
+    
+    .category-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+}
+</style>
+`;
+
+// 将额外样式添加到页面头部
+if (!document.querySelector('#additional-nav-styles')) {
+    const styleElement = document.createElement('div');
+    styleElement.id = 'additional-nav-styles';
+    styleElement.innerHTML = additionalStyles;
+    document.head.appendChild(styleElement);
+}
