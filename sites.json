@@ -458,9 +458,17 @@
   {
     "id": 58,
     "name": "OSL",
-    "description": "香港首家获得数字资产交易所牌照的交易所",
+    "description": "香港首家获得数字资产交易所牌照的交易所，注册立领80元，入金10,000元再送288元 一个月内不提现",
     "url": "https://trade-hk.osl.com/invite/activities?invitationCode=ycYoX",
     "icon": "https://www.osl.com/favicon.ico",
+    "category": "securities"
+  },
+  {
+    "id": 59,
+    "name": "Safepal",
+    "description": "全方面的硬件加密钱包",
+    "url": "https://www.safepal.com/store/s1?ref=odu4mwu",
+    "icon": "https://www.safepal.com/favicon.ico",
     "category": "securities"
   }
 ]
