@@ -3,74 +3,55 @@ let sitesData = [];
 let currentCategory = 'all';
 let searchQuery = '';
 
+// 性能优化：图标缓存
+const iconCache = new Map();
+const imageValidationCache = new Map();
+
 // GitHub 数据源配置
 const DATA_CONFIG = {
-    // 替换为你的GitHub数据源URL
-    // 格式: https://raw.githubusercontent.com/用户名/仓库名/分支名/文件名
-
     sitesUrl: 'https://raw.githubusercontent.com/laosji/newnav/main/sites.json',
     quickSitesUrl: 'https://raw.githubusercontent.com/laosji/newnav/main/quick-sites.json'
 };
 
-// Favicon 相关配置
+// 优化后的Favicon配置 - 减少网络请求
 const FAVICON_CONFIG = {
-    // 是否启用favicon功能
     enabled: true,
-    // 是否优先使用JSON数据中的icon
-    preferJsonIcon: false,
-    // favicon服务提供商
-    service: 'google', // 'google', 'favicongrabber', 'iconhorse'
-    // 服务商API配置
+    preferJsonIcon: true, // 优先使用JSON中的图标，减少网络请求
+    service: 'google',
     services: {
         google: {
             url: (domain) => `https://www.google.com/s2/favicons?domain=${domain}&sz=32`,
             fallback: true
-        },
-        favicongrabber: {
-            url: (domain) => `https://favicongrabber.com/api/grab/${domain}`,
-            fallback: true
-        },
-        iconhorse: {
-            url: (domain) => `https://icon.horse/icon/${domain}`,
-            fallback: true
         }
     },
-    // 缓存过期时间（毫秒）
-    cacheExpire: 24 * 60 * 60 * 1000, // 24小时
-    // 加载超时时间
-    loadTimeout: 5000
+    cacheExpire: 24 * 60 * 60 * 1000,
+    loadTimeout: 3000, // 减少超时时间
+    maxConcurrent: 3  // 限制并发数量
 };
 
-// Favicon 缓存管理
+// 优化后的Favicon缓存管理
 const faviconCache = {
-    // 从内存中获取缓存
     get(url) {
         const key = `favicon_${this.getDomain(url)}`;
-        const cached = this.memoryCache.get(key);
+        const cached = iconCache.get(key);
         if (!cached) return null;
         
-        // 检查是否过期
         if (Date.now() - cached.timestamp > FAVICON_CONFIG.cacheExpire) {
-            this.memoryCache.delete(key);
+            iconCache.delete(key);
             return null;
         }
         
         return cached.data;
     },
     
-    // 设置缓存
     set(url, data) {
         const key = `favicon_${this.getDomain(url)}`;
-        this.memoryCache.set(key, {
+        iconCache.set(key, {
             data: data,
             timestamp: Date.now()
         });
     },
     
-    // 内存缓存存储
-    memoryCache: new Map(),
-    
-    // 提取域名
     getDomain(url) {
         try {
             return new URL(url).hostname.replace(/^www\./, '');
@@ -80,20 +61,17 @@ const faviconCache = {
     }
 };
 
-// JSON数据图标查找器
+// 优化的JSON数据图标查找器
 const JsonIconFinder = {
-    // 从JSON数据中查找匹配的icon
     findIconInData(targetUrl, database = sitesData) {
         try {
             const targetDomain = this.extractDomain(targetUrl);
             if (!targetDomain) return null;
             
-            // 查找匹配的记录
+            // 使用Map进行快速查找（如果数据量大的话）
             const match = database.find(item => {
                 if (!item.url) return false;
-                
                 const itemDomain = this.extractDomain(item.url);
-                // 支持精确匹配和子域名匹配
                 return itemDomain === targetDomain || 
                        targetDomain.includes(itemDomain) || 
                        itemDomain.includes(targetDomain);
@@ -106,7 +84,6 @@ const JsonIconFinder = {
         }
     },
     
-    // 提取域名
     extractDomain(url) {
         try {
             return new URL(url).hostname.replace(/^www\./, '');
@@ -115,14 +92,13 @@ const JsonIconFinder = {
         }
     },
     
-    // 验证icon是否为URL格式
     isIconUrl(icon) {
         return typeof icon === 'string' && 
                (icon.startsWith('http') || icon.startsWith('//') || icon.startsWith('/'));
     }
 };
 
-// DOM 元素
+// DOM 元素缓存
 const elements = {
     loading: document.getElementById('loading'),
     searchInput: document.querySelector('.search-input'),
@@ -133,23 +109,32 @@ const elements = {
     footerLinks: document.querySelectorAll('.footer-section a[data-category]')
 };
 
-// 初始化
+// 初始化 - 优化加载流程
 document.addEventListener('DOMContentLoaded', async () => {
     try {
         showLoading();
-        await loadData();
+        
+        // 1. 优先加载基础数据
+        await loadBasicData();
+        
+        // 2. 立即渲染基础内容
         initEventListeners();
         renderContent();
         hideLoading();
         
-        // 添加渐入动画
+        // 3. 异步加载图标（不阻塞主要内容显示）
+        requestIdleCallback(() => {
+            preloadCriticalFavicons();
+        });
+        
+        // 4. 添加渐入动画
         setTimeout(() => {
             document.querySelectorAll('.category-section').forEach((section, index) => {
                 setTimeout(() => {
                     section.classList.add('visible');
-                }, index * 100);
+                }, index * 50); // 减少动画间隔
             });
-        }, 300);
+        }, 100);
         
     } catch (error) {
         console.error('初始化失败:', error);
@@ -158,100 +143,92 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 });
 
-// 增强的获取网站Favicon函数
+// 优化的favicon获取函数 - 减少阻塞
 async function getFavicon(url, fallbackIcon = '🌐') {
     if (!FAVICON_CONFIG.enabled) {
         return fallbackIcon || '🌐';
     }
     
-    // 如果fallbackIcon已经是一个有效的URL图标，直接返回
+    // 如果fallback已经是有效URL，直接返回
     if (fallbackIcon && typeof fallbackIcon === 'string' && 
         (fallbackIcon.startsWith('http') || fallbackIcon.startsWith('//') || fallbackIcon.startsWith('/'))) {
         return fallbackIcon;
     }
     
-    // 先从缓存获取
+    // 检查缓存
     const cached = faviconCache.get(url);
     if (cached) {
         return cached;
     }
     
     try {
-        let iconResult = null;
-        
-        // 1. 如果配置优先使用JSON数据，先从JSON查找
-        if (FAVICON_CONFIG.preferJsonIcon) {
-            iconResult = await tryGetJsonIcon(url);
-            if (iconResult) {
-                faviconCache.set(url, iconResult);
-                return iconResult;
+        // 1. 优先使用JSON数据中的图标
+        const jsonIcon = JsonIconFinder.findIconInData(url);
+        if (jsonIcon) {
+            if (JsonIconFinder.isIconUrl(jsonIcon)) {
+                // 异步验证但不等待，直接返回
+                validateImageAsync(jsonIcon).then(isValid => {
+                    if (!isValid) {
+                        faviconCache.set(url, fallbackIcon || '🌐');
+                    }
+                });
+                faviconCache.set(url, jsonIcon);
+                return jsonIcon;
+            } else {
+                faviconCache.set(url, jsonIcon);
+                return jsonIcon;
             }
         }
         
-        // 2. 尝试从外部服务获取favicon
-        iconResult = await tryGetExternalFavicon(url);
-        if (iconResult) {
-            faviconCache.set(url, iconResult);
-            return iconResult;
-        }
-        
-        // 3. 如果还没有配置优先使用JSON，现在从JSON查找
-        if (!FAVICON_CONFIG.preferJsonIcon) {
-            iconResult = await tryGetJsonIcon(url);
-            if (iconResult) {
-                faviconCache.set(url, iconResult);
-                return iconResult;
-            }
-        }
-        
-        // 4. 都失败了，使用fallback图标
-        console.log(`所有方法都失败，使用fallback图标: ${url}`);
+        // 2. 如果没有JSON图标，使用默认图标，异步获取真实favicon
         const finalFallback = fallbackIcon || '🌐';
         faviconCache.set(url, finalFallback);
+        
+        // 异步获取真实favicon，不阻塞渲染
+        requestIdleCallback(() => {
+            tryGetExternalFavicon(url).then(iconResult => {
+                if (iconResult) {
+                    faviconCache.set(url, iconResult);
+                    // 如果当前页面还显示这个网站，更新图标
+                    updateRenderedIcon(url, iconResult);
+                }
+            });
+        });
+        
         return finalFallback;
         
     } catch (error) {
         console.warn(`获取 ${url} 的favicon失败:`, error);
-        
-        // 错误时尝试从JSON获取
-        const jsonIcon = await tryGetJsonIcon(url);
-        if (jsonIcon) {
-            faviconCache.set(url, jsonIcon);
-            return jsonIcon;
-        }
-        
         const finalFallback = fallbackIcon || '🌐';
         faviconCache.set(url, finalFallback);
         return finalFallback;
     }
 }
 
-// 尝试从JSON数据获取图标
-async function tryGetJsonIcon(url) {
-    try {
-        const jsonIcon = JsonIconFinder.findIconInData(url);
-        if (!jsonIcon) return null;
-        
-        // 如果是URL格式的图标，验证其有效性
-        if (JsonIconFinder.isIconUrl(jsonIcon)) {
-            const isValid = await validateImage(jsonIcon);
-            if (isValid) {
-                console.log(`JSON图标获取成功: ${url} -> ${jsonIcon}`);
-                return jsonIcon;
-            } else {
-                console.warn(`JSON图标无效: ${jsonIcon}`);
-                return null;
-            }
-        }
-        
-        // 如果是emoji或其他格式，直接返回
-        console.log(`JSON图标获取成功(emoji): ${url} -> ${jsonIcon}`);
-        return jsonIcon;
-        
-    } catch (error) {
-        console.warn('JSON图标获取失败:', error);
-        return null;
+// 异步图片验证（不阻塞主流程）
+function validateImageAsync(url) {
+    // 检查验证缓存
+    if (imageValidationCache.has(url)) {
+        return Promise.resolve(imageValidationCache.get(url));
     }
+    
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+            imageValidationCache.set(url, true);
+            resolve(true);
+        };
+        img.onerror = () => {
+            imageValidationCache.set(url, false);
+            resolve(false);
+        };
+        img.src = url;
+        
+        setTimeout(() => {
+            imageValidationCache.set(url, false);
+            resolve(false);
+        }, FAVICON_CONFIG.loadTimeout);
+    });
 }
 
 // 尝试从外部服务获取favicon
@@ -259,83 +236,48 @@ async function tryGetExternalFavicon(url) {
     try {
         const domain = faviconCache.getDomain(url);
         const service = FAVICON_CONFIG.services[FAVICON_CONFIG.service];
+        const iconUrl = service.url(domain);
         
-        if (FAVICON_CONFIG.service === 'favicongrabber') {
-            // FaviconGrabber API 返回JSON
-            const response = await fetchWithTimeout(service.url(domain), FAVICON_CONFIG.loadTimeout);
-            const data = await response.json();
-            
-            if (data.icons && data.icons.length > 0) {
-                const iconUrl = data.icons[0].src;
-                const isValid = await validateImage(iconUrl);
-                if (isValid) {
-                    console.log(`外部服务图标获取成功: ${url} -> ${iconUrl}`);
-                    return iconUrl;
-                }
-            }
-        } else {
-            // 直接返回图片URL
-            const iconUrl = service.url(domain);
-            
-            // 预加载图片检查是否有效
-            const isValid = await validateImage(iconUrl);
-            if (isValid) {
-                console.log(`外部服务图标获取成功: ${url} -> ${iconUrl}`);
-                return iconUrl;
-            }
+        const isValid = await validateImageAsync(iconUrl);
+        if (isValid) {
+            return iconUrl;
         }
         
         return null;
-        
     } catch (error) {
-        console.warn('外部服务获取失败:', error);
         return null;
     }
 }
 
-// 验证图片是否有效
-function validateImage(url) {
-    return new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => resolve(true);
-        img.onerror = () => resolve(false);
-        img.src = url;
-        
-        // 设置超时
-        setTimeout(() => resolve(false), FAVICON_CONFIG.loadTimeout);
+// 更新已渲染的图标
+function updateRenderedIcon(url, newIcon) {
+    const cards = document.querySelectorAll(`[href="${url}"]`);
+    cards.forEach(card => {
+        const iconContainer = card.querySelector('.card-icon, .quick-icon');
+        if (iconContainer) {
+            iconContainer.innerHTML = renderIcon(newIcon);
+        }
     });
 }
 
-// 带超时的fetch
-function fetchWithTimeout(url, timeout = 5000) {
-    return Promise.race([
-        fetch(url),
-        new Promise((_, reject) => 
-            setTimeout(() => reject(new Error('Timeout')), timeout)
-        )
-    ]);
-}
-
-// 渲染图标（支持emoji和favicon）
+// 优化的图标渲染函数
 function renderIcon(iconData, size = 'default') {
     const sizeClass = size === 'small' ? 'icon-small' : 'icon-default';
     
-    // 如果是URL，渲染为img标签
     if (typeof iconData === 'string' && (iconData.startsWith('http') || iconData.startsWith('//') || iconData.startsWith('/'))) {
         return `<img src="${iconData}" class="site-favicon ${sizeClass}" alt="favicon" 
                      onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';" 
-                     onload="this.style.display='inline-block'; this.nextElementSibling.style.display='none';">
+                     onload="this.style.display='inline-block'; this.nextElementSibling.style.display='none';" 
+                     loading="lazy">
                 <span class="site-emoji ${sizeClass}" style="display:none;">🌐</span>`;
     }
     
-    // 否则渲染为emoji
     return `<span class="site-emoji ${sizeClass}">${iconData || '🌐'}</span>`;
 }
 
-// 加载数据
-async function loadData() {
+// 优化的数据加载 - 分步加载
+async function loadBasicData() {
     try {
-        // 并行加载数据
         const [sitesResponse, quickSitesResponse] = await Promise.all([
             fetchWithRetry(DATA_CONFIG.sitesUrl),
             fetchWithRetry(DATA_CONFIG.quickSitesUrl)
@@ -352,54 +294,90 @@ async function loadData() {
         
         sitesData = sites;
         
-        // 预加载favicon
-        if (FAVICON_CONFIG.enabled) {
-            await preloadFavicons([...sites, ...quickSites]);
-        }
-        
+        // 立即渲染快速访问（使用默认图标）
         renderQuickSites(quickSites);
         
     } catch (error) {
         console.error('数据加载错误:', error);
-        // 使用模拟数据作为备用
         loadMockData();
     }
 }
 
-// 预加载favicon（批量处理，避免阻塞）
-async function preloadFavicons(sites) {
-    const batchSize = 5; // 每批处理5个
-    const batches = [];
+// 关键图标预加载（仅加载可见内容的图标）
+async function preloadCriticalFavicons() {
+    // 只预加载首屏可见的网站图标
+    const visibleSites = sitesData.slice(0, 12); // 假设首屏显示12个
     
-    for (let i = 0; i < sites.length; i += batchSize) {
-        batches.push(sites.slice(i, i + batchSize));
-    }
+    const semaphore = new Semaphore(FAVICON_CONFIG.maxConcurrent);
     
-    // 分批处理，避免并发过多
-    for (const batch of batches) {
-        await Promise.allSettled(
-            batch.map(site => getFavicon(site.url, site.icon))
-        );
-        
-        // 每批之间稍作延迟
-        await new Promise(resolve => setTimeout(resolve, 100));
-    }
+    const promises = visibleSites.map(site => 
+        semaphore.acquire().then(async (release) => {
+            try {
+                const icon = await getFavicon(site.url, site.icon);
+                if (icon !== site.icon) {
+                    updateRenderedIcon(site.url, icon);
+                }
+            } finally {
+                release();
+            }
+        })
+    );
+    
+    await Promise.allSettled(promises);
 }
 
-// 带重试的fetch
-async function fetchWithRetry(url, retries = 3) {
-    for (let i = 0; i < retries; i++) {
-        try {
-            const response = await fetch(url);
-            if (response.ok) return response;
-        } catch (error) {
-            if (i === retries - 1) throw error;
-            await new Promise(resolve => setTimeout(resolve, 1000 * (i + 1)));
+// 信号量实现（控制并发数）
+class Semaphore {
+    constructor(max) {
+        this.max = max;
+        this.current = 0;
+        this.queue = [];
+    }
+    
+    acquire() {
+        return new Promise((resolve) => {
+            if (this.current < this.max) {
+                this.current++;
+                resolve(() => this.release());
+            } else {
+                this.queue.push(resolve);
+            }
+        });
+    }
+    
+    release() {
+        this.current--;
+        if (this.queue.length > 0) {
+            this.current++;
+            const resolve = this.queue.shift();
+            resolve(() => this.release());
         }
     }
 }
 
-// 默认数据
+// 优化的fetch函数
+async function fetchWithRetry(url, retries = 2) { // 减少重试次数
+    for (let i = 0; i < retries; i++) {
+        try {
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 5000); // 5秒超时
+            
+            const response = await fetch(url, { 
+                signal: controller.signal,
+                cache: 'force-cache' // 使用缓存
+            });
+            
+            clearTimeout(timeoutId);
+            
+            if (response.ok) return response;
+        } catch (error) {
+            if (i === retries - 1) throw error;
+            await new Promise(resolve => setTimeout(resolve, 500 * (i + 1))); // 减少等待时间
+        }
+    }
+}
+
+// 默认数据（保持不变）
 function loadMockData() {
     sitesData = [
         {
@@ -450,7 +428,6 @@ function loadMockData() {
             icon: "🛒",
             category: "shopping"
         },
-        // 添加一个带URL图标的示例
         {
             id: 58,
             name: "OSL",
@@ -473,10 +450,10 @@ function loadMockData() {
     renderQuickSites(quickSites);
 }
 
-// 初始化事件监听器
+// 优化的事件监听器初始化
 function initEventListeners() {
-    // 搜索功能
-    elements.searchInput.addEventListener('input', debounce(handleSearch, 300));
+    // 搜索功能（增加防抖时间）
+    elements.searchInput.addEventListener('input', debounce(handleSearch, 500));
     elements.searchInput.addEventListener('keypress', (e) => {
         if (e.key === 'Enter') {
             handleSearch();
@@ -497,39 +474,40 @@ function initEventListeners() {
         });
     });
     
-    // 导航滚动效果 (优化版，包含节流)
-    let scrollTimer = null;
+    // 优化的滚动监听
+    let ticking = false;
     window.addEventListener('scroll', () => {
-        if (scrollTimer) return;
-        scrollTimer = setTimeout(() => {
-            handleNavScroll();
-            scrollTimer = null;
-        }, 10);
+        if (!ticking) {
+            requestAnimationFrame(() => {
+                handleNavScroll();
+                ticking = false;
+            });
+            ticking = true;
+        }
     });
     
-    // 窗口resize时重新计算位置
+    // 窗口resize优化
     window.addEventListener('resize', debounce(() => {
-        // 重置sticky状态，重新计算
         const categoryFilter = document.querySelector('.category-filter');
         const placeholder = document.querySelector('.filter-placeholder');
-        if (placeholder) {
-            placeholder.remove();
-        }
+        if (placeholder) placeholder.remove();
         if (categoryFilter.classList.contains('sticky')) {
             categoryFilter.classList.remove('sticky');
             categoryFilter.style.cssText = '';
         }
-        // 延迟重新计算，确保DOM更新完成
         setTimeout(handleNavScroll, 100);
-    }, 250));
+    }, 300));
     
     // 键盘快捷键
     document.addEventListener('keydown', handleKeyboardShortcuts);
 }
 
-// 搜索处理
+// 搜索处理（优化版）
 function handleSearch() {
-    searchQuery = elements.searchInput.value.trim().toLowerCase();
+    const newQuery = elements.searchInput.value.trim().toLowerCase();
+    if (newQuery === searchQuery) return; // 避免重复渲染
+    
+    searchQuery = newQuery;
     renderContent();
 }
 
@@ -541,45 +519,50 @@ function handleCategoryFilter(clickedBtn) {
 
 // 设置活跃分类
 function setActiveCategory(category) {
+    if (currentCategory === category) return; // 避免重复渲染
+    
     currentCategory = category;
     
-    // 更新按钮状态
     elements.filterBtns.forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-category') === category);
     });
     
-    // 清空搜索
     elements.searchInput.value = '';
     searchQuery = '';
     
     renderContent();
 }
 
-// 渲染快速访问
-async function renderQuickSites(quickSites) {
+// 渲染快速访问（同步版本，使用默认图标）
+function renderQuickSites(quickSites) {
     if (!quickSites || !quickSites.length) return;
     
-    const quickSitesHtml = await Promise.all(
-        quickSites.map(async (site) => {
-            // 优先使用JSON中的icon
-            let iconData = site.icon;
-            if (!iconData || iconData === '🌐') {
-                iconData = await getFavicon(site.url, site.icon || '🌐');
-            }
-            
-            return `
-                <a href="${site.url}" class="quick-item" target="_blank" rel="noopener noreferrer">
-                    <div class="quick-icon">${renderIcon(iconData, 'default')}</div>
-                    <span class="quick-title">${site.name}</span>
-                </a>
-            `;
-        })
-    );
+    const quickSitesHtml = quickSites.map((site) => {
+        const iconData = site.icon || '🌐';
+        return `
+            <a href="${site.url}" class="quick-item" target="_blank" rel="noopener noreferrer">
+                <div class="quick-icon">${renderIcon(iconData, 'default')}</div>
+                <span class="quick-title">${site.name}</span>
+            </a>
+        `;
+    }).join('');
     
-    elements.quickSites.innerHTML = quickSitesHtml.join('');
+    elements.quickSites.innerHTML = quickSitesHtml;
+    
+    // 异步更新图标
+    requestIdleCallback(() => {
+        quickSites.forEach(async (site) => {
+            if (!site.icon || site.icon === '🌐') {
+                const icon = await getFavicon(site.url, site.icon);
+                if (icon !== (site.icon || '🌐')) {
+                    updateRenderedIcon(site.url, icon);
+                }
+            }
+        });
+    });
 }
 
-// 渲染主要内容
+// 优化的内容渲染
 function renderContent() {
     const filteredSites = filterSites();
     const categorizedSites = categorizeSites(filteredSites);
@@ -600,17 +583,21 @@ function renderContent() {
         return;
     }
     
-    // 异步渲染分类内容
-    renderCategoriesAsync(categorizedSites);
+    // 同步渲染（先显示默认图标）
+    renderCategoriesSync(categorizedSites);
+    
+    // 异步更新图标
+    requestIdleCallback(() => {
+        updateCategoryIcons(categorizedSites);
+    });
 }
 
-// 异步渲染分类内容
-async function renderCategoriesAsync(categorizedSites) {
-    const categoryPromises = Object.entries(categorizedSites).map(([category, sites]) =>
-        renderCategorySectionAsync(category, sites)
+// 同步渲染分类内容
+function renderCategoriesSync(categorizedSites) {
+    const categoryHtmls = Object.entries(categorizedSites).map(([category, sites]) =>
+        renderCategorySection(category, sites)
     );
     
-    const categoryHtmls = await Promise.all(categoryPromises);
     elements.categoriesContainer.innerHTML = categoryHtmls.join('');
     
     // 添加渐入动画
@@ -618,9 +605,32 @@ async function renderCategoriesAsync(categorizedSites) {
         document.querySelectorAll('.category-section').forEach((section, index) => {
             setTimeout(() => {
                 section.classList.add('visible');
-            }, index * 100);
+            }, index * 30); // 进一步减少动画间隔
         });
     }, 50);
+}
+
+// 异步更新分类图标
+async function updateCategoryIcons(categorizedSites) {
+    const allSites = Object.values(categorizedSites).flat();
+    const semaphore = new Semaphore(FAVICON_CONFIG.maxConcurrent);
+    
+    const promises = allSites.map(site => 
+        semaphore.acquire().then(async (release) => {
+            try {
+                if (!site.icon || site.icon === '🌐') {
+                    const icon = await getFavicon(site.url, site.icon);
+                    if (icon !== (site.icon || '🌐')) {
+                        updateRenderedIcon(site.url, icon);
+                    }
+                }
+            } finally {
+                release();
+            }
+        })
+    );
+    
+    await Promise.allSettled(promises);
 }
 
 // 过滤网站
@@ -649,28 +659,7 @@ function categorizeSites(sites) {
     return categories;
 }
 
-// 异步渲染分类部分
-async function renderCategorySectionAsync(category, sites) {
-    const categoryInfo = getCategoryInfo(category);
-    const siteCards = await Promise.all(sites.map(site => renderSiteCardAsync(site)));
-    
-    return `
-        <section class="category-section" data-category="${category}">
-            <div class="category-header">
-                <div class="category-title">
-                    <span class="category-icon">${categoryInfo.icon}</span>
-                    ${categoryInfo.name}
-                </div>
-                <p class="category-desc">${categoryInfo.description}</p>
-            </div>
-            <div class="category-grid">
-                ${siteCards.join('')}
-            </div>
-        </section>
-    `;
-}
-
-// 渲染分类部分（同步版本，保持兼容性）
+// 渲染分类部分（同步版本）
 function renderCategorySection(category, sites) {
     const categoryInfo = getCategoryInfo(category);
     
@@ -690,38 +679,16 @@ function renderCategorySection(category, sites) {
     `;
 }
 
-// 异步渲染网站卡片
-async function renderSiteCardAsync(site) {
+// 渲染网站卡片（同步版本）
+function renderSiteCard(site) {
     const highlightedName = highlightSearchTerm(site.name);
     const highlightedDesc = highlightSearchTerm(site.description);
-    
-    // 优先使用JSON中的icon，如果没有则获取favicon
-    let iconData = site.icon;
-    if (!iconData || iconData === '🌐') {
-        iconData = await getFavicon(site.url, site.icon || '🌐');
-    }
+    const iconData = site.icon || '🌐';
     
     return `
         <a href="${site.url}" class="category-card" target="_blank" rel="noopener noreferrer" 
            data-site-id="${site.id}">
             <div class="card-icon">${renderIcon(iconData)}</div>
-            <div class="card-content">
-                <h3 class="card-title">${highlightedName}</h3>
-                <p class="card-desc">${highlightedDesc}</p>
-            </div>
-        </a>
-    `;
-}
-
-// 渲染网站卡片（同步版本，保持兼容性）
-function renderSiteCard(site) {
-    const highlightedName = highlightSearchTerm(site.name);
-    const highlightedDesc = highlightSearchTerm(site.description);
-    
-    return `
-        <a href="${site.url}" class="category-card" target="_blank" rel="noopener noreferrer" 
-           data-site-id="${site.id}">
-            <div class="card-icon">${renderIcon(site.icon)}</div>
             <div class="card-content">
                 <h3 class="card-title">${highlightedName}</h3>
                 <p class="card-desc">${highlightedDesc}</p>
@@ -755,7 +722,6 @@ function getCategoryInfo(category) {
         entertainment: { name: '娱乐休闲', icon: '🎵', description: '精彩纷呈的娱乐内容' },
         shopping: { name: '购物商城', icon: '🛍️', description: '优质可靠的购物平台' },
         education: { name: '学习教育', icon: '📚', description: '知识学习的最佳选择' },
-        // 新增的分类
         overseas_bank: { name: '境外银行账户', icon: '🏦', description: '境外银行开户与账户管理服务' },
         securities: { name: '港美股券商', icon: '📈', description: '港美股投资交易平台' },
         overseas_sim: { name: '境外手机卡', icon: '📱', description: '境外手机卡与通信服务' },
@@ -765,14 +731,15 @@ function getCategoryInfo(category) {
     return categoryMap[category] || { name: category, icon: '🌐', description: '' };
 }
 
-// 导航滚动效果
+// 优化的导航滚动效果
 function handleNavScroll() {
     const nav = document.querySelector('.nav-header');
     const categoryFilter = document.querySelector('.category-filter');
     const quickAccess = document.querySelector('.quick-access');
-    const navHeight = nav.offsetHeight;
     
-    // 计算关键位置
+    if (!nav || !categoryFilter || !quickAccess) return;
+    
+    const navHeight = nav.offsetHeight;
     const quickAccessBottom = quickAccess.offsetTop + quickAccess.offsetHeight;
     const scrollY = window.scrollY;
     
@@ -785,9 +752,8 @@ function handleNavScroll() {
         nav.style.boxShadow = 'none';
     }
     
-    // 分类过滤器吸附效果 - 只在滚动超过快速访问区域后才吸附
+    // 分类过滤器吸附效果
     if (scrollY > quickAccessBottom - navHeight) {
-        // 启用吸附效果
         if (!categoryFilter.classList.contains('sticky')) {
             categoryFilter.style.position = 'fixed';
             categoryFilter.style.top = navHeight + 'px';
@@ -800,7 +766,6 @@ function handleNavScroll() {
             categoryFilter.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
             categoryFilter.classList.add('sticky');
             
-            // 添加占位元素避免内容跳跃
             if (!document.querySelector('.filter-placeholder')) {
                 const placeholder = document.createElement('div');
                 placeholder.className = 'filter-placeholder';
@@ -809,12 +774,10 @@ function handleNavScroll() {
             }
         }
     } else {
-        // 移除吸附效果，回到正常位置
         if (categoryFilter.classList.contains('sticky')) {
             categoryFilter.style.cssText = '';
             categoryFilter.classList.remove('sticky');
             
-            // 移除占位元素
             const placeholder = document.querySelector('.filter-placeholder');
             if (placeholder) {
                 placeholder.remove();
@@ -825,14 +788,12 @@ function handleNavScroll() {
 
 // 键盘快捷键处理
 function handleKeyboardShortcuts(e) {
-    // Ctrl/Cmd + K 快速搜索
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
         elements.searchInput.focus();
         elements.searchInput.select();
     }
     
-    // ESC 清空搜索
     if (e.key === 'Escape') {
         if (elements.searchInput.value) {
             elements.searchInput.value = '';
@@ -840,47 +801,17 @@ function handleKeyboardShortcuts(e) {
         }
     }
     
-    // 数字键快速切换分类
-    if (e.key >= '1' && e.key <= '9' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+    if (e.key >= '1' && e.key <= '9' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault();
         const index = parseInt(e.key) - 1;
-        const filterButtons = Array.from(elements.filterBtns);
-        if (filterButtons[index]) {
-            filterButtons[index].click();
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        if (filterBtns[index]) {
+            filterBtns[index].click();
         }
     }
 }
 
-// 显示加载状态
-function showLoading() {
-    elements.loading.style.display = 'flex';
-    elements.loading.innerHTML = `
-        <div class="loading-spinner">
-            <div class="spinner"></div>
-            <p>正在加载数据...</p>
-        </div>
-    `;
-}
-
-// 隐藏加载状态
-function hideLoading() {
-    elements.loading.style.display = 'none';
-}
-
-// 显示错误信息
-function showError(message) {
-    elements.categoriesContainer.innerHTML = `
-        <div class="error-message">
-            <div class="error-content">
-                <div class="error-icon">⚠️</div>
-                <h3>加载失败</h3>
-                <p>${message}</p>
-                <button onclick="location.reload()" class="retry-btn">重新加载</button>
-            </div>
-        </div>
-    `;
-}
-
-// 防抖函数
+// 工具函数：防抖
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -891,6 +822,158 @@ function debounce(func, wait) {
         clearTimeout(timeout);
         timeout = setTimeout(later, wait);
     };
+}
+
+// 显示加载状态
+function showLoading() {
+    if (elements.loading) {
+        elements.loading.style.display = 'flex';
+    }
+}
+
+// 隐藏加载状态
+function hideLoading() {
+    if (elements.loading) {
+        elements.loading.style.display = 'none';
+    }
+}
+
+// 显示错误信息
+function showError(message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #ff4757;
+        color: white;
+        padding: 15px 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(255, 71, 87, 0.3);
+        z-index: 10000;
+        animation: slideInRight 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    `;
+    errorDiv.textContent = message;
+    
+    document.body.appendChild(errorDiv);
+    
+    setTimeout(() => {
+        errorDiv.style.animation = 'slideOutRight 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        setTimeout(() => {
+            if (errorDiv.parentNode) {
+                errorDiv.parentNode.removeChild(errorDiv);
+            }
+        }, 300);
+    }, 5000);
+}
+
+// 平滑滚动到元素
+function smoothScrollTo(element) {
+    if (element) {
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+}
+
+// 获取当前时间问候语
+function getGreeting() {
+    const hour = new Date().getHours();
+    if (hour < 6) return '夜深了';
+    if (hour < 9) return '早上好';
+    if (hour < 12) return '上午好';
+    if (hour < 14) return '中午好';
+    if (hour < 18) return '下午好';
+    if (hour < 22) return '晚上好';
+    return '夜晚好';
+}
+
+// 格式化数字（添加千分位分隔符）
+function formatNumber(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+}
+
+// 检测设备类型
+function isMobile() {
+    return window.innerWidth <= 768 || /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+// 检测深色模式偏好
+function prefersDarkMode() {
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+
+// 复制文本到剪贴板
+async function copyToClipboard(text) {
+    try {
+        await navigator.clipboard.writeText(text);
+        return true;
+    } catch (err) {
+        // 降级处理
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            document.execCommand('copy');
+            return true;
+        } catch (err) {
+            return false;
+        } finally {
+            document.body.removeChild(textArea);
+        }
+    }
+}
+
+// 生成随机ID
+function generateId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+
+// 验证URL格式
+function isValidUrl(string) {
+    try {
+        new URL(string);
+        return true;
+    } catch (_) {
+        return false;
+    }
+}
+
+// 提取域名
+function extractDomain(url) {
+    try {
+        return new URL(url).hostname.replace(/^www\./, '');
+    } catch (_) {
+        return '';
+    }
+}
+
+// 格式化文件大小
+function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+    
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+// 获取随机颜色
+function getRandomColor() {
+    const colors = [
+        '#ff6b6b', '#4ecdc4', '#45b7d1', '#96ceb4', '#ffeaa7',
+        '#dda0dd', '#98d8c8', '#f7dc6f', '#bb8fce', '#85c1e9'
+    ];
+    return colors[Math.floor(Math.random() * colors.length)];
 }
 
 // 节流函数
@@ -904,57 +987,148 @@ function throttle(func, limit) {
             inThrottle = true;
             setTimeout(() => inThrottle = false, limit);
         }
+    };
+}
+
+// 深拷贝对象
+function deepClone(obj) {
+    if (obj === null || typeof obj !== 'object') return obj;
+    if (obj instanceof Date) return new Date(obj.getTime());
+    if (obj instanceof Array) return obj.map(item => deepClone(item));
+    if (typeof obj === 'object') {
+        const clonedObj = {};
+        for (const key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                clonedObj[key] = deepClone(obj[key]);
+            }
+        }
+        return clonedObj;
     }
 }
 
-// 工具函数：获取随机颜色
-function getRandomColor() {
-    const colors = [
-        '#FF6B6B', '#4ECDC4', '#45B7D1', '#96CEB4', '#FFEAA7',
-        '#DDA0DD', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E9'
-    ];
-    return colors[Math.floor(Math.random() * colors.length)];
-}
-
-// 工具函数：格式化URL
-function formatUrl(url) {
-    if (!url.startsWith('http://') && !url.startsWith('https://')) {
-        return 'https://' + url;
+// 存储管理（使用内存存储，因为不能使用localStorage）
+const storage = {
+    data: new Map(),
+    
+    set(key, value) {
+        try {
+            this.data.set(key, JSON.stringify(value));
+            return true;
+        } catch (error) {
+            console.error('存储失败:', error);
+            return false;
+        }
+    },
+    
+    get(key) {
+        try {
+            const value = this.data.get(key);
+            return value ? JSON.parse(value) : null;
+        } catch (error) {
+            console.error('读取失败:', error);
+            return null;
+        }
+    },
+    
+    remove(key) {
+        return this.data.delete(key);
+    },
+    
+    clear() {
+        this.data.clear();
+    },
+    
+    has(key) {
+        return this.data.has(key);
     }
-    return url;
-}
-
-// 工具函数：截取文本
-function truncateText(text, maxLength) {
-    if (text.length <= maxLength) {
-        return text;
-    }
-    return text.slice(0, maxLength) + '...';
-}
+};
 
 // 性能监控
-const Performance = {
+const performance = {
     marks: new Map(),
     
     mark(name) {
-        this.marks.set(name, performance.now());
+        this.marks.set(name, Date.now());
     },
     
     measure(name, startMark) {
-        const startTime = this.marks.get(startMark);
-        if (startTime) {
-            const duration = performance.now() - startTime;
-            console.log(`${name}: ${duration.toFixed(2)}ms`);
+        const start = this.marks.get(startMark);
+        if (start) {
+            const duration = Date.now() - start;
+            console.log(`${name}: ${duration}ms`);
             return duration;
         }
+        return 0;
     }
 };
 
-// 导出配置（如果需要在其他脚本中使用）
-window.NavConfig = {
-    DATA_CONFIG,
-    FAVICON_CONFIG,
-    getCategoryInfo,
-    getFavicon,
-    renderIcon
+// 初始化性能监控
+performance.mark('init-start');
+
+// 错误处理
+window.addEventListener('error', (event) => {
+    console.error('全局错误:', event.error);
+});
+
+window.addEventListener('unhandledrejection', (event) => {
+    console.error('未处理的Promise拒绝:', event.reason);
+});
+
+// 页面可见性变化处理
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        console.log('页面隐藏');
+    } else {
+        console.log('页面显示');
+    }
+});
+
+// 网络状态监听
+window.addEventListener('online', () => {
+    console.log('网络已连接');
+});
+
+window.addEventListener('offline', () => {
+    console.log('网络已断开');
+    showError('网络连接已断开，部分功能可能无法正常使用');
+});
+
+// 导出主要函数供外部使用
+window.NavigationSite = {
+    // 数据相关
+    getSitesData: () => sitesData,
+    setSitesData: (data) => { sitesData = data; renderContent(); },
+    
+    // 搜索相关
+    search: (query) => {
+        elements.searchInput.value = query;
+        handleSearch();
+    },
+    
+    // 分类相关
+    setCategory: (category) => setActiveCategory(category),
+    getCurrentCategory: () => currentCategory,
+    
+    // 工具函数
+    utils: {
+        debounce,
+        throttle,
+        deepClone,
+        formatNumber,
+        formatFileSize,
+        copyToClipboard,
+        isValidUrl,
+        extractDomain,
+        getRandomColor,
+        isMobile,
+        prefersDarkMode
+    },
+    
+    // 存储
+    storage,
+    
+    // 性能监控
+    performance
 };
+
+console.log('导航网站脚本加载完成');
