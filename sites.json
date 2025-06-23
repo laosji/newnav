@@ -470,5 +470,13 @@
     "url": "https://www.safepal.com/store/s1?ref=odu4mwu",
     "icon": "https://www.safepal.com/favicon.ico",
     "category": "securities"
+  },
+  {
+    "id": 60,
+    "name": "Binpay",
+    "description": "稳定的美元U卡，可绑定支付宝/Google pay消费",
+    "url": "https://app.binpay.cc/pages/passport/invitation?r=1106548",
+    "icon": "https://binpay.cc/images/logo_03.png",
+    "category": "securities"
   }
 ]
