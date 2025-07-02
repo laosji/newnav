@@ -486,5 +486,21 @@
     "url": "https://krak.app/zh-cn/@laosjifuli",
     "icon": "https://assets-cms.kraken.com/images/51n36hrp/facade/b88fdf8e94f79344127db0f8702d3c8ff67f0575-180x180.png",
     "category": "securities"
+  },
+  {
+    "id": 62,
+    "name": "kookeey",
+    "description": "全球纯净住宅ip,代理IP精选",
+    "url": "https://www.kookeey.com/register.html?aff=45808377",
+    "icon": "https://oss.kookeey.com/cms/favicon_22256befbb.ico?updated_at=2023-05-29T03:14:05.219Z",
+    "category": "others"
+  },
+  {
+    "id": 63,
+    "name": "txdpn",
+    "description": "稳定低价VPN，支持clash、shadowrocket、v2ray等平台",
+    "url": "https://txdpn.link/#/register?code=6yFAMp59",
+    "icon": "https://txdpn.link/theme/Aurora-Ryan/favicon.svg",
+    "category": "others"
   }
 ]
