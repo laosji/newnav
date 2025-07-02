@@ -478,5 +478,13 @@
     "url": "https://app.binpay.cc/pages/passport/invitation?r=1106548",
     "icon": "https://binpay.cc/images/logo_03.png",
     "category": "securities"
+  },
+  {
+    "id": 61,
+    "name": "Krak",
+    "description": "海妖推出的资产管理平台，新用户注册首充$10以上，送10USD，邀请码「laosjifuli」",
+    "url": "https://krak.app/zh-cn/@laosjifuli",
+    "icon": "https://assets-cms.kraken.com/images/51n36hrp/facade/b88fdf8e94f79344127db0f8702d3c8ff67f0575-180x180.png",
+    "category": "securities"
   }
 ]
