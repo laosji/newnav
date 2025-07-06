@@ -502,5 +502,13 @@
     "url": "https://txdpn.link/#/register?code=6yFAMp59",
     "icon": "https://txdpn.link/theme/Aurora-Ryan/favicon.svg",
     "category": "others"
+  },
+  {
+    "id": 64,
+    "name": "Revolut美区",
+    "description": "新用户注册可得50USD奖励！注册需要提供美国手机号、美国地址、ITIN和内地护照，没有信用也可以。",
+    "url": "https://revolut.com/referral/?referral-code=chaod!JUN2-25-AR-US-H1-REFBLOCK-AE&geo-redirect",
+    "icon": "https://assets.revolut.com/assets/favicons/favicon-32x32.png",
+    "category": "securities"
   }
 ]
