@@ -308,7 +308,7 @@
     "name": "IBKR盈透证券",
     "description": "领取最多$1000美金开户奖励",
     "url": "https://ibkr.com/referral/chao135",
-    "icon": "📈",
+    "icon": "https://www.interactivebrokers.com/images/2015/template/home-screen-icon-192x192.png",
     "category": "securities"
   },
   {
@@ -316,7 +316,7 @@
     "name": "长桥证券",
     "description": "港美股开户无需存量证明，4月开户活动领取400港币+80元京东卡",
     "url": "https://app.longbridgehk.com/ac/oa?account_channel=lb&channel=HB100034&invite-code=48T09P",
-    "icon": "📊",
+    "icon": "https://pub.lbctrl.com/files/202107/T5aX4c5WpehksPvn/favicon.ico",
     "category": "securities"
   },
   {
@@ -324,7 +324,7 @@
     "name": "老虎证券",
     "description": "总奖励价值1300港币+laosji专属100港币代金券+180天30次免佣卡。填写邀请码 ：laosji",
     "url": "https://tigr.link/7gIFaD",
-    "icon": "🐅",
+    "icon": "https://c1.itigergrowtha.com/portal5/static/media/logo.152.b51dd151.png",
     "category": "securities"
   },
   {
@@ -332,7 +332,7 @@
     "name": "华盛通",
     "description": "通过本链接开户最多可领取1500港币奖励，需要存量证明",
     "url": "https://www.vbkr.com/kh/apply/app-switch?_scnl=E1NC&_p=1",
-    "icon": "📈",
+    "icon": "https://www.vbkr.com/favicon.ico",
     "category": "securities"
   },
   {
@@ -340,7 +340,7 @@
     "name": "富途开户",
     "description": "需要港美股账户存量证明，富途牛牛入金兑换码是: AZ48SM（APP-我的-活动中心-兑换中心)",
     "url": "https://www.futunn.com/",
-    "icon": "🐂",
+    "icon": "https://static.futunn.com/futunn_common/images/nn_logo.png",
     "category": "securities"
   },
   {
@@ -348,7 +348,7 @@
     "name": "Moomoo SG",
     "description": "Moomoo SG新人礼包高达$990新加坡证券APP下载NO.1。存入S$100，并执行1笔买入交易，获得S$20现金福利",
     "url": "https://j.moomoo.com/017wOA",
-    "icon": "📱",
+    "icon": "https://passport.moomoo.com/favicon1.ico",
     "category": "securities"
   },
   {
@@ -404,7 +404,7 @@
     "name": "Neverless",
     "description": "Neverless 是一款新兴投资应用，通过邀请码\"laosji\"注册可获得专属奖励",
     "url": "https://neverless.com/referral?code=laosji",
-    "icon": "📈",
+    "icon": "https://neverless.com/favicon_dark.ico",
     "category": "securities"
   },
   {
