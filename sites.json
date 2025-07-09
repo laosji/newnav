@@ -510,5 +510,13 @@
     "url": "https://revolut.com/referral/?referral-code=chaod!JUN2-25-AR-US-H1-REFBLOCK-AE&geo-redirect",
     "icon": "https://assets.revolut.com/assets/favicons/favicon-32x32.png",
     "category": "securities"
+  },
+  {
+    "id": 65,
+    "name": "海妖kraken",
+    "description": "全球前5大交易所之一，《福布斯顾问》2025年最佳加密货币平台",
+    "url": "https://kraken.pxf.io/o4aXPm",
+    "icon": "https://www.kraken.com/_assets/icons/apple-touch-icon.png",
+    "category": "securities"
   }
 ]
