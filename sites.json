@@ -509,7 +509,7 @@
     "description": "新用户注册可得50USD奖励！注册需要提供美国手机号、美国地址、ITIN和内地护照，没有信用也可以。",
     "url": "https://revolut.com/referral/?referral-code=chaod!JUN2-25-AR-US-H1-REFBLOCK-AE&geo-redirect",
     "icon": "https://assets.revolut.com/assets/favicons/favicon-32x32.png",
-    "category": "securities"
+    "category": "overseas_bank"
   },
   {
     "id": 65,
@@ -526,5 +526,13 @@
     "url": "https://res.cc.cmbimg.com/itafront/Frog/#/mgmLogin/api3xxmgmlj4/remote?webAddress=9WD_ICON_RD&where=zs7_ty4&pageName=MRecContract&activityTitle=MGMXSDS202507TY4&appChn=05&dsid=&dscontr=&pretrackno=be557ca0807745ffb360e4c3d2376c32&pretrack=10403787&mgmSm2Flag=1&mgmSource=share&m1TraceId=be557ca0807745ffb360e4c3d2376c32",
     "icon": "https://www.cmbchina.com/cmb.ico",
     "category": "securities"
+  },
+  {
+    "id": 67,
+    "name": "SoFi",
+    "description": "新用户注册可得50USD奖励！注册需要提供美国手机号、美国地址、ITIN和内地护照，没有信用也可以。",
+    "url": "https://www.sofi.com/invite/money?gcp=32c0dc29-3d69-4787-b3b7-0398d37f1099&isAliasGcp=false",
+    "icon": "https://www.sofi.com/favicon.ico",
+    "category": "overseas_bank"
   }
 ]
