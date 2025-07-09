@@ -518,5 +518,13 @@
     "url": "https://kraken.pxf.io/o4aXPm",
     "icon": "https://www.kraken.com/_assets/icons/apple-touch-icon.png",
     "category": "securities"
+  },
+  {
+    "id": 66,
+    "name": "招商银行信用卡",
+    "description": "招商银行信用卡办理",
+    "url": "https://res.cc.cmbimg.com/itafront/Frog/#/mgmLogin/api3xxmgmlj4/remote?webAddress=9WD_ICON_RD&where=zs7_ty4&pageName=MRecContract&activityTitle=MGMXSDS202507TY4&appChn=05&dsid=&dscontr=&pretrackno=be557ca0807745ffb360e4c3d2376c32&pretrack=10403787&mgmSm2Flag=1&mgmSource=share&m1TraceId=be557ca0807745ffb360e4c3d2376c32",
+    "icon": "https://www.cmbchina.com/cmb.ico",
+    "category": "securities"
   }
 ]
