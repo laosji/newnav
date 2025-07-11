@@ -534,5 +534,13 @@
     "url": "https://www.sofi.com/invite/money?gcp=32c0dc29-3d69-4787-b3b7-0398d37f1099&isAliasGcp=false",
     "icon": "https://www.sofi.com/favicon.ico",
     "category": "overseas_bank"
+  },
+  {
+    "id": 67,
+    "name": "Xapo Bank",
+    "description": "直布罗陀监管存款计划保障10万欧元保障，美元存款年利率3.9%，比特币0.5%年利率，次日到账",
+    "url": "https://www.xapobank.com/en?utm_source=kol_hklife&utm_medium=text&utm_campaign=hklife_jul2025&utm_content=article",
+    "icon": "https://cdn.prod2.kustomerhostedcontent.com/media/5f480551bdcf17001a546e70/7f3dc503884c916b6684f08856bc8b70.png",
+    "category": "overseas_bank"
   }
 ]
