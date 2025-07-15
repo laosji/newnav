@@ -542,5 +542,13 @@
     "url": "https://www.xapobank.com/en?utm_source=kol_hklife&utm_medium=text&utm_campaign=hklife_jul2025&utm_content=article",
     "icon": "https://cdn.prod2.kustomerhostedcontent.com/media/5f480551bdcf17001a546e70/7f3dc503884c916b6684f08856bc8b70.png",
     "category": "overseas_bank"
+  },
+  {
+    "id": 68,
+    "name": "OKX(欧易)",
+    "description": "中国身份证注册，支持微信/支付宝/内地银行卡出入金，邀请码：61967724",
+    "url": "https://ouxyi.me/ul/YbU25D?channelId=61967724",
+    "icon": "https://www.okx.com/cdn/assets/imgs/253/59830BB78B18A776.png",
+    "category": "securities"
   }
 ]
