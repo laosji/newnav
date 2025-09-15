@@ -558,5 +558,21 @@
     "url": "https://p.whalesb.com/xzCaHFJ?lan=zh",
     "icon": "https://www.whalesb.com/favicon.ico",
     "category": "securities"
+  },
+  {
+    "id": 70,
+    "name": "UR（瑞士个人iban）",
+    "description": "法币（fiat）与加密货币自由合法兑换，邀请码qn895r",
+    "url": "https://get.ur.app/login?code=qn895r",
+    "icon": "https://ur.app/images/android-chrome-192x192.png",
+    "category": "securities"
+  },
+  {
+    "id": 71,
+    "name": "Payy",
+    "description": "波多黎各美元U卡",
+    "url": "https://payy.link/invite/8UFBN7",
+    "icon": "https://payy.link/icon.png?275bbc13b8529e23",
+    "category": "securities"
   }
 ]
