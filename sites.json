@@ -1,261 +1,5 @@
 [
   {
-    "id": 1,
-    "name": "Google",
-    "description": "全球最大的搜索引擎",
-    "url": "https://www.google.com",
-    "icon": "",
-    "category": "productivity"
-  },
-  {
-    "id": 2,
-    "name": "GitHub",
-    "description": "开发者代码托管平台",
-    "url": "https://github.com",
-    "icon": "",
-    "category": "development"
-  },
-  {
-    "id": 3,
-    "name": "ChatGPT",
-    "description": "AI智能对话助手",
-    "url": "https://chat.openai.com",
-    "icon": "🤖",
-    "category": "ai"
-  },
-  {
-    "id": 4,
-    "name": "Claude",
-    "description": "Anthropic AI助手",
-    "url": "https://claude.ai/referral/EIKliugDvw",
-    "icon": "🧠",
-    "category": "ai"
-  },
-  {
-    "id": 5,
-    "name": "Midjourney",
-    "description": "AI图像生成工具",
-    "url": "https://www.midjourney.com",
-    "icon": "🎨",
-    "category": "ai"
-  },
-  {
-    "id": 6,
-    "name": "Figma",
-    "description": "在线协作设计工具",
-    "url": "https://www.figma.com",
-    "icon": "🎨",
-    "category": "design"
-  },
-  {
-    "id": 7,
-    "name": "Adobe Creative Cloud",
-    "description": "创意设计软件套件",
-    "url": "https://www.adobe.com",
-    "icon": "🌈",
-    "category": "design"
-  },
-  {
-    "id": 8,
-    "name": "Canva",
-    "description": "简单易用的设计平台",
-    "url": "https://www.canva.com",
-    "icon": "✨",
-    "category": "design"
-  },
-  {
-    "id": 9,
-    "name": "VS Code",
-    "description": "微软开源代码编辑器",
-    "url": "https://code.visualstudio.com",
-    "icon": "💻",
-    "category": "development"
-  },
-  {
-    "id": 10,
-    "name": "Stack Overflow",
-    "description": "程序员问答社区",
-    "url": "https://stackoverflow.com",
-    "icon": "❓",
-    "category": "development"
-  },
-  {
-    "id": 11,
-    "name": "CodePen",
-    "description": "前端代码分享平台",
-    "url": "https://codepen.io",
-    "icon": "🖊️",
-    "category": "development"
-  },
-  {
-    "id": 12,
-    "name": "Notion",
-    "description": "多功能笔记与协作工具",
-    "url": "https://www.notion.so",
-    "icon": "📝",
-    "category": "productivity"
-  },
-  {
-    "id": 13,
-    "name": "Slack",
-    "description": "团队沟通协作平台",
-    "url": "https://slack.com",
-    "icon": "💬",
-    "category": "productivity"
-  },
-  {
-    "id": 14,
-    "name": "Trello",
-    "description": "看板式项目管理工具",
-    "url": "https://trello.com",
-    "icon": "📋",
-    "category": "productivity"
-  },
-  {
-    "id": 15,
-    "name": "Gmail",
-    "description": "谷歌邮箱服务",
-    "url": "https://mail.google.com",
-    "icon": "📧",
-    "category": "productivity"
-  },
-  {
-    "id": 16,
-    "name": "YouTube",
-    "description": "全球最大视频分享平台",
-    "url": "https://www.youtube.com",
-    "icon": "📺",
-    "category": "entertainment"
-  },
-  {
-    "id": 17,
-    "name": "Netflix",
-    "description": "在线视频流媒体平台",
-    "url": "https://www.netflix.com",
-    "icon": "🎬",
-    "category": "entertainment"
-  },
-  {
-    "id": 18,
-    "name": "Spotify",
-    "description": "音乐流媒体服务",
-    "url": "https://www.spotify.com",
-    "icon": "🎵",
-    "category": "entertainment"
-  },
-  {
-    "id": 19,
-    "name": "Bilibili",
-    "description": "中国视频弹幕网站",
-    "url": "https://www.bilibili.com",
-    "icon": "📱",
-    "category": "entertainment"
-  },
-  {
-    "id": 20,
-    "name": "Amazon",
-    "description": "全球电商购物平台",
-    "url": "https://www.amazon.com",
-    "icon": "🛒",
-    "category": "shopping"
-  },
-  {
-    "id": 21,
-    "name": "淘宝",
-    "description": "中国最大的电商平台",
-    "url": "https://www.taobao.com",
-    "icon": "🛍️",
-    "category": "shopping"
-  },
-  {
-    "id": 22,
-    "name": "京东",
-    "description": "中国知名电商平台",
-    "url": "https://www.jd.com",
-    "icon": "📦",
-    "category": "shopping"
-  },
-  {
-    "id": 23,
-    "name": "微信文件传输",
-    "description": "微信文件传输网页版",
-    "url": "https://wx.qq.com",
-    "icon": "💬",
-    "category": "social"
-  },
-  {
-    "id": 24,
-    "name": "微博",
-    "description": "中国社交媒体平台",
-    "url": "https://weibo.com",
-    "icon": "📢",
-    "category": "social"
-  },
-  {
-    "id": 25,
-    "name": "Twitter",
-    "description": "全球微博客社交网络",
-    "url": "https://twitter.com",
-    "icon": "🐦",
-    "category": "social"
-  },
-  {
-    "id": 26,
-    "name": "Instagram",
-    "description": "图片视频分享社交平台",
-    "url": "https://www.instagram.com",
-    "icon": "📸",
-    "category": "social"
-  },
-  {
-    "id": 27,
-    "name": "Coursera",
-    "description": "在线课程学习平台",
-    "url": "https://www.coursera.org",
-    "icon": "🎓",
-    "category": "education"
-  },
-  {
-    "id": 28,
-    "name": "edX",
-    "description": "哈佛麻省理工在线课程",
-    "url": "https://www.edx.org",
-    "icon": "📚",
-    "category": "education"
-  },
-  {
-    "id": 29,
-    "name": "Khan Academy",
-    "description": "免费在线教育平台",
-    "url": "https://www.khanacademy.org",
-    "icon": "🏫",
-    "category": "education"
-  },
-  {
-    "id": 30,
-    "name": "百度",
-    "description": "中国最大的搜索引擎",
-    "url": "https://www.baidu.com",
-    "icon": "🔍",
-    "category": "normal"
-  },
-  {
-    "id": 31,
-    "name": "知乎",
-    "description": "中文问答知识社区",
-    "url": "https://www.zhihu.com",
-    "icon": "🤔",
-    "category": "normal"
-  },
-  {
-    "id": 32,
-    "name": "豆瓣",
-    "description": "生活文化兴趣社区",
-    "url": "https://www.douban.com",
-    "icon": "📖",
-    "category": "normal"
-  },
-  {
     "id": 33,
     "name": "新加坡华侨银行",
     "description": "不用出国，全程手机申请0存款，首年免管理费，开户一个月内若存款1000新币，使用推荐码\"W5GR37JB\"开户可获得至少15新币的现金奖励",
@@ -268,7 +12,7 @@
     "name": "ifast",
     "description": "英国虚拟银行，免费开户，无年费，（FSCS）的保障",
     "url": "https://www.ifastgb.com/tellafriend/chaod1702",
-    "icon": "🏦",
+    "icon": "https://static.ifastgb.com/favicon.ico",
     "category": "overseas_bank"
   },
   {
@@ -292,7 +36,7 @@
     "name": "汇丰香港",
     "description": "汇丰香港、无存款要求，存款$10,000港币可申请汇丰香港信用卡",
     "url": "https://mp.weixin.qq.com/s/dFiwX49BmgvOmjdicJVE8w",
-    "icon": "🏦",
+    "icon": "https://www.hsbc.com.hk/content/dam/hsbc/hk/images/tc-hsbc-logo-2.svg",
     "category": "overseas_bank"
   },
   {
@@ -302,6 +46,78 @@
     "url": "https://mp.weixin.qq.com/s/Q-o1tObsxtWUD3CEHVP6lQ",
     "icon": "🏦",
     "category": "overseas_bank"
+  },
+  {
+    "id": 49,
+    "name": "招商永隆",
+    "description": "招商永隆，在国内可以申请开户，需要到香港面签",
+    "url": "https://mp.weixin.qq.com/s/eKTAewMXX6xPUpq4TpNPUg",
+    "icon": "🏦",
+    "category": "overseas_bank"
+  },
+  {
+    "id": 52,
+    "name": "ZA Bank（众安银行）",
+    "description": "香港虚拟银行，邀请码 NUGAP7，开户教程详见文章",
+    "url": "https://mp.weixin.qq.com/s/Sp03PeHj-tF3lSAhx-fGAw",
+    "icon": "🏛️",
+    "category": "overseas_bank"
+  },
+  {
+    "id": 53,
+    "name": "WeLab Bank",
+    "description": "香港虚拟银行，邀请码 LAOSJI，开户教程详见文章",
+    "url": "https://mp.weixin.qq.com/s/qrVtd8KhrOHFKBZqmd7uhA",
+    "icon": "🏛️",
+    "category": "overseas_bank"
+  },
+  {
+    "id": 64,
+    "name": "Revolut美区",
+    "description": "新用户注册可得50USD奖励！注册需要提供美国手机号、美国地址、ITIN和内地护照，没有信用也可以。",
+    "url": "https://revolut.com/referral/?referral-code=chaod!JUN2-25-AR-US-H1-REFBLOCK-AE&geo-redirect",
+    "icon": "https://assets.revolut.com/assets/favicons/favicon-32x32.png",
+    "category": "overseas_bank"
+  },
+  {
+    "id": 67,
+    "name": "SoFi",
+    "description": "新用户注册可得50USD奖励！注册需要提供美国手机号、美国地址、ITIN和内地护照，没有信用也可以。",
+    "url": "https://www.sofi.com/invite/money?gcp=32c0dc29-3d69-4787-b3b7-0398d37f1099&isAliasGcp=false",
+    "icon": "https://www.sofi.com/favicon.ico",
+    "category": "overseas_bank"
+  },
+  {
+    "id": 72,
+    "name": "Xapo Bank",
+    "description": "直布罗陀监管存款计划保障10万欧元保障，美元存款年利率3.9%，比特币0.5%年利率，次日到账",
+    "url": "https://www.xapobank.com/en?utm_source=kol_hklife&utm_medium=text&utm_campaign=hklife_jul2025&utm_content=article",
+    "icon": "https://cdn.prod2.kustomerhostedcontent.com/media/5f480551bdcf17001a546e70/7f3dc503884c916b6684f08856bc8b70.png",
+    "category": "overseas_bank"
+  },
+  {
+    "id": 60,
+    "name": "Binpay",
+    "description": "稳定的美元U卡，可绑定支付宝/Google pay消费",
+    "url": "https://app.binpay.cc/pages/passport/invitation?r=1106548",
+    "icon": "https://binpay.cc/images/logo_03.png",
+    "category": "ucard"
+  },
+  {
+    "id": 71,
+    "name": "Payy",
+    "description": "波多黎各美元U卡",
+    "url": "https://payy.link/invite/8UFBN7",
+    "icon": "https://payy.link/icon.png?275bbc13b8529e23",
+    "category": "ucard"
+  },
+  {
+    "id": 73,
+    "name": "OneKey Card",
+    "description": "支持在线开通美元VISA虚拟卡，可绑定支付宝、微信支付、Google Pay等",
+    "url": "https://card.onekey.so/",
+    "icon": "https://card.onekey.so/favicon.ico",
+    "category": "ucard"
   },
   {
     "id": 39,
@@ -376,6 +192,358 @@
     "category": "securities"
   },
   {
+    "id": 57,
+    "name": "盈立证券（香港）开户奖励领取",
+    "description": "交易免佣金，新用户领取460HKD开户奖励，港股三巨头免佣金",
+    "url": "https://m.usmart66.com/webapp/open-account/apply.html?ICode=U02457#/register",
+    "icon": "📊",
+    "category": "securities"
+  },
+  {
+    "id": 66,
+    "name": "招商银行信用卡",
+    "description": "招商银行信用卡办理",
+    "url": "https://res.cc.cmbimg.com/itafront/Frog/#/mgmLogin/api3xxmgmlj4/remote?webAddress=9WD_ICON_RD&where=zs7_ty4&pageName=MRecContract&activityTitle=MGMXSDS202507TY4&appChn=05&dsid=&dscontr=&pretrackno=be557ca0807745ffb360e4c3d2376c32&pretrack=10403787&mgmSm2Flag=1&mgmSource=share&m1TraceId=be557ca0807745ffb360e4c3d2376c32",
+    "icon": "https://www.cmbchina.com/cmb.ico",
+    "category": "securities"
+  },
+  {
+    "id": 51,
+    "name": "Neverless",
+    "description": "Neverless 是一款新兴投资应用，通过邀请码\"laosji\"注册可获得专属奖励",
+    "url": "https://neverless.com/referral?code=laosji",
+    "icon": "https://neverless.com/favicon_dark.ico",
+    "category": "crypto_exchange"
+  },
+  {
+    "id": 54,
+    "name": "Binance 币安",
+    "description": "全球最大的数字货币交易平台之一，通过该注册链接享受手续费优惠",
+    "url": "https://www.binance.com/zh-CN/activity/referral/offers/claim?ref=CPA_00U6B6DNIR&utm_source=Lite_web_account",
+    "icon": "₿",
+    "category": "crypto_exchange"
+  },
+  {
+    "id": 58,
+    "name": "OSL",
+    "description": "香港首家获得数字资产交易所牌照的交易所，注册立领80元，入金10,000元再送288元 一个月内不提现",
+    "url": "https://trade-hk.osl.com/invite/activities?invitationCode=ycYoX",
+    "icon": "https://www.osl.com/favicon.ico",
+    "category": "crypto_exchange"
+  },
+  {
+    "id": 61,
+    "name": "Krak",
+    "description": "海妖推出的资产管理平台，新用户注册首充$10以上，送10USD，邀请码「laosjifuli」",
+    "url": "https://krak.app/zh-cn/@laosjifuli",
+    "icon": "https://assets-cms.kraken.com/images/51n36hrp/facade/b88fdf8e94f79344127db0f8702d3c8ff67f0575-180x180.png",
+    "category": "crypto_exchange"
+  },
+  {
+    "id": 65,
+    "name": "海妖kraken",
+    "description": "全球前5大交易所之一，《福布斯顾问》2025年最佳加密货币平台",
+    "url": "https://kraken.pxf.io/o4aXPm",
+    "icon": "https://www.kraken.com/_assets/icons/apple-touch-icon.png",
+    "category": "crypto_exchange"
+  },
+  {
+    "id": 68,
+    "name": "OKX(欧易)",
+    "description": "中国身份证注册，支持微信/支付宝/内地银行卡出入金，邀请码：61967724",
+    "url": "https://ouxyi.me/ul/YbU25D?channelId=61967724",
+    "icon": "https://www.okx.com/cdn/assets/imgs/253/59830BB78B18A776.png",
+    "category": "crypto_exchange"
+  },
+  {
+    "id": 69,
+    "name": "Wealth broker",
+    "description": "一家可出入U的券商，已在美国上市。此邀请链接注册手续费优惠40%。",
+    "url": "https://p.whalesb.com/xzCaHFJ?lan=zh",
+    "icon": "https://www.whalesb.com/favicon.ico",
+    "category": "crypto_exchange"
+  },
+  {
+    "id": 70,
+    "name": "UR（瑞士个人iban）",
+    "description": "法币（fiat）与加密货币自由合法兑换，邀请码qn895r",
+    "url": "https://get.ur.app/login?code=qn895r",
+    "icon": "https://ur.app/images/android-chrome-192x192.png",
+    "category": "crypto_exchange"
+  },
+  {
+    "id": 74,
+    "name": "Bybit",
+    "description": "全球领先的数字货币交易平台，提供丰富的交易对和衍生品",
+    "url": "https://www.bybit.com/",
+    "icon": "https://www.bybit.com/favicon.ico",
+    "category": "crypto_exchange"
+  },
+  {
+    "id": 59,
+    "name": "Safepal",
+    "description": "全方面的硬件加密钱包",
+    "url": "https://www.safepal.com/store/s1?ref=odu4mwu",
+    "icon": "https://www.safepal.com/favicon.ico",
+    "category": "crypto_wallet"
+  },
+  {
+    "id": 1,
+    "name": "Google",
+    "description": "全球最大的搜索引擎",
+    "url": "https://www.google.com",
+    "icon": "",
+    "category": "productivity"
+  },
+  {
+    "id": 12,
+    "name": "Notion",
+    "description": "多功能笔记与协作工具",
+    "url": "https://www.notion.so",
+    "icon": "📝",
+    "category": "productivity"
+  },
+  {
+    "id": 13,
+    "name": "Slack",
+    "description": "团队沟通协作平台",
+    "url": "https://slack.com",
+    "icon": "💬",
+    "category": "productivity"
+  },
+  {
+    "id": 14,
+    "name": "Trello",
+    "description": "看板式项目管理工具",
+    "url": "https://trello.com",
+    "icon": "📋",
+    "category": "productivity"
+  },
+  {
+    "id": 15,
+    "name": "Gmail",
+    "description": "谷歌邮箱服务",
+    "url": "https://mail.google.com",
+    "icon": "📧",
+    "category": "productivity"
+  },
+  {
+    "id": 3,
+    "name": "ChatGPT",
+    "description": "AI智能对话助手",
+    "url": "https://chat.openai.com",
+    "icon": "🤖",
+    "category": "ai"
+  },
+  {
+    "id": 4,
+    "name": "Claude",
+    "description": "Anthropic AI助手",
+    "url": "https://claude.ai/referral/EIKliugDvw",
+    "icon": "🧠",
+    "category": "ai"
+  },
+  {
+    "id": 5,
+    "name": "Midjourney",
+    "description": "AI图像生成工具",
+    "url": "https://www.midjourney.com",
+    "icon": "🎨",
+    "category": "ai"
+  },
+  {
+    "id": 2,
+    "name": "GitHub",
+    "description": "开发者代码托管平台",
+    "url": "https://github.com",
+    "icon": "",
+    "category": "development"
+  },
+  {
+    "id": 9,
+    "name": "VS Code",
+    "description": "微软开源代码编辑器",
+    "url": "https://code.visualstudio.com",
+    "icon": "💻",
+    "category": "development"
+  },
+  {
+    "id": 10,
+    "name": "Stack Overflow",
+    "description": "程序员问答社区",
+    "url": "https://stackoverflow.com",
+    "icon": "❓",
+    "category": "development"
+  },
+  {
+    "id": 11,
+    "name": "CodePen",
+    "description": "前端代码分享平台",
+    "url": "https://codepen.io",
+    "icon": "🖊️",
+    "category": "development"
+  },
+  {
+    "id": 6,
+    "name": "Figma",
+    "description": "在线协作设计工具",
+    "url": "https://www.figma.com",
+    "icon": "🎨",
+    "category": "design"
+  },
+  {
+    "id": 7,
+    "name": "Adobe Creative Cloud",
+    "description": "创意设计软件套件",
+    "url": "https://www.adobe.com",
+    "icon": "🌈",
+    "category": "design"
+  },
+  {
+    "id": 8,
+    "name": "Canva",
+    "description": "简单易用的设计平台",
+    "url": "https://www.canva.com",
+    "icon": "✨",
+    "category": "design"
+  },
+  {
+    "id": 23,
+    "name": "微信文件传输",
+    "description": "微信文件传输网页版",
+    "url": "https://wx.qq.com",
+    "icon": "💬",
+    "category": "social"
+  },
+  {
+    "id": 24,
+    "name": "微博",
+    "description": "中国社交媒体平台",
+    "url": "https://weibo.com",
+    "icon": "📢",
+    "category": "social"
+  },
+  {
+    "id": 25,
+    "name": "Twitter",
+    "description": "全球微博客社交网络",
+    "url": "https://twitter.com",
+    "icon": "🐦",
+    "category": "social"
+  },
+  {
+    "id": 26,
+    "name": "Instagram",
+    "description": "图片视频分享社交平台",
+    "url": "https://www.instagram.com",
+    "icon": "📸",
+    "category": "social"
+  },
+  {
+    "id": 16,
+    "name": "YouTube",
+    "description": "全球最大视频分享平台",
+    "url": "https://www.youtube.com",
+    "icon": "📺",
+    "category": "entertainment"
+  },
+  {
+    "id": 17,
+    "name": "Netflix",
+    "description": "在线视频流媒体平台",
+    "url": "https://www.netflix.com",
+    "icon": "🎬",
+    "category": "entertainment"
+  },
+  {
+    "id": 18,
+    "name": "Spotify",
+    "description": "音乐流媒体服务",
+    "url": "https://www.spotify.com",
+    "icon": "🎵",
+    "category": "entertainment"
+  },
+  {
+    "id": 19,
+    "name": "Bilibili",
+    "description": "中国视频弹幕网站",
+    "url": "https://www.bilibili.com",
+    "icon": "📱",
+    "category": "entertainment"
+  },
+  {
+    "id": 20,
+    "name": "Amazon",
+    "description": "全球电商购物平台",
+    "url": "https://www.amazon.com",
+    "icon": "🛒",
+    "category": "shopping"
+  },
+  {
+    "id": 21,
+    "name": "淘宝",
+    "description": "中国最大的电商平台",
+    "url": "https://www.taobao.com",
+    "icon": "🛍️",
+    "category": "shopping"
+  },
+  {
+    "id": 22,
+    "name": "京东",
+    "description": "中国知名电商平台",
+    "url": "https://www.jd.com",
+    "icon": "📦",
+    "category": "shopping"
+  },
+  {
+    "id": 27,
+    "name": "Coursera",
+    "description": "在线课程学习平台",
+    "url": "https://www.coursera.org",
+    "icon": "🎓",
+    "category": "education"
+  },
+  {
+    "id": 28,
+    "name": "edX",
+    "description": "哈佛麻省理工在线课程",
+    "url": "https://www.edx.org",
+    "icon": "📚",
+    "category": "education"
+  },
+  {
+    "id": 29,
+    "name": "Khan Academy",
+    "description": "免费在线教育平台",
+    "url": "https://www.khanacademy.org",
+    "icon": "🏫",
+    "category": "education"
+  },
+  {
+    "id": 30,
+    "name": "百度",
+    "description": "中国最大的搜索引擎",
+    "url": "https://www.baidu.com",
+    "icon": "🔍",
+    "category": "normal"
+  },
+  {
+    "id": 31,
+    "name": "知乎",
+    "description": "中文问答知识社区",
+    "url": "https://www.zhihu.com",
+    "icon": "🤔",
+    "category": "normal"
+  },
+  {
+    "id": 32,
+    "name": "豆瓣",
+    "description": "生活文化兴趣社区",
+    "url": "https://www.douban.com",
+    "icon": "📖",
+    "category": "normal"
+  },
+  {
     "id": 48,
     "name": "熊猫速汇",
     "description": "跨境汇款，在外汇管制5万美金之外，再多30万人民币的汇款额度",
@@ -384,51 +552,11 @@
     "category": "others"
   },
   {
-    "id": 49,
-    "name": "招商永隆",
-    "description": "招商永隆，在国内可以申请开户，需要到香港面签",
-    "url": "https://mp.weixin.qq.com/s/eKTAewMXX6xPUpq4TpNPUg",
-    "icon": "🏦",
-    "category": "overseas_bank"
-  },
-  {
     "id": 50,
     "name": "英国转运",
     "description": "ukpostbox，英国通讯地址转运回国",
     "url": "https://client.ipostalmail.net/Signup?Referrer=REF138644",
     "icon": "📦",
-    "category": "others"
-  },
-  {
-    "id": 51,
-    "name": "Neverless",
-    "description": "Neverless 是一款新兴投资应用，通过邀请码\"laosji\"注册可获得专属奖励",
-    "url": "https://neverless.com/referral?code=laosji",
-    "icon": "https://neverless.com/favicon_dark.ico",
-    "category": "securities"
-  },
-  {
-    "id": 52,
-    "name": "ZA Bank（众安银行）",
-    "description": "香港虚拟银行，邀请码 NUGAP7，开户教程详见文章",
-    "url": "https://mp.weixin.qq.com/s/Sp03PeHj-tF3lSAhx-fGAw",
-    "icon": "🏛️",
-    "category": "overseas_bank"
-  },
-  {
-    "id": 53,
-    "name": "WeLab Bank",
-    "description": "香港虚拟银行，邀请码 LAOSJI，开户教程详见文章",
-    "url": "https://mp.weixin.qq.com/s/qrVtd8KhrOHFKBZqmd7uhA",
-    "icon": "🏛️",
-    "category": "overseas_bank"
-  },
-  {
-    "id": 54,
-    "name": "Binance 币安",
-    "description": "全球最大的数字货币交易平台之一，通过该注册链接享受手续费优惠",
-    "url": "https://www.binance.com/zh-CN/activity/referral/offers/claim?ref=CPA_00U6B6DNIR&utm_source=Lite_web_account",
-    "icon": "₿",
     "category": "others"
   },
   {
@@ -448,46 +576,6 @@
     "category": "others"
   },
   {
-    "id": 57,
-    "name": "盈立证券（香港）开户奖励领取",
-    "description": "交易免佣金，新用户领取460HKD开户奖励，港股三巨头免佣金",
-    "url": "https://m.usmart66.com/webapp/open-account/apply.html?ICode=U02457#/register",
-    "icon": "📊",
-    "category": "securities"
-  },
-  {
-    "id": 58,
-    "name": "OSL",
-    "description": "香港首家获得数字资产交易所牌照的交易所，注册立领80元，入金10,000元再送288元 一个月内不提现",
-    "url": "https://trade-hk.osl.com/invite/activities?invitationCode=ycYoX",
-    "icon": "https://www.osl.com/favicon.ico",
-    "category": "securities"
-  },
-  {
-    "id": 59,
-    "name": "Safepal",
-    "description": "全方面的硬件加密钱包",
-    "url": "https://www.safepal.com/store/s1?ref=odu4mwu",
-    "icon": "https://www.safepal.com/favicon.ico",
-    "category": "securities"
-  },
-  {
-    "id": 60,
-    "name": "Binpay",
-    "description": "稳定的美元U卡，可绑定支付宝/Google pay消费",
-    "url": "https://app.binpay.cc/pages/passport/invitation?r=1106548",
-    "icon": "https://binpay.cc/images/logo_03.png",
-    "category": "securities"
-  },
-  {
-    "id": 61,
-    "name": "Krak",
-    "description": "海妖推出的资产管理平台，新用户注册首充$10以上，送10USD，邀请码「laosjifuli」",
-    "url": "https://krak.app/zh-cn/@laosjifuli",
-    "icon": "https://assets-cms.kraken.com/images/51n36hrp/facade/b88fdf8e94f79344127db0f8702d3c8ff67f0575-180x180.png",
-    "category": "securities"
-  },
-  {
     "id": 62,
     "name": "kookeey",
     "description": "全球纯净住宅ip,代理IP精选",
@@ -502,77 +590,5 @@
     "url": "https://txdpn.link/#/register?code=6yFAMp59",
     "icon": "https://txdpn.link/theme/Aurora-Ryan/favicon.svg",
     "category": "others"
-  },
-  {
-    "id": 64,
-    "name": "Revolut美区",
-    "description": "新用户注册可得50USD奖励！注册需要提供美国手机号、美国地址、ITIN和内地护照，没有信用也可以。",
-    "url": "https://revolut.com/referral/?referral-code=chaod!JUN2-25-AR-US-H1-REFBLOCK-AE&geo-redirect",
-    "icon": "https://assets.revolut.com/assets/favicons/favicon-32x32.png",
-    "category": "overseas_bank"
-  },
-  {
-    "id": 65,
-    "name": "海妖kraken",
-    "description": "全球前5大交易所之一，《福布斯顾问》2025年最佳加密货币平台",
-    "url": "https://kraken.pxf.io/o4aXPm",
-    "icon": "https://www.kraken.com/_assets/icons/apple-touch-icon.png",
-    "category": "securities"
-  },
-  {
-    "id": 66,
-    "name": "招商银行信用卡",
-    "description": "招商银行信用卡办理",
-    "url": "https://res.cc.cmbimg.com/itafront/Frog/#/mgmLogin/api3xxmgmlj4/remote?webAddress=9WD_ICON_RD&where=zs7_ty4&pageName=MRecContract&activityTitle=MGMXSDS202507TY4&appChn=05&dsid=&dscontr=&pretrackno=be557ca0807745ffb360e4c3d2376c32&pretrack=10403787&mgmSm2Flag=1&mgmSource=share&m1TraceId=be557ca0807745ffb360e4c3d2376c32",
-    "icon": "https://www.cmbchina.com/cmb.ico",
-    "category": "securities"
-  },
-  {
-    "id": 67,
-    "name": "SoFi",
-    "description": "新用户注册可得50USD奖励！注册需要提供美国手机号、美国地址、ITIN和内地护照，没有信用也可以。",
-    "url": "https://www.sofi.com/invite/money?gcp=32c0dc29-3d69-4787-b3b7-0398d37f1099&isAliasGcp=false",
-    "icon": "https://www.sofi.com/favicon.ico",
-    "category": "overseas_bank"
-  },
-  {
-    "id": 67,
-    "name": "Xapo Bank",
-    "description": "直布罗陀监管存款计划保障10万欧元保障，美元存款年利率3.9%，比特币0.5%年利率，次日到账",
-    "url": "https://www.xapobank.com/en?utm_source=kol_hklife&utm_medium=text&utm_campaign=hklife_jul2025&utm_content=article",
-    "icon": "https://cdn.prod2.kustomerhostedcontent.com/media/5f480551bdcf17001a546e70/7f3dc503884c916b6684f08856bc8b70.png",
-    "category": "overseas_bank"
-  },
-  {
-    "id": 68,
-    "name": "OKX(欧易)",
-    "description": "中国身份证注册，支持微信/支付宝/内地银行卡出入金，邀请码：61967724",
-    "url": "https://ouxyi.me/ul/YbU25D?channelId=61967724",
-    "icon": "https://www.okx.com/cdn/assets/imgs/253/59830BB78B18A776.png",
-    "category": "securities"
-  },
-  {
-    "id": 69,
-    "name": "Wealth broker",
-    "description": "一家可出入U的券商，已在美国上市。此邀请链接注册手续费优惠40%。",
-    "url": "https://p.whalesb.com/xzCaHFJ?lan=zh",
-    "icon": "https://www.whalesb.com/favicon.ico",
-    "category": "securities"
-  },
-  {
-    "id": 70,
-    "name": "UR（瑞士个人iban）",
-    "description": "法币（fiat）与加密货币自由合法兑换，邀请码qn895r",
-    "url": "https://get.ur.app/login?code=qn895r",
-    "icon": "https://ur.app/images/android-chrome-192x192.png",
-    "category": "securities"
-  },
-  {
-    "id": 71,
-    "name": "Payy",
-    "description": "波多黎各美元U卡",
-    "url": "https://payy.link/invite/8UFBN7",
-    "icon": "https://payy.link/icon.png?275bbc13b8529e23",
-    "category": "securities"
   }
 ]
