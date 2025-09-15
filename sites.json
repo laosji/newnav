@@ -268,7 +268,7 @@
     "name": "ifast",
     "description": "英国虚拟银行，免费开户，无年费，（FSCS）的保障",
     "url": "https://www.ifastgb.com/tellafriend/chaod1702",
-    "icon": "🏦",
+    "icon": "https://static.ifastgb.com/favicon.ico",
     "category": "overseas_bank"
   },
   {
@@ -405,7 +405,7 @@
     "description": "Neverless 是一款新兴投资应用，通过邀请码\"laosji\"注册可获得专属奖励",
     "url": "https://neverless.com/referral?code=laosji",
     "icon": "https://neverless.com/favicon_dark.ico",
-    "category": "securities"
+    "category": "crypto_exchange"
   },
   {
     "id": 52,
