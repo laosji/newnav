@@ -429,7 +429,7 @@
     "description": "全球最大的数字货币交易平台之一，通过该注册链接享受手续费优惠",
     "url": "https://www.binance.com/zh-CN/activity/referral/offers/claim?ref=CPA_00U6B6DNIR&utm_source=Lite_web_account",
     "icon": "₿",
-    "category": "others"
+    "category": "crypto_exchange"
   },
   {
     "id": 55,
@@ -461,7 +461,7 @@
     "description": "香港首家获得数字资产交易所牌照的交易所，注册立领80元，入金10,000元再送288元 一个月内不提现",
     "url": "https://trade-hk.osl.com/invite/activities?invitationCode=ycYoX",
     "icon": "https://www.osl.com/favicon.ico",
-    "category": "securities"
+    "category": "crypto_exchange"
   },
   {
     "id": 59,
@@ -469,7 +469,7 @@
     "description": "全方面的硬件加密钱包",
     "url": "https://www.safepal.com/store/s1?ref=odu4mwu",
     "icon": "https://www.safepal.com/favicon.ico",
-    "category": "securities"
+    "category": "crypto_wallet"
   },
   {
     "id": 60,
@@ -477,7 +477,7 @@
     "description": "稳定的美元U卡，可绑定支付宝/Google pay消费",
     "url": "https://app.binpay.cc/pages/passport/invitation?r=1106548",
     "icon": "https://binpay.cc/images/logo_03.png",
-    "category": "securities"
+    "category": "ucard"
   },
   {
     "id": 61,
@@ -485,7 +485,7 @@
     "description": "海妖推出的资产管理平台，新用户注册首充$10以上，送10USD，邀请码「laosjifuli」",
     "url": "https://krak.app/zh-cn/@laosjifuli",
     "icon": "https://assets-cms.kraken.com/images/51n36hrp/facade/b88fdf8e94f79344127db0f8702d3c8ff67f0575-180x180.png",
-    "category": "securities"
+    "category": "crypto_exchange"
   },
   {
     "id": 62,
@@ -517,7 +517,7 @@
     "description": "全球前5大交易所之一，《福布斯顾问》2025年最佳加密货币平台",
     "url": "https://kraken.pxf.io/o4aXPm",
     "icon": "https://www.kraken.com/_assets/icons/apple-touch-icon.png",
-    "category": "securities"
+    "category": "crypto_exchange"
   },
   {
     "id": 66,
@@ -536,7 +536,7 @@
     "category": "overseas_bank"
   },
   {
-    "id": 67,
+    "id": 72,
     "name": "Xapo Bank",
     "description": "直布罗陀监管存款计划保障10万欧元保障，美元存款年利率3.9%，比特币0.5%年利率，次日到账",
     "url": "https://www.xapobank.com/en?utm_source=kol_hklife&utm_medium=text&utm_campaign=hklife_jul2025&utm_content=article",
@@ -549,7 +549,7 @@
     "description": "中国身份证注册，支持微信/支付宝/内地银行卡出入金，邀请码：61967724",
     "url": "https://ouxyi.me/ul/YbU25D?channelId=61967724",
     "icon": "https://www.okx.com/cdn/assets/imgs/253/59830BB78B18A776.png",
-    "category": "securities"
+    "category": "crypto_exchange"
   },
   {
     "id": 69,
@@ -557,7 +557,7 @@
     "description": "一家可出入U的券商，已在美国上市。此邀请链接注册手续费优惠40%。",
     "url": "https://p.whalesb.com/xzCaHFJ?lan=zh",
     "icon": "https://www.whalesb.com/favicon.ico",
-    "category": "securities"
+    "category": "crypto_exchange"
   },
   {
     "id": 70,
@@ -565,7 +565,7 @@
     "description": "法币（fiat）与加密货币自由合法兑换，邀请码qn895r",
     "url": "https://get.ur.app/login?code=qn895r",
     "icon": "https://ur.app/images/android-chrome-192x192.png",
-    "category": "securities"
+    "category": "crypto_exchange"
   },
   {
     "id": 71,
@@ -573,6 +573,22 @@
     "description": "波多黎各美元U卡",
     "url": "https://payy.link/invite/8UFBN7",
     "icon": "https://payy.link/icon.png?275bbc13b8529e23",
-    "category": "securities"
+    "category": "ucard"
+  },
+  {
+    "id": 73,
+    "name": "OneKey Card",
+    "description": "支持在线开通美元VISA虚拟卡，可绑定支付宝、微信支付、Google Pay等",
+    "url": "https://card.onekey.so/",
+    "icon": "https://card.onekey.so/favicon.ico",
+    "category": "ucard"
+  },
+  {
+    "id": 74,
+    "name": "Bybit",
+    "description": "全球领先的数字货币交易平台，提供丰富的交易对和衍生品",
+    "url": "https://www.bybit.com/",
+    "icon": "https://www.bybit.com/favicon.ico",
+    "category": "crypto_exchange"
   }
 ]
