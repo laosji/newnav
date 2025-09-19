@@ -28,7 +28,7 @@
     "name": "中银香港",
     "description": "0存款，免管理费。需要本人人到香港。开户推荐码M26996872070",
     "url": "https://mp.weixin.qq.com/s/0HBUXFMSAiIGVEKxt_hwEAQ",
-    "icon": "🏦",
+    "icon": "https://www.bochk.com/etc/designs/bochk_web/images/icon/boc-logo-64.png",
     "category": "overseas_bank"
   },
   {
@@ -44,7 +44,7 @@
     "name": "渣打香港",
     "description": "渣打香港，定存利率最高的银行",
     "url": "https://mp.weixin.qq.com/s/Q-o1tObsxtWUD3CEHVP6lQ",
-    "icon": "🏦",
+    "icon": "https://av.sc.com/cn/content/images/content/images/cropped-512x512-1-150x150.png",
     "category": "overseas_bank"
   },
   {
@@ -52,7 +52,7 @@
     "name": "招商永隆",
     "description": "招商永隆，在国内可以申请开户，需要到香港面签",
     "url": "https://mp.weixin.qq.com/s/eKTAewMXX6xPUpq4TpNPUg",
-    "icon": "🏦",
+    "icon": "https://www.cmbwinglungbank.com/wlb_corporate/files/hk/img/logo.png",
     "category": "overseas_bank"
   },
   {
@@ -60,7 +60,7 @@
     "name": "ZA Bank（众安银行）",
     "description": "香港虚拟银行，邀请码 NUGAP7，开户教程详见文章",
     "url": "https://mp.weixin.qq.com/s/Sp03PeHj-tF3lSAhx-fGAw",
-    "icon": "🏛️",
+    "icon": "https://cdn.zaticdn.com/if/ipage/prd/project/zati-header/assets/image/logo-40.svg",
     "category": "overseas_bank"
   },
   {
@@ -68,7 +68,7 @@
     "name": "WeLab Bank",
     "description": "香港虚拟银行，邀请码 LAOSJI，开户教程详见文章",
     "url": "https://mp.weixin.qq.com/s/qrVtd8KhrOHFKBZqmd7uhA",
-    "icon": "🏛️",
+    "icon": "https://www.welab.bank/media/original_images/logo-header.png",
     "category": "overseas_bank"
   },
   {
