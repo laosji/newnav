@@ -1,13 +1,5 @@
 [
   {
-    "id": 33,
-    "name": "新加坡华侨银行",
-    "description": "不用出国，全程手机申请0存款，首年免管理费，开户一个月内若存款1000新币，使用推荐码\"W5GR37JB\"开户可获得至少15新币的现金奖励",
-    "url": "https://mp.weixin.qq.com/s/YgT5PNiV0gKHHjtkAjUvQQ",
-    "icon": "🏦",
-    "category": "overseas_bank"
-  },
-  {
     "id": 34,
     "name": "ifast",
     "description": "英国虚拟银行，免费开户，无年费，（FSCS）的保障",
