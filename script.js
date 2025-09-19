@@ -725,6 +725,9 @@ function getCategoryInfo(category) {
         overseas_bank: { name: '境外银行账户', icon: '🏦', description: '境外银行开户与账户管理服务' },
         securities: { name: '港美股券商', icon: '📈', description: '港美股投资交易平台' },
         overseas_sim: { name: '境外手机卡', icon: '📱', description: '境外手机卡与通信服务' },
+        ucard: { name: 'U卡推荐', icon: '💳', description: '支持U存U取的银行卡' },
+        crypto_exchange: { name: '数字货币交易所', icon: '₿', description: '买卖比特币、以太坊等数字货币' },
+        crypto_wallet: { name: '加密钱包', icon: '🛡️', description: '存储、管理你的数字资产' },
         others: { name: '其他', icon: '📦', description: '其他实用工具与服务' }
     };
     
