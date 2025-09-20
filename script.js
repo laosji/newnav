@@ -714,7 +714,6 @@ function escapeRegExp(string) {
 function getCategoryInfo(category) {
     const categoryMap = {
         ai: { name: 'AI 工具', icon: '🤖', description: '人工智能驱动的创新应用' },
-        development: { name: '开发工具', icon: '⚙️', description: '开发者必备的专业工具' },
         overseas_bank: { name: '境外银行账户', icon: '🏦', description: '境外银行开户与账户管理服务' },
         securities: { name: '港美股券商', icon: '📈', description: '港美股投资交易平台' },
         overseas_sim: { name: '境外手机卡', icon: '📱', description: '境外手机卡与通信服务' },

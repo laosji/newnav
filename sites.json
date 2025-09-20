@@ -304,38 +304,6 @@
     "category": "ai"
   },
   {
-    "id": 2,
-    "name": "GitHub",
-    "description": "开发者代码托管平台",
-    "url": "https://github.com",
-    "icon": "",
-    "category": "development"
-  },
-  {
-    "id": 9,
-    "name": "VS Code",
-    "description": "微软开源代码编辑器",
-    "url": "https://code.visualstudio.com",
-    "icon": "💻",
-    "category": "development"
-  },
-  {
-    "id": 10,
-    "name": "Stack Overflow",
-    "description": "程序员问答社区",
-    "url": "https://stackoverflow.com",
-    "icon": "❓",
-    "category": "development"
-  },
-  {
-    "id": 11,
-    "name": "CodePen",
-    "description": "前端代码分享平台",
-    "url": "https://codepen.io",
-    "icon": "🖊️",
-    "category": "development"
-  },
-  {
     "id": 48,
     "name": "熊猫速汇",
     "description": "跨境汇款，在外汇管制5万美金之外，再多30万人民币的汇款额度",
