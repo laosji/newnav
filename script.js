@@ -713,15 +713,7 @@ function escapeRegExp(string) {
 // 获取分类信息
 function getCategoryInfo(category) {
     const categoryMap = {
-        productivity: { name: '办公效率', icon: '⚡', description: '提升工作效率的优质工具' },
         ai: { name: 'AI 工具', icon: '🤖', description: '人工智能驱动的创新应用' },
-        normal: { name: '常用', icon: '🕙', description: '常用工具' },
-        development: { name: '开发工具', icon: '⚙️', description: '开发者必备的专业工具' },
-        design: { name: '设计创意', icon: '🎨', description: '激发创意的设计平台' },
-        social: { name: '社交媒体', icon: '💬', description: '连接世界的社交网络' },
-        entertainment: { name: '娱乐休闲', icon: '🎵', description: '精彩纷呈的娱乐内容' },
-        shopping: { name: '购物商城', icon: '🛍️', description: '优质可靠的购物平台' },
-        education: { name: '学习教育', icon: '📚', description: '知识学习的最佳选择' },
         overseas_bank: { name: '境外银行账户', icon: '🏦', description: '境外银行开户与账户管理服务' },
         securities: { name: '港美股券商', icon: '📈', description: '港美股投资交易平台' },
         overseas_sim: { name: '境外手机卡', icon: '📱', description: '境外手机卡与通信服务' },
