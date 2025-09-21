@@ -208,6 +208,14 @@
     "category": "securities"
   },
   {
+    "id": 75,
+    "name": "NinjaTrader",
+    "description": "期货和外汇交易的高级交易平台",
+    "url": "https://account.ninjatrader.com/register?introducingPartner=hklife",
+    "icon": "https://ninjatrader.com/favicon.ico",
+    "category": "securities"
+  },
+  {
     "id": 51,
     "name": "Neverless",
     "description": "Neverless 是一款新兴投资应用，通过邀请码\"laosji\"注册可获得专属奖励",
@@ -220,7 +228,7 @@
     "name": "Binance 币安",
     "description": "全球最大的数字货币交易平台之一，通过该注册链接享受手续费优惠",
     "url": "https://www.binance.com/zh-CN/activity/referral/offers/claim?ref=CPA_00U6B6DNIR&utm_source=Lite_web_account",
-    "icon": "₿",
+    "icon": "https://bin.bnbstatic.com/static/images/bnb-for/brand.png",
     "category": "crypto_exchange"
   },
   {
