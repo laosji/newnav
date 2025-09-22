@@ -17,7 +17,7 @@ const DATA_CONFIG = {
     // 备用数据源：GitHub + jsDelivr CDN
     fallback: [
         'https://cdn.jsdelivr.net/gh/laosji/newnav@main/sites.json',
-        'https://raw.githubusercontent.com/laosji/newnav/main/sites.json'
+        'https://cdn.jsdelivr.net/gh/laosji/newnav@main/quick-sites.json'
     ]
 };
 
@@ -254,7 +254,7 @@ async function preloadCriticalResources() {
     // 预加载首屏图标
     const visibleSites = sitesData.slice(0, 8);
     const iconPromises = visibleSites.map(async (site) => {
-        if (site.icon && !site.icon.match(/^[🔍-🦴]$/)) { // 不是 emoji
+        if (site.icon && !site.icon.match(/^\p{Emoji}$/u)) { // 不是 emoji
             const icon = await getFavicon(site.url, site.icon);
             if (icon !== site.icon) {
                 updateRenderedIcon(site.url, icon);
@@ -642,24 +642,3 @@ function showError(message) {
 
 // 性能监控
 console.log('Cloudflare 优化版导航脚本加载完成');
-
-// 启用 Cloudflare 的自动优化功能
-const CloudflareOptimization = {
-    // 在 Cloudflare Dashboard 中启用：
-    // - Auto Minify (JS, CSS, HTML)
-    // - Brotli Compression
-    // - Polish (图片优化)
-    // - Mirage (图片懒加载)
-
-    // 代码中的优化
-    enableImageOptimization: () => {
-        // 使用 Cloudflare Images 或 Polish
-        const images = document.querySelectorAll('img');
-        images.forEach(img => {
-            if (img.src.includes('favicon')) {
-                // 对 favicon 使用 Cloudflare 的图片优化
-                img.src = `/cdn-cgi/image/width=32,height=32,format=auto/${img.src}`;
-            }
-        });
-    }
-};
