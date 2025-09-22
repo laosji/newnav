@@ -1,62 +1,47 @@
 [
   {
-    "name": "Google",
-    "icon": "🔍",
-    "url": "https://www.google.com"
+    "name": "wise",
+    "url": "https://wise.com/invite/ihpc/duanc11",
+    "icon": "https://wise.com/public-resources/assets/icons/wise-personal/android_chrome_192x192.png"
   },
   {
-    "name": "ChatGPT", 
-    "icon": "🤖",
-    "url": "https://chat.openai.com"
+    "name": "ifast",
+    "url": "https://www.ifastgb.com/tellafriend/chaod1702",
+    "icon": "https://static.ifastgb.com/favicon.ico"
   },
   {
-    "name": "GitHub",
-    "icon": "👨‍💻",
-    "url": "https://github.com"
+    "name": "Binpay",
+    "url": "https://app.binpay.cc/pages/passport/invitation?r=1106548",
+    "icon": "https://binpay.cc/images/logo_03.png"
   },
   {
-    "name": "YouTube",
-    "icon": "📺",
-    "url": "https://www.youtube.com"
+    "name": "IBKR盈透证券",
+    "url": "https://ibkr.com/referral/chao135",
+    "icon": "https://www.interactivebrokers.com/images/2015/template/home-screen-icon-192x192.png"
   },
   {
-    "name": "Gmail",
-    "icon": "📧",
-    "url": "https://mail.google.com"
+    "name": "老虎证券",
+    "url": "https://tigr.link/7gIFaD",
+    "icon": "https://c1.itigergrowtha.com/portal5/static/media/logo.152.b51dd151.png"
   },
   {
-    "name": "Notion",
-    "icon": "📝",
-    "url": "https://www.notion.so"
+    "name": "富途开户",
+    "url": "https://www.futunn.com/",
+    "icon": "https://static.futunn.com/futunn_common/images/nn_logo.png"
   },
   {
-    "name": "Figma",
-    "icon": "🎨",
-    "url": "https://www.figma.com"
+    "name": "Binance 币安",
+    "url": "https://www.binance.com/zh-CN/activity/referral/offers/claim?ref=CPA_00U6B6DNIR&utm_source=Lite_web_account",
+    "icon": "https://bin.bnbstatic.com/static/images/bnb-for/brand.png"
   },
   {
-    "name": "Amazon",
-    "icon": "🛒",
-    "url": "https://www.amazon.com"
+    "name": "OKX(欧易)",
+    "url": "https://ouxyi.me/ul/YbU25D?channelId=61967724",
+    "icon": "https://www.okx.com/cdn/assets/imgs/253/59830BB78B18A776.png"
   },
   {
-    "name": "Netflix",
-    "icon": "🎬",
-    "url": "https://www.netflix.com"
-  },
-  {
-    "name": "微信",
-    "icon": "💬",
-    "url": "https://weixin.qq.com"
-  },
-  {
-    "name": "百度",
-    "icon": "🔍",
-    "url": "https://www.baidu.com"
-  },
-  {
-    "name": "知乎",
-    "icon": "🤔",
-    "url": "https://www.zhihu.com"
+    "name": "Bybit",
+    "url": "https://www.bybit.com/",
+    "icon": "https://www.bybit.com/favicon.ico"
   }
 ]

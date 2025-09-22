@@ -120,6 +120,14 @@
     "category": "ucard"
   },
   {
+    "id": 76,
+    "name": "Crydit Card",
+    "description": "提供万事达和visa借记卡，消费无上限",
+    "url": "https://h5.company.crydit.com/register?invite_code=9F6266VY",
+    "icon": "https://h5.company.crydit.com/favicon.ico",
+    "category": "ucard"
+  },
+  {
     "id": 39,
     "name": "IBKR盈透证券",
     "description": "领取最多$1000美金开户奖励",
@@ -208,6 +216,22 @@
     "category": "securities"
   },
   {
+    "id": 75,
+    "name": "NinjaTrader",
+    "description": "期货和外汇交易的高级交易平台",
+    "url": "https://account.ninjatrader.com/register?introducingPartner=hklife",
+    "icon": "https://ninjatrader.com/favicon.ico",
+    "category": "securities"
+  },
+  {
+    "id": 77,
+    "name": "Freetrade",
+    "description": "一个英国的免佣金股票交易和投资应用",
+    "url": "https://t.co/EzlrCxdW3z",
+    "icon": "https://freetrade.io/favicon.ico",
+    "category": "securities"
+  },
+  {
     "id": 51,
     "name": "Neverless",
     "description": "Neverless 是一款新兴投资应用，通过邀请码\"laosji\"注册可获得专属奖励",
@@ -220,7 +244,7 @@
     "name": "Binance 币安",
     "description": "全球最大的数字货币交易平台之一，通过该注册链接享受手续费优惠",
     "url": "https://www.binance.com/zh-CN/activity/referral/offers/claim?ref=CPA_00U6B6DNIR&utm_source=Lite_web_account",
-    "icon": "₿",
+    "icon": "https://bin.bnbstatic.com/static/images/bnb-for/brand.png",
     "category": "crypto_exchange"
   },
   {
@@ -280,46 +304,6 @@
     "category": "crypto_wallet"
   },
   {
-    "id": 1,
-    "name": "Google",
-    "description": "全球最大的搜索引擎",
-    "url": "https://www.google.com",
-    "icon": "",
-    "category": "productivity"
-  },
-  {
-    "id": 12,
-    "name": "Notion",
-    "description": "多功能笔记与协作工具",
-    "url": "https://www.notion.so",
-    "icon": "📝",
-    "category": "productivity"
-  },
-  {
-    "id": 13,
-    "name": "Slack",
-    "description": "团队沟通协作平台",
-    "url": "https://slack.com",
-    "icon": "💬",
-    "category": "productivity"
-  },
-  {
-    "id": 14,
-    "name": "Trello",
-    "description": "看板式项目管理工具",
-    "url": "https://trello.com",
-    "icon": "📋",
-    "category": "productivity"
-  },
-  {
-    "id": 15,
-    "name": "Gmail",
-    "description": "谷歌邮箱服务",
-    "url": "https://mail.google.com",
-    "icon": "📧",
-    "category": "productivity"
-  },
-  {
     "id": 3,
     "name": "ChatGPT",
     "description": "AI智能对话助手",
@@ -342,198 +326,6 @@
     "url": "https://www.midjourney.com",
     "icon": "🎨",
     "category": "ai"
-  },
-  {
-    "id": 2,
-    "name": "GitHub",
-    "description": "开发者代码托管平台",
-    "url": "https://github.com",
-    "icon": "",
-    "category": "development"
-  },
-  {
-    "id": 9,
-    "name": "VS Code",
-    "description": "微软开源代码编辑器",
-    "url": "https://code.visualstudio.com",
-    "icon": "💻",
-    "category": "development"
-  },
-  {
-    "id": 10,
-    "name": "Stack Overflow",
-    "description": "程序员问答社区",
-    "url": "https://stackoverflow.com",
-    "icon": "❓",
-    "category": "development"
-  },
-  {
-    "id": 11,
-    "name": "CodePen",
-    "description": "前端代码分享平台",
-    "url": "https://codepen.io",
-    "icon": "🖊️",
-    "category": "development"
-  },
-  {
-    "id": 6,
-    "name": "Figma",
-    "description": "在线协作设计工具",
-    "url": "https://www.figma.com",
-    "icon": "🎨",
-    "category": "design"
-  },
-  {
-    "id": 7,
-    "name": "Adobe Creative Cloud",
-    "description": "创意设计软件套件",
-    "url": "https://www.adobe.com",
-    "icon": "🌈",
-    "category": "design"
-  },
-  {
-    "id": 8,
-    "name": "Canva",
-    "description": "简单易用的设计平台",
-    "url": "https://www.canva.com",
-    "icon": "✨",
-    "category": "design"
-  },
-  {
-    "id": 23,
-    "name": "微信文件传输",
-    "description": "微信文件传输网页版",
-    "url": "https://wx.qq.com",
-    "icon": "💬",
-    "category": "social"
-  },
-  {
-    "id": 24,
-    "name": "微博",
-    "description": "中国社交媒体平台",
-    "url": "https://weibo.com",
-    "icon": "📢",
-    "category": "social"
-  },
-  {
-    "id": 25,
-    "name": "Twitter",
-    "description": "全球微博客社交网络",
-    "url": "https://twitter.com",
-    "icon": "🐦",
-    "category": "social"
-  },
-  {
-    "id": 26,
-    "name": "Instagram",
-    "description": "图片视频分享社交平台",
-    "url": "https://www.instagram.com",
-    "icon": "📸",
-    "category": "social"
-  },
-  {
-    "id": 16,
-    "name": "YouTube",
-    "description": "全球最大视频分享平台",
-    "url": "https://www.youtube.com",
-    "icon": "📺",
-    "category": "entertainment"
-  },
-  {
-    "id": 17,
-    "name": "Netflix",
-    "description": "在线视频流媒体平台",
-    "url": "https://www.netflix.com",
-    "icon": "🎬",
-    "category": "entertainment"
-  },
-  {
-    "id": 18,
-    "name": "Spotify",
-    "description": "音乐流媒体服务",
-    "url": "https://www.spotify.com",
-    "icon": "🎵",
-    "category": "entertainment"
-  },
-  {
-    "id": 19,
-    "name": "Bilibili",
-    "description": "中国视频弹幕网站",
-    "url": "https://www.bilibili.com",
-    "icon": "📱",
-    "category": "entertainment"
-  },
-  {
-    "id": 20,
-    "name": "Amazon",
-    "description": "全球电商购物平台",
-    "url": "https://www.amazon.com",
-    "icon": "🛒",
-    "category": "shopping"
-  },
-  {
-    "id": 21,
-    "name": "淘宝",
-    "description": "中国最大的电商平台",
-    "url": "https://www.taobao.com",
-    "icon": "🛍️",
-    "category": "shopping"
-  },
-  {
-    "id": 22,
-    "name": "京东",
-    "description": "中国知名电商平台",
-    "url": "https://www.jd.com",
-    "icon": "📦",
-    "category": "shopping"
-  },
-  {
-    "id": 27,
-    "name": "Coursera",
-    "description": "在线课程学习平台",
-    "url": "https://www.coursera.org",
-    "icon": "🎓",
-    "category": "education"
-  },
-  {
-    "id": 28,
-    "name": "edX",
-    "description": "哈佛麻省理工在线课程",
-    "url": "https://www.edx.org",
-    "icon": "📚",
-    "category": "education"
-  },
-  {
-    "id": 29,
-    "name": "Khan Academy",
-    "description": "免费在线教育平台",
-    "url": "https://www.khanacademy.org",
-    "icon": "🏫",
-    "category": "education"
-  },
-  {
-    "id": 30,
-    "name": "百度",
-    "description": "中国最大的搜索引擎",
-    "url": "https://www.baidu.com",
-    "icon": "🔍",
-    "category": "normal"
-  },
-  {
-    "id": 31,
-    "name": "知乎",
-    "description": "中文问答知识社区",
-    "url": "https://www.zhihu.com",
-    "icon": "🤔",
-    "category": "normal"
-  },
-  {
-    "id": 32,
-    "name": "豆瓣",
-    "description": "生活文化兴趣社区",
-    "url": "https://www.douban.com",
-    "icon": "📖",
-    "category": "normal"
   },
   {
     "id": 48,
@@ -581,6 +373,14 @@
     "description": "稳定低价VPN，支持clash、shadowrocket、v2ray等平台",
     "url": "https://txdpn.link/#/register?code=6yFAMp59",
     "icon": "https://txdpn.link/theme/Aurora-Ryan/favicon.svg",
+    "category": "others"
+  },
+  {
+    "id": 78,
+    "name": "Remitly",
+    "description": "首次进行汇款且汇款金额不低于 £100 时可享受减免 £15 的优惠。",
+    "url": "https://remit.ly/3dp90ahv",
+    "icon": "https://www.remitly.com/favicon.ico",
     "category": "others"
   }
 ]
