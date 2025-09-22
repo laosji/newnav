@@ -8,16 +8,16 @@ let searchQuery = '';
 const iconCache = new Map();
 const imageValidationCache = new Map();
 
-// Cloudflare 优化的数据源配置
+// 优化数据源配置，利用 Cloudflare CDN
 const DATA_CONFIG = {
-    // 主数据源：使用当前域名（Cloudflare Pages）
+    // 主数据源：使用你的 Cloudflare Pages 域名
     sitesUrl: `${window.location.origin}/data/sites.json`,
     quickSitesUrl: `${window.location.origin}/data/quick-sites.json`,
 
-    // 备用数据源
+    // 备用数据源：GitHub + jsDelivr CDN
     fallback: [
         'https://cdn.jsdelivr.net/gh/laosji/newnav@main/sites.json',
-        'https://cdn.jsdelivr.net/gh/laosji/newnav@main/quick-sites.json'
+        'https://raw.githubusercontent.com/laosji/newnav/main/sites.json'
     ]
 };
 
