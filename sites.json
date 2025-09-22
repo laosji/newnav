@@ -120,6 +120,14 @@
     "category": "ucard"
   },
   {
+    "id": 76,
+    "name": "Crydit Card",
+    "description": "提供万事达和visa借记卡，消费无上限",
+    "url": "https://h5.company.crydit.com/register?invite_code=9F6266VY",
+    "icon": "https://h5.company.crydit.com/favicon.ico",
+    "category": "ucard"
+  },
+  {
     "id": 39,
     "name": "IBKR盈透证券",
     "description": "领取最多$1000美金开户奖励",
@@ -213,6 +221,14 @@
     "description": "期货和外汇交易的高级交易平台",
     "url": "https://account.ninjatrader.com/register?introducingPartner=hklife",
     "icon": "https://ninjatrader.com/favicon.ico",
+    "category": "securities"
+  },
+  {
+    "id": 77,
+    "name": "Freetrade",
+    "description": "一个英国的免佣金股票交易和投资应用",
+    "url": "https://t.co/EzlrCxdW3z",
+    "icon": "https://freetrade.io/favicon.ico",
     "category": "securities"
   },
   {
@@ -357,6 +373,14 @@
     "description": "稳定低价VPN，支持clash、shadowrocket、v2ray等平台",
     "url": "https://txdpn.link/#/register?code=6yFAMp59",
     "icon": "https://txdpn.link/theme/Aurora-Ryan/favicon.svg",
+    "category": "others"
+  },
+  {
+    "id": 78,
+    "name": "Remitly",
+    "description": "首次进行汇款且汇款金额不低于 £100 时可享受减免 £15 的优惠。",
+    "url": "https://remit.ly/3dp90ahv",
+    "icon": "https://www.remitly.com/favicon.ico",
     "category": "others"
   }
 ]
