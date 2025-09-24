@@ -285,7 +285,7 @@
     "description": "一家可出入U的券商，已在美国上市。此邀请链接注册手续费优惠40%。",
     "url": "https://p.whalesb.com/xzCaHFJ?lan=zh",
     "icon": "https://www.whalesb.com/favicon.ico",
-    "category": "crypto_exchange"
+    "category": "securities"
   },
   {
     "id": 74,
@@ -349,7 +349,7 @@
     "description": "让你的国行手机支持eSIM，一卡多号，9折下单邀请码 zfWBpM",
     "url": "https://xesim.cc/?DIST=RkJOFQ%3D%3D",
     "icon": "📶",
-    "category": "others"
+    "category": "overseas_sim"
   },
   {
     "id": 56,
@@ -357,7 +357,7 @@
     "description": "免费领英国手机卡，每年6便士保号",
     "url": "http://www.giffgaff.com/orders/affiliate/pmdua778_1721188536165",
     "icon": "📞",
-    "category": "others"
+    "category": "overseas_sim"
   },
   {
     "id": 62,
@@ -382,5 +382,13 @@
     "url": "https://remit.ly/3dp90ahv",
     "icon": "https://www.remitly.com/favicon.ico",
     "category": "others"
+  },
+  {
+    "id": 79,
+    "name": "Nexo",
+    "description": "Nexo是世界领先的数字资产财富平台，受到全球200多个司法管辖区的700多万客户的信赖。",
+    "url": "https://nexo.com/ref/hohlm5otzh?src=ios-link",
+    "icon": "https://content.nexo.com/logos/nexo-logo-small.svg",
+    "category": "crypto_exchange"
   }
 ]
