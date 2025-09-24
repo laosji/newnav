@@ -418,8 +418,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 8px;
     padding: 16px 12px;
+    aspect-ratio: 1 / 1;
     text-decoration: none;
     color: var(--text-primary);
     background: var(--surface);
