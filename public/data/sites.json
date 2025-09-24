@@ -232,6 +232,14 @@
     "category": "securities"
   },
   {
+    "id": 69,
+    "name": "Wealth broker",
+    "description": "一家可出入U的券商，已在美国上市。此邀请链接注册手续费优惠40%。",
+    "url": "https://p.whalesb.com/xzCaHFJ?lan=zh",
+    "icon": "https://www.whalesb.com/favicon.ico",
+    "category": "securities"
+  },
+  {
     "id": 51,
     "name": "Neverless",
     "description": "Neverless 是一款新兴投资应用，通过邀请码\"laosji\"注册可获得专属奖励",
@@ -280,19 +288,19 @@
     "category": "crypto_exchange"
   },
   {
-    "id": 69,
-    "name": "Wealth broker",
-    "description": "一家可出入U的券商，已在美国上市。此邀请链接注册手续费优惠40%。",
-    "url": "https://p.whalesb.com/xzCaHFJ?lan=zh",
-    "icon": "https://www.whalesb.com/favicon.ico",
-    "category": "crypto_exchange"
-  },
-  {
     "id": 74,
     "name": "Bybit",
     "description": "全球领先的数字货币交易平台，提供丰富的交易对和衍生品",
     "url": "https://www.bybit.com/",
     "icon": "https://www.bybit.com/favicon.ico",
+    "category": "crypto_exchange"
+  },
+  {
+    "id": 79,
+    "name": "Nexo",
+    "description": "Nexo是世界领先的数字资产财富平台，受到全球200多个司法管辖区的700多万客户的信赖。",
+    "url": "https://nexo.com/ref/hohlm5otzh?src=ios-link",
+    "icon": "https://content.nexo.com/logos/nexo-logo-small.svg",
     "category": "crypto_exchange"
   },
   {
@@ -349,7 +357,7 @@
     "description": "让你的国行手机支持eSIM，一卡多号，9折下单邀请码 zfWBpM",
     "url": "https://xesim.cc/?DIST=RkJOFQ%3D%3D",
     "icon": "📶",
-    "category": "others"
+    "category": "overseas_sim"
   },
   {
     "id": 56,
@@ -357,7 +365,7 @@
     "description": "免费领英国手机卡，每年6便士保号",
     "url": "http://www.giffgaff.com/orders/affiliate/pmdua778_1721188536165",
     "icon": "📞",
-    "category": "others"
+    "category": "overseas_sim"
   },
   {
     "id": 62,
