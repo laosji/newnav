@@ -5,8 +5,8 @@ const CACHE_NAME = 'navigation-v1.2';
 const STATIC_CACHE = [
     '/',
     '/index.html',
-    '/src/css/styles.css',
-    '/src/js/script.js',
+    '/css/styles.css',
+    '/js/script.js',
     '/data/sites.json',
     '/data/quick-sites.json'
 ];
