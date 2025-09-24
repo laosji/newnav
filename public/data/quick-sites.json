@@ -43,5 +43,10 @@
     "name": "Bybit",
     "url": "https://www.bybit.com/",
     "icon": "https://www.bybit.com/favicon.ico"
+  },
+  {
+    "name": "Nexo",
+    "url": "https://nexo.com/ref/hohlm5otzh?src=ios-link",
+    "icon": "https://content.nexo.com/logos/nexo-logo-small.svg"
   }
 ]
