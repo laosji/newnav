@@ -7,8 +7,8 @@ const STATIC_CACHE = [
     '/index.html',
     '/src/css/styles.css',
     '/src/js/script.js',
-    '/public/data/sites.json',
-    '/public/data/quick-sites.json'
+    '/data/sites.json',
+    '/data/quick-sites.json'
 ];
 
 function isStaticResource(pathname) {
