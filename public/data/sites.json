@@ -224,11 +224,11 @@
     "category": "securities"
   },
   {
-    "id": 75,
-    "name": "NinjaTrader",
-    "description": "期货和外汇交易的高级交易平台",
-    "url": "https://account.ninjatrader.com/register?introducingPartner=hklife",
-    "icon": "https://ninjatrader.com/favicon.ico",
+    "id": 69,
+    "name": "Wealth broker",
+    "description": "一家可出入U的券商，已在美国上市。此邀请链接注册手续费优惠40%。",
+    "url": "https://p.whalesb.com/xzCaHFJ?lan=zh",
+    "icon": "https://www.whalesb.com/favicon.ico",
     "category": "securities"
   },
   {
@@ -237,6 +237,14 @@
     "description": "一个英国的免佣金股票交易和投资应用",
     "url": "https://t.co/EzlrCxdW3z",
     "icon": "https://freetrade.io/favicon.ico",
+    "category": "securities"
+  },
+  {
+    "id": 81,
+    "name": "NinjaTrader",
+    "description": "期货和外汇交易的高级交易平台",
+    "url": "https://account.ninjatrader.com/register?introducingPartner=hklife",
+    "icon": "https://ninjatrader.com/favicon.ico",
     "category": "securities"
   },
   {
@@ -286,14 +294,6 @@
     "url": "https://ouxyi.me/ul/YbU25D?channelId=61967724",
     "icon": "https://www.okx.com/cdn/assets/imgs/253/59830BB78B18A776.png",
     "category": "crypto_exchange"
-  },
-  {
-    "id": 69,
-    "name": "Wealth broker",
-    "description": "一家可出入U的券商，已在美国上市。此邀请链接注册手续费优惠40%。",
-    "url": "https://p.whalesb.com/xzCaHFJ?lan=zh",
-    "icon": "https://www.whalesb.com/favicon.ico",
-    "category": "securities"
   },
   {
     "id": 74,
