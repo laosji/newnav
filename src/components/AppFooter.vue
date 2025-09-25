@@ -1,47 +1,45 @@
 <template>
-  <footer class="app-footer">
-    <div class="footer-links">
-      <a
-        v-for="category in categories"
-        :key="category.key"
-        href="#"
-        @click.prevent="$emit('category-change', category.key)"
-      >
-        {{ category.name }}
-      </a>
-    </div>
-    <div class="copyright">
-      &copy; 2024 导航网站. All Rights Reserved.
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>老司机导航</h3>
+          <p>精选优质网站，提升效率体验</p>
+        </div>
+        <div class="footer-section">
+          <h4>快速分类</h4>
+          <a
+            v-for="category in categories.filter(c => c.key !== 'all')"
+            :key="category.key"
+            href="#"
+            @click.prevent="setCategory(category.key)"
+          >
+            {{ category.name }}
+          </a>
+        </div>
+        <div class="footer-section">
+          <h4>联系我们</h4>
+          <a href="#">反馈建议</a>
+          <a href="#">关于我们</a>
+          <a href="#">隐私政策</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 laosji导航. 保持简洁，专注效率。</p>
+      </div>
     </div>
   </footer>
 </template>
 
 <script setup>
-defineProps({
-  categories: Array
-})
-defineEmits(['category-change'])
-</script>
+import { useDataStore } from '@/stores/dataStore'
+import { storeToRefs } from 'pinia'
 
-<style scoped>
-.app-footer {
-  padding: 2rem 1rem;
-  background-color: #343a40;
-  color: white;
-  text-align: center;
+const dataStore = useDataStore()
+const { categories } = storeToRefs(dataStore)
+
+function setCategory(category) {
+  dataStore.setCategory(category)
+  window.scrollTo(0, 0)
 }
-.footer-links {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-  flex-wrap: wrap;
-}
-.footer-links a {
-  color: #adb5bd;
-  text-decoration: none;
-}
-.footer-links a:hover {
-  color: white;
-}
-</style>
+</script>

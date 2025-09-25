@@ -1,51 +1,30 @@
 <template>
-  <nav class="category-filter">
-    <ul>
-      <li v-for="category in categories" :key="category.key">
-        <a
-          href="#"
+  <section class="category-filter">
+    <div class="container">
+      <div class="filter-wrapper">
+        <button
+          v-for="category in categories"
+          :key="category.key"
+          class="filter-btn"
           :class="{ active: currentCategory === category.key }"
-          @click.prevent="$emit('category-change', category.key)"
+          @click="setCategory(category.key)"
         >
-          {{ category.icon }} {{ category.name }}
-        </a>
-      </li>
-    </ul>
-  </nav>
+          <span class="filter-icon">{{ category.icon }}</span>
+          {{ category.name }}
+        </button>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script setup>
-defineProps({
-  currentCategory: String,
-  categories: Array
-})
-defineEmits(['category-change'])
-</script>
+import { useDataStore } from '@/stores/dataStore'
+import { storeToRefs } from 'pinia'
 
-<style scoped>
-.category-filter {
-  padding: 1rem 0;
-  background-color: #fff;
+const dataStore = useDataStore()
+const { categories, currentCategory } = storeToRefs(dataStore)
+
+function setCategory(category) {
+  dataStore.setCategory(category)
 }
-.category-filter ul {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  gap: 1rem;
-}
-.category-filter a {
-  padding: 0.5rem 1rem;
-  border-radius: 20px;
-  text-decoration: none;
-  color: #555;
-  background-color: #f1f3f5;
-  transition: all 0.2s;
-}
-.category-filter a.active,
-.category-filter a:hover {
-  background-color: #007bff;
-  color: white;
-}
-</style>
+</script>
