@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>老司机导航 - 实用工具分享</title>
@@ -10,140 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
     
-    <!-- External CSS -->
-    <link rel="stylesheet" href="css/styles.css">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3281954914625230"
      crossorigin="anonymous"></script>
-</head>
-<body>
-    <!-- Navigation Header -->
-    <header class="nav-header">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <span class="brand-icon">⚡</span>
-                <span class="brand-text">老司机导航</span>
-            </div>
-
-            <div class="search-wrapper">
-                <div class="search-container">
-                    <span class="search-icon material-icons-round">search</span>
-                    <input type="text" class="search-input" placeholder="搜索网站或服务">
-                </div>
-            </div>
-
-            <nav class="nav-menu">
-                <a href="#" class="nav-link">应用</a>
-                <a href="#" class="nav-link">工具</a>
-                <a href="#" class="nav-link">关于</a>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Category Filter -->
-    <section class="category-filter">
-        <div class="container">
-            <div class="filter-wrapper">
-                <button class="filter-btn active" data-category="all">
-                    <span class="filter-icon">🏠</span>
-                    全部
-                </button>
-                <button class="filter-btn" data-category="overseas_bank">
-                    <span class="filter-icon">🏦</span>
-                    境外银行
-                </button>
-                <button class="filter-btn" data-category="ucard">
-                    <span class="filter-icon">💳</span>
-                    U卡推荐
-                </button>
-                <button class="filter-btn" data-category="securities">
-                    <span class="filter-icon">📈</span>
-                    港美股券商
-                </button>
-                <button class="filter-btn" data-category="crypto_exchange">
-                    <span class="filter-icon">₿</span>
-                    数字货币交易所
-                </button>
-                <button class="filter-btn" data-category="crypto_wallet">
-                    <span class="filter-icon">🛡️</span>
-                    加密钱包
-                </button>
-                <button class="filter-btn" data-category="overseas_sim">
-                    <span class="filter-icon">📱</span>
-                    境外手机卡
-                </button>
-                <button class="filter-btn" data-category="ai">
-                    <span class="filter-icon">🤖</span>
-                    AI 工具
-                </button>
-                <button class="filter-btn" data-category="others">
-                    <span class="filter-icon">📦</span>
-                    其他
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quick Access -->
-    <section class="quick-access">
-        <div class="container">
-            <div class="section-header">
-                <h2>快速访问</h2>
-                <p>常用网站快速入口</p>
-            </div>
-            <div class="quick-grid" id="quick-sites">
-                <!-- 将通过 JavaScript 动态加载 -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <div class="categories-wrapper" id="categories-container">
-                <!-- 将通过 JavaScript 动态加载 -->
-            </div>
-        </div>
-    </main>
-
-    <!-- Loading indicator -->
-    <div class="loading-overlay" id="loading">
-        <div class="loading-spinner">
-            <div class="spinner"></div>
-            <p>加载中...</p>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>老司机导航</h3>
-                    <p>精选优质网站，提升效率体验</p>
-                </div>
-                <div class="footer-section">
-                    <h4>快速分类</h4>
-                    <a href="#" data-category="overseas_bank">境外银行</a>
-                    <a href="#" data-category="ucard">U卡推荐</a>
-                    <a href="#" data-category="securities">港美股券商</a>
-                    <a href="#" data-category="crypto_exchange">数字货币交易所</a>
-                    <a href="#" data-category="crypto_wallet">加密钱包</a>
-                    <a href="#" data-category="overseas_sim">境外手机卡</a>
-                    <a href="#" data-category="ai">AI 工具</a>
-                    <a href="#" data-category="others">其他</a>
-                </div>
-                <div class="footer-section">
-                    <h4>联系我们</h4>
-                    <a href="#">反馈建议</a>
-                    <a href="#">关于我们</a>
-                    <a href="#">隐私政策</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 laosji导航. 保持简洁，专注效率。</p>
-            </div>
-        </div>
-    </footer>
-    <script src="js/script.js"></script>
-</body>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
