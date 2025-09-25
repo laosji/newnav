@@ -188,7 +188,7 @@
     "name": "新加坡盈立证券",
     "description": "开户领取最多50新币",
     "url": "https://m.usmartsg.com/promo/overseas/sg-register.html?langType=1&HCode=nyaljb&HBox=1#/marketing-register",
-    "icon": "📊",
+    "icon": "https://m.usmartsg.com/favicon.ico",
     "category": "securities"
   },
   {
@@ -349,7 +349,23 @@
     "description": "ukpostbox，英国通讯地址转运回国",
     "url": "https://client.ipostalmail.net/Signup?Referrer=REF138644",
     "icon": "📦",
-    "category": "others"
+    "category": "international_shipping"
+  },
+  {
+    "id": 82,
+    "name": "Tiptrans",
+    "description": "欧洲/香港转运",
+    "url": "https://www.tiptrans.com/?ref=131031",
+    "icon": "https://www.tiptrans.com/favicon.ico",
+    "category": "international_shipping"
+  },
+  {
+    "id": 83,
+    "name": "Traveling Mailbox",
+    "description": "美国地址",
+    "url": "https://travelingmailbox.com/?ref=3435",
+    "icon": "https://travelingmailbox.com/favicon.ico",
+    "category": "international_shipping"
   },
   {
     "id": 55,
@@ -373,7 +389,7 @@
     "description": "全球纯净住宅ip,代理IP精选",
     "url": "https://www.kookeey.com/register.html?aff=45808377",
     "icon": "https://oss.kookeey.com/cms/favicon_22256befbb.ico?updated_at=2023-05-29T03:14:05.219Z",
-    "category": "others"
+    "category": "vpn_proxy"
   },
   {
     "id": 63,
@@ -381,7 +397,7 @@
     "description": "稳定低价VPN，支持clash、shadowrocket、v2ray等平台",
     "url": "https://txdpn.link/#/register?code=6yFAMp59",
     "icon": "https://txdpn.link/theme/Aurora-Ryan/favicon.svg",
-    "category": "others"
+    "category": "vpn_proxy"
   },
   {
     "id": 78,

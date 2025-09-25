@@ -19,8 +19,10 @@ export const useDataStore = defineStore('data', () => {
     securities: { name: '港美股券商', icon: '📈', description: '港美股券商' },
     crypto_exchange: { name: '数字货币交易所', icon: '₿', description: '数字货币交易所' },
     crypto_wallet: { name: '加密钱包', icon: '🛡️', description: '加密钱包' },
-    overseas_sim: { name: '境外手机卡', icon: '📱', description: '境外手机卡' },
     overseas_remittance: { name: '境外汇款', icon: '💸', description: '跨境汇款服务' },
+    overseas_sim: { name: '境外手机卡', icon: '📱', description: '境外手机卡' },
+    vpn_proxy: { name: 'VPN和代理', icon: '🌐', description: 'VPN和代理服务' },
+    international_shipping: { name: '国际转运', icon: '✈️', description: '国际转运服务' },
     ai: { name: 'AI 工具', icon: '🤖', description: '人工智能工具' },
     others: { name: '其他', icon: '📦', description: '其他网站' }
   }))
@@ -34,6 +36,8 @@ export const useDataStore = defineStore('data', () => {
     'crypto_wallet',
     'overseas_remittance',
     'overseas_sim',
+    'vpn_proxy',
+    'international_shipping',
     'ai',
     'others'
   ]
