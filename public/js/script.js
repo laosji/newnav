@@ -505,6 +505,7 @@ function getCategoryInfo(category) {
         ucard: { name: 'U卡推荐', icon: '💳', description: '支持U存U取的银行卡' },
         crypto_exchange: { name: '数字货币交易所', icon: '₿', description: '买卖比特币、以太坊等数字货币' },
         crypto_wallet: { name: '加密钱包', icon: '🛡️', description: '存储、管理你的数字资产' },
+        cross_border_remittance: { name: '跨境汇款', icon: '💸', description: '跨境汇款服务' },
         others: { name: '其他', icon: '📦', description: '其他实用工具与服务' }
     };
 

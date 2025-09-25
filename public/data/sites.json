@@ -333,7 +333,7 @@
     "description": "跨境汇款，在外汇管制5万美金之外，再多30万人民币的汇款额度",
     "url": "https://pandaremit.kcbebank.com.cn/h5activity/jcRemit?invtCode=11221680&targetLocation=ip",
     "icon": "🐼",
-    "category": "others"
+    "category": "cross_border_remittance"
   },
   {
     "id": 50,
@@ -381,7 +381,7 @@
     "description": "首次进行汇款且汇款金额不低于 £100 时可享受减免 £15 的优惠。",
     "url": "https://remit.ly/3dp90ahv",
     "icon": "https://www.remitly.com/favicon.ico",
-    "category": "others"
+    "category": "cross_border_remittance"
   },
   {
     "id": 79,
