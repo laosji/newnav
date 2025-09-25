@@ -19,6 +19,7 @@
         </div>
         <div class="footer-section">
           <h4>联系我们</h4>
+          <a href="https://www.youtube.com/@laosji" target="_blank">YouTube 频道</a>
           <a href="#">反馈建议</a>
           <a href="#">关于我们</a>
           <a href="#">隐私政策</a>
