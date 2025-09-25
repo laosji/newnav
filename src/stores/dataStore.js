@@ -20,14 +20,27 @@ export const useDataStore = defineStore('data', () => {
     crypto_exchange: { name: '数字货币交易所', icon: '₿', description: '数字货币交易所' },
     crypto_wallet: { name: '加密钱包', icon: '🛡️', description: '加密钱包' },
     overseas_sim: { name: '境外手机卡', icon: '📱', description: '境外手机卡' },
+    overseas_remittance: { name: '境外汇款', icon: '💸', description: '跨境汇款服务' },
     ai: { name: 'AI 工具', icon: '🤖', description: '人工智能工具' },
-    others: { name: '其他', icon: '📦', description: '其他网站' },
-    new_category: { name: '新分类', icon: '🆕', description: '新分类的描述' }
+    others: { name: '其他', icon: '📦', description: '其他网站' }
   }))
 
-  // 转换成与之前 categories 兼容的数组格式
+  const categoryOrder = [
+    'all',
+    'overseas_bank',
+    'ucard',
+    'securities',
+    'crypto_exchange',
+    'crypto_wallet',
+    'overseas_remittance',
+    'overseas_sim',
+    'ai',
+    'others'
+  ]
+
+  // 转换成与之前 categories 兼容的、有序的数组格式
   const categories = computed(() =>
-    Object.entries(categoryInfo.value).map(([key, value]) => ({ key, ...value }))
+    categoryOrder.map(key => ({ key, ...categoryInfo.value[key] }))
   )
 
   const loading = ref(true)
