@@ -18,9 +18,9 @@
         </div>
       </div>
       <nav class="nav-menu">
-        <a href="#" class="nav-link">应用</a>
-        <a href="#" class="nav-link">工具</a>
-        <a href="#" class="nav-link">关于</a>
+        <a href="https://www.youtube.com/@laosji" target="_blank" class="nav-link">我的YouTube</a>
+        <a href="https://t.me/cjfuli/19" target="_blank" class="nav-link">订阅我的telegram频道</a>
+        <a href="https://laosji.net/" target="_blank" class="nav-link">关于</a>
       </nav>
     </div>
   </header>
