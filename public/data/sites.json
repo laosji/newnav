@@ -128,6 +128,14 @@
     "category": "ucard"
   },
   {
+    "id": 80,
+    "name": "Ready",
+    "description": "U卡推荐",
+    "url": "https://www.ready.co/ready",
+    "icon": "https://www.ready.co/favicon.ico",
+    "category": "ucard"
+  },
+  {
     "id": 39,
     "name": "IBKR盈透证券",
     "description": "领取最多$1000美金开户奖励",
@@ -180,7 +188,7 @@
     "name": "新加坡盈立证券",
     "description": "开户领取最多50新币",
     "url": "https://m.usmartsg.com/promo/overseas/sg-register.html?langType=1&HCode=nyaljb&HBox=1#/marketing-register",
-    "icon": "📊",
+    "icon": "https://m.usmartsg.com/favicon.ico",
     "category": "securities"
   },
   {
@@ -216,11 +224,11 @@
     "category": "securities"
   },
   {
-    "id": 75,
-    "name": "NinjaTrader",
-    "description": "期货和外汇交易的高级交易平台",
-    "url": "https://account.ninjatrader.com/register?introducingPartner=hklife",
-    "icon": "https://ninjatrader.com/favicon.ico",
+    "id": 69,
+    "name": "Wealth broker",
+    "description": "一家可出入U的券商，已在美国上市。此邀请链接注册手续费优惠40%。",
+    "url": "https://p.whalesb.com/xzCaHFJ?lan=zh",
+    "icon": "https://www.whalesb.com/favicon.ico",
     "category": "securities"
   },
   {
@@ -229,6 +237,14 @@
     "description": "一个英国的免佣金股票交易和投资应用",
     "url": "https://t.co/EzlrCxdW3z",
     "icon": "https://freetrade.io/favicon.ico",
+    "category": "securities"
+  },
+  {
+    "id": 81,
+    "name": "NinjaTrader",
+    "description": "期货和外汇交易的高级交易平台",
+    "url": "https://account.ninjatrader.com/register?introducingPartner=hklife",
+    "icon": "https://ninjatrader.com/favicon.ico",
     "category": "securities"
   },
   {
@@ -261,14 +277,14 @@
     "description": "海妖推出的资产管理平台，新用户注册首充$10以上，送10USD，邀请码「laosjifuli」",
     "url": "https://krak.app/zh-cn/@laosjifuli",
     "icon": "https://assets-cms.kraken.com/images/51n36hrp/facade/b88fdf8e94f79344127db0f8702d3c8ff67f0575-180x180.png",
-    "category": "crypto_exchange"
+    "category": "crypto_wallet"
   },
   {
     "id": 65,
     "name": "海妖kraken",
     "description": "全球前5大交易所之一，《福布斯顾问》2025年最佳加密货币平台",
     "url": "https://kraken.pxf.io/o4aXPm",
-    "icon": "https://www.kraken.com/_assets/icons/apple-touch-icon.png",
+    "icon": "https://www.kraken.com/favicon.ico",
     "category": "crypto_exchange"
   },
   {
@@ -278,14 +294,6 @@
     "url": "https://ouxyi.me/ul/YbU25D?channelId=61967724",
     "icon": "https://www.okx.com/cdn/assets/imgs/253/59830BB78B18A776.png",
     "category": "crypto_exchange"
-  },
-  {
-    "id": 69,
-    "name": "Wealth broker",
-    "description": "一家可出入U的券商，已在美国上市。此邀请链接注册手续费优惠40%。",
-    "url": "https://p.whalesb.com/xzCaHFJ?lan=zh",
-    "icon": "https://www.whalesb.com/favicon.ico",
-    "category": "securities"
   },
   {
     "id": 74,
@@ -333,7 +341,7 @@
     "description": "跨境汇款，在外汇管制5万美金之外，再多30万人民币的汇款额度",
     "url": "https://pandaremit.kcbebank.com.cn/h5activity/jcRemit?invtCode=11221680&targetLocation=ip",
     "icon": "🐼",
-    "category": "others"
+    "category": "overseas_remittance"
   },
   {
     "id": 50,
@@ -341,7 +349,23 @@
     "description": "ukpostbox，英国通讯地址转运回国",
     "url": "https://client.ipostalmail.net/Signup?Referrer=REF138644",
     "icon": "📦",
-    "category": "others"
+    "category": "international_shipping"
+  },
+  {
+    "id": 82,
+    "name": "Tiptrans",
+    "description": "欧洲/香港转运",
+    "url": "https://www.tiptrans.com/?ref=131031",
+    "icon": "https://www.tiptrans.com/favicon.ico",
+    "category": "international_shipping"
+  },
+  {
+    "id": 83,
+    "name": "Traveling Mailbox",
+    "description": "美国地址",
+    "url": "https://travelingmailbox.com/?ref=3435",
+    "icon": "https://travelingmailbox.com/favicon.ico",
+    "category": "international_shipping"
   },
   {
     "id": 55,
@@ -365,7 +389,7 @@
     "description": "全球纯净住宅ip,代理IP精选",
     "url": "https://www.kookeey.com/register.html?aff=45808377",
     "icon": "https://oss.kookeey.com/cms/favicon_22256befbb.ico?updated_at=2023-05-29T03:14:05.219Z",
-    "category": "others"
+    "category": "vpn_proxy"
   },
   {
     "id": 63,
@@ -373,7 +397,7 @@
     "description": "稳定低价VPN，支持clash、shadowrocket、v2ray等平台",
     "url": "https://txdpn.link/#/register?code=6yFAMp59",
     "icon": "https://txdpn.link/theme/Aurora-Ryan/favicon.svg",
-    "category": "others"
+    "category": "vpn_proxy"
   },
   {
     "id": 78,
@@ -381,14 +405,14 @@
     "description": "首次进行汇款且汇款金额不低于 £100 时可享受减免 £15 的优惠。",
     "url": "https://remit.ly/3dp90ahv",
     "icon": "https://www.remitly.com/favicon.ico",
-    "category": "others"
+    "category": "overseas_remittance"
   },
   {
     "id": 79,
     "name": "Nexo",
     "description": "Nexo是世界领先的数字资产财富平台，受到全球200多个司法管辖区的700多万客户的信赖。",
     "url": "https://nexo.com/ref/hohlm5otzh?src=ios-link",
-    "icon": "https://content.nexo.com/logos/nexo-logo-small.svg",
+    "icon": "https://nexo.com/favicon.ico",
     "category": "crypto_exchange"
   }
 ]
