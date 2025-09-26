@@ -412,10 +412,11 @@ body {
 /* 优化网格布局 */
 .quick-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); /* 增加最小宽度 */
-    gap: 20px; /* 增加间距 */
-    max-width: 1000px; /* 稍微增加最大宽度 */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 16px;
+    max-width: 900px;
     margin: 0 auto;
+    padding: 0 16px; /* 添加左右内边距 */
 }
 
 /* 增强快速访问项目的视觉效果 */
@@ -423,19 +424,19 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 12px; /* 增加图标和文字的间距 */
-    padding: 20px 16px; /* 增加内边距 */
+    justify-content: center; /* 改为 center，让内容紧凑居中 */
+    gap: 8px; /* 减少间距，从12px改为8px */
+    padding: 16px 12px; /* 减少内边距，避免过度拉伸 */
     aspect-ratio: 1 / 1;
     text-decoration: none;
     color: var(--text-primary);
     background: var(--surface);
     border: 1px solid var(--border-light);
     border-radius: var(--radius);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* 优化缓动函数 */
-    box-shadow: 0 2px 8px var(--shadow);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    box-shadow: 0 2px 12px var(--shadow);
 }
 
 /* 添加光效动画 */
@@ -464,18 +465,16 @@ body {
 
 /* 优化快速图标 */
 .quick-icon {
-    font-size: 32px; /* 统一字体大小 */
-    width: 64px;     /* 统一图标容器大小 */
-    height: 64px;
+    font-size: 28px;
+    width: 56px;
+    height: 56px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, rgba(0, 122, 255, 0.08), rgba(0, 199, 190, 0.08));
+    background: linear-gradient(135deg, rgba(0, 122, 255, 0.1), rgba(0, 199, 190, 0.1));
     border-radius: 16px;
     transition: all 0.4s ease;
-    flex-shrink: 0;
-    position: relative;
-    overflow: hidden;
+    flex-shrink: 0; /* 防止被压缩 */
 }
 
 /* 图标内的图片统一样式 */
@@ -513,18 +512,15 @@ body {
 
 /* 优化标题样式 */
 .quick-title {
-    font-size: 14px; /* 稍微增大字体 */
-    font-weight: 600; /* 增加字重 */
+    font-size: 13px;
+    font-weight: 500;
     color: var(--text-secondary);
-    transition: all 0.3s ease;
+    transition: color 0.3s ease;
     text-align: center;
-    line-height: 1.3;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    line-height: 1.2; /* 紧凑的行高 */
+    margin: 0; /* 移除可能的margin */
+    flex-shrink: 0; /* 防止被压缩 */
 }
-
 .quick-item:hover .quick-title {
     color: var(--primary-color);
     transform: translateY(-2px);
@@ -910,7 +906,6 @@ mark {
     .filter-btn {
         transition: none;
     }
-
     .icon-loading::after {
         animation: none;
     }
@@ -922,23 +917,19 @@ mark {
     .site-icon-configured {
         filter: brightness(0.9) contrast(1.1);
     }
-
     .icon-loading,
     .icon-container.loading {
         background: rgba(44, 44, 46, 0.8);
     }
-
     .icon-loading::after {
         border-color: var(--border);
         border-top-color: var(--primary-color);
     }
-
     .icon-error,
     .icon-fallback {
         background: rgba(44, 44, 46, 0.8);
         color: var(--text-secondary);
     }
-
     .icon-fallback {
         border-color: rgba(0, 122, 255, 0.3);
     }
@@ -952,33 +943,31 @@ mark {
         padding: 16px 24px;
         gap: 16px;
     }
-
     .search-wrapper {
         order: 3;
         margin: 0;
         max-width: none;
     }
-
     .nav-menu {
         order: 2;
         gap: 16px;
     }
-
     .filter-wrapper {
         gap: 8px;
         padding: 8px 0;
     }
-
     .filter-btn {
         padding: 8px 12px;
         font-size: 13px;
-    }
-    .quick-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 12px;
     }    
+    .quick-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+    }
+    
     .quick-item {
         padding: 12px 8px;
+        gap: 6px;
     }
     
     .quick-icon {
@@ -986,21 +975,16 @@ mark {
         height: 48px;
         font-size: 24px;
     }
-
+    
     /* 移动端快速访问图标 */
     .quick-icon .site-favicon,
     .quick-icon .site-icon-configured {
-        width: 28px;
-        height: 28px;
+        width: 28px !important;
+        height: 28px !important;
     }
     
     .quick-icon .site-emoji {
-        font-size: 24px;
-    }
-    
-    .quick-icon .icon-container {
-        width: 28px;
-        height: 28px;
+        font-size: 24px !important;
     }
     
     .quick-title {
@@ -1027,7 +1011,6 @@ mark {
     .card-icon .site-icon-configured {
         width: 32px;
         height: 32px;
-    }    
     .card-icon .site-emoji {
         font-size: 28px;
     }
@@ -1035,7 +1018,6 @@ mark {
     .card-icon .icon-container {
         width: 32px;
         height: 32px;
-    }    
     .container {
         padding: 0 16px;
     }
@@ -1063,8 +1045,10 @@ mark {
 
 @media (max-width: 480px) {
     .quick-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
     }
+    
     .category-card {
         flex-direction: column;
         text-align: center;
