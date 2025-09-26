@@ -32,7 +32,6 @@ import SiteIcon from './SiteIcon.vue'
 
 const dataStore = useDataStore()
 const { quickSites } = storeToRefs(dataStore)
-
 function extractDomain(url) {
   try {
     const hostname = new URL(url).hostname;

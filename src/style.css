@@ -910,7 +910,7 @@ mark {
     .filter-btn {
         transition: none;
     }
-    
+
     .icon-loading::after {
         animation: none;
     }
@@ -922,23 +922,23 @@ mark {
     .site-icon-configured {
         filter: brightness(0.9) contrast(1.1);
     }
-    
+
     .icon-loading,
     .icon-container.loading {
         background: rgba(44, 44, 46, 0.8);
     }
-    
+
     .icon-loading::after {
         border-color: var(--border);
         border-top-color: var(--primary-color);
     }
-    
+
     .icon-error,
     .icon-fallback {
         background: rgba(44, 44, 46, 0.8);
         color: var(--text-secondary);
     }
-    
+
     .icon-fallback {
         border-color: rgba(0, 122, 255, 0.3);
     }
@@ -952,33 +952,31 @@ mark {
         padding: 16px 24px;
         gap: 16px;
     }
-    
+
     .search-wrapper {
         order: 3;
         margin: 0;
         max-width: none;
     }
-    
+
     .nav-menu {
         order: 2;
         gap: 16px;
     }
-    
+
     .filter-wrapper {
         gap: 8px;
         padding: 8px 0;
     }
-    
+
     .filter-btn {
         padding: 8px 12px;
         font-size: 13px;
     }
-    
     .quick-grid {
         grid-template-columns: repeat(4, 1fr);
         gap: 12px;
-    }
-    
+    }    
     .quick-item {
         padding: 12px 8px;
     }
@@ -988,7 +986,7 @@ mark {
         height: 48px;
         font-size: 24px;
     }
-    
+
     /* 移动端快速访问图标 */
     .quick-icon .site-favicon,
     .quick-icon .site-icon-configured {
@@ -1023,14 +1021,13 @@ mark {
         height: 52px;
         font-size: 28px;
     }
-    
+
     /* 移动端卡片图标 */
     .card-icon .site-favicon,
     .card-icon .site-icon-configured {
         width: 32px;
         height: 32px;
-    }
-    
+    }    
     .card-icon .site-emoji {
         font-size: 28px;
     }
@@ -1038,8 +1035,7 @@ mark {
     .card-icon .icon-container {
         width: 32px;
         height: 32px;
-    }
-    
+    }    
     .container {
         padding: 0 16px;
     }
@@ -1069,7 +1065,6 @@ mark {
     .quick-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-    
     .category-card {
         flex-direction: column;
         text-align: center;
