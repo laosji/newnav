@@ -108,3 +108,6 @@ _site
 # Vite build output
 dist
 dist-ssr
+
+# Playwright test results
+test-results/
