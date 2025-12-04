@@ -414,5 +414,21 @@
     "url": "https://nexo.com/ref/hohlm5otzh?src=ios-link",
     "icon": "https://nexo.com/favicon.ico",
     "category": "crypto_exchange"
+  },
+  {
+    "id": 84,
+    "name": "澳门蚂蚁银行",
+    "description": "邀请码：`LPA8T25Q`",
+    "url": "https://render.alipay.com/p/c/180020570000149153/index.html?invite-code=LPA8T25Q",
+    "icon": "/icons/ant-bank.svg",
+    "category": "overseas_bank"
+  },
+  {
+    "id": 85,
+    "name": "Astrill",
+    "description": "VPN",
+    "url": "https://www.astrill.com/a/lveilq86kw3o",
+    "icon": "https://www.astrill.com/images/favicon/favicon-196x196.png",
+    "category": "vpn_proxy"
   }
 ]
